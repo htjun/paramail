@@ -20,8 +20,8 @@ export default function RootLayout({
       <body
         className={twMerge(
           notoSansKR.className,
-          'bg-blue-50',
-          'text-blue-900',
+          'bg-gray-50',
+          'text-gray-900',
           'antialiased'
         )}
       >
