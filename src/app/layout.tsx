@@ -1,4 +1,9 @@
+import { twMerge } from 'tailwind-merge'
+import { Inter, Noto_Sans_KR } from 'next/font/google'
 import './globals.css'
+
+const inter = Inter({ subsets: ['latin'] })
+const notoSansKR = Noto_Sans_KR({ weight: ['400', '500'], preload: false })
 
 export const metadata = {
   title: 'Create Next App',
@@ -12,7 +17,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body
+        className={twMerge(
+          notoSansKR.className,
+          'bg-blue-50',
+          'text-blue-900',
+          'antialiased'
+        )}
+      >
+        {children}
+      </body>
     </html>
   )
 }
