@@ -4,14 +4,16 @@ import { Inter, Noto_Sans_KR } from 'next/font/google'
 import axios from 'axios'
 import { twMerge } from 'tailwind-merge'
 import TextBox from '@/components/TextBox'
+import TranslationDisplay from '@/components/TranslationDisplay'
 import ParamailLogo from 'public/paramail.svg'
 
 const inter = Inter({ subsets: ['latin'] })
 const notoSansKR = Noto_Sans_KR({ weight: ['400', '500'], preload: false })
 
 export default function Home() {
+  const [progress, setProgress] = useState()
   const [inputText, setInputText] = useState('')
-  const [translatedText, setTranslatedText] = useState('')
+  const [translatedText, setTranslatedText] = useState<string | null>(null)
 
   const handleButtonClick = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
