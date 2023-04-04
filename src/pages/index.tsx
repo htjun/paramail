@@ -1,14 +1,31 @@
+import { useState, FormEvent } from 'react'
 import Head from 'next/head'
+import { Inter, Noto_Sans_KR } from 'next/font/google'
+import axios from 'axios'
+import { twMerge } from 'tailwind-merge'
 import TextBox from '@/components/TextBox'
 import ParamailLogo from 'public/paramail.svg'
-import { Inter, Noto_Sans_KR } from 'next/font/google'
-import { twMerge } from 'tailwind-merge'
 
 const inter = Inter({ subsets: ['latin'] })
 const notoSansKR = Noto_Sans_KR({ weight: ['400', '500'], preload: false })
 
 export default function Home() {
-  const handleButtonClick = () => {}
+  const [inputText, setInputText] = useState('')
+  const [translatedText, setTranslatedText] = useState('')
+
+  const handleButtonClick = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    try {
+      const response = await axios.post('/api/translate', {
+        text: inputText,
+      })
+
+      setTranslatedText(response.data.translations)
+    } catch (error) {
+      console.error(error)
+    }
+  }
   return (
     <>
       <Head>
@@ -40,12 +57,15 @@ export default function Home() {
           </p>
         </div>
         <TextBox
+          value={inputText}
+          onChange={e => setInputText(e.target.value)}
           placeholder="받은 메일을 이곳에 붙여넣기 하세요."
           button={{
             label: '번역 & 분석',
             onClick: handleButtonClick,
           }}
         />
+        {translatedText && <p>Translation: {translatedText}</p>}
       </main>
     </>
   )
