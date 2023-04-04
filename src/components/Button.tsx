@@ -31,7 +31,7 @@ const Button = ({
       {variation === 'secondary' && (
         <button
           onClick={onClick}
-          className="h-9 rounded-lg border border-gray-300 bg-white px-3.5 text-sm font-medium text-gray-800 drop-shadow-xs transition-all hover:bg-gray-25"
+          className="h-9 rounded-lg border border-gray-300 bg-white px-3.5 text-sm font-medium text-gray-800 drop-shadow-xs transition-all hover:bg-gray-50"
           {...props}
         >
           {label}
