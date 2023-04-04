@@ -13,7 +13,7 @@ interface TextBoxProps {
 
 const TextBox = ({ value, onChange, placeholder, button }: TextBoxProps) => {
   return (
-    <div className="flex min-h-[400px] w-[720px] flex-col rounded-xl  bg-white shadow-sm">
+    <div className="flex min-h-[400px] w-[720px] flex-col rounded-xl  bg-white drop-shadow-xs">
       <textarea
         value={value}
         onChange={onChange}

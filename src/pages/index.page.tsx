@@ -32,7 +32,7 @@ export default function Home() {
     <>
       <Meta />
       <main className="flex flex-col justify-center px-12 py-6">
-        <Header />
+        <Header isInProgress={progress.translated} />
         <SectionHeader
           title="메일 번역 & 분석"
           description="받은 메일을 한국어로 번역하고, 요점과 요구사항을 정리한 뒤, 답변
