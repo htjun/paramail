@@ -1,14 +1,9 @@
 import { useState, FormEvent } from 'react'
 import Head from 'next/head'
-import { Inter, Noto_Sans_KR } from 'next/font/google'
 import axios from 'axios'
-import { twMerge } from 'tailwind-merge'
 import TextBox from '@/components/TextBox'
 import TranslationDisplay from '@/components/TranslationDisplay'
 import ParamailLogo from 'public/paramail.svg'
-
-const inter = Inter({ subsets: ['latin'] })
-const notoSansKR = Noto_Sans_KR({ weight: ['400', '500'], preload: false })
 
 export default function Home() {
   const [progress, setProgress] = useState()
@@ -39,13 +34,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main
-        className={twMerge(
-          notoSansKR.className,
-          inter.className,
-          'flex flex-col justify-center px-12 py-6'
-        )}
-      >
+      <main className="flex flex-col justify-center px-12 py-6">
         <div className="flex h-9 items-center">
           <ParamailLogo />
         </div>
