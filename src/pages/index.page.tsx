@@ -1,17 +1,21 @@
 import { useState, FormEvent } from 'react'
-import Head from 'next/head'
 import axios from 'axios'
+import Meta from './components/Meta'
+import Header from '@/components/Header'
+import SectionHeader from '@/components/SectionHeader'
 import TextBox from '@/components/TextBox'
 import TranslationDisplay from '@/components/TranslationDisplay'
-import ParamailLogo from 'public/paramail.svg'
 
 export default function Home() {
-  const [progress, setProgress] = useState()
+  const [progress, setProgress] = useState({
+    translated: false,
+    generated: false,
+  })
   const [inputText, setInputText] = useState('')
-  const [translatedText, setTranslatedText] = useState<string | null>(null)
+  const [translatedText, setTranslatedText] = useState('')
 
-  const handleButtonClick = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const handleTranslateButtonClick = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
 
     try {
       const response = await axios.post('/api/translate', {
@@ -19,44 +23,38 @@ export default function Home() {
       })
 
       setTranslatedText(response.data.translations)
+      setProgress({ ...progress, translated: true })
     } catch (error) {
       console.error(error)
     }
   }
   return (
     <>
-      <Head>
-        <title>Paramail - AI 영어 메일 작성기</title>
-        <meta
-          name="description"
-          content="GPT 기반의 영어 메일 번역, 분석 및 작성 도구"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Meta />
       <main className="flex flex-col justify-center px-12 py-6">
-        <div className="flex h-9 items-center">
-          <ParamailLogo />
-        </div>
-        <div className="my-12 flex flex-col gap-1.5">
-          <h1 className="text-lg font-medium tracking-tighter">
-            메일 번역 & 분석
-          </h1>
-          <p className="text-sm opacity-50">
-            받은 메일을 한국어로 번역하고, 요점과 요구사항을 정리한 뒤, 답변
-            내용 선택지를 생성합니다.
-          </p>
-        </div>
-        <TextBox
-          value={inputText}
-          onChange={e => setInputText(e.target.value)}
-          placeholder="받은 메일을 이곳에 붙여넣기 하세요."
-          button={{
-            label: '번역 & 분석',
-            onClick: handleButtonClick,
-          }}
+        <Header />
+        <SectionHeader
+          title="메일 번역 & 분석"
+          description="받은 메일을 한국어로 번역하고, 요점과 요구사항을 정리한 뒤, 답변
+            내용 선택지를 생성합니다."
         />
-        {translatedText && <p>Translation: {translatedText}</p>}
+        {!progress.translated && (
+          <TextBox
+            value={inputText}
+            onChange={e => setInputText(e.target.value)}
+            placeholder="받은 메일을 이곳에 붙여넣기 하세요."
+            button={{
+              label: '번역 & 분석',
+              onClick: handleTranslateButtonClick,
+            }}
+          />
+        )}
+        {progress.translated && (
+          <TranslationDisplay
+            original={inputText}
+            translated={translatedText}
+          />
+        )}
       </main>
     </>
   )
