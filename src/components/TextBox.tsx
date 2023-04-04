@@ -3,16 +3,20 @@ import Button from '@/components/Button'
 
 interface TextBoxProps {
   placeholder?: string
+  value: string
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void
   button: {
     label: string
-    onClick: () => void
+    [x: string]: any
   }
 }
 
-const TextBox = ({ placeholder, button }: TextBoxProps) => {
+const TextBox = ({ value, onChange, placeholder, button }: TextBoxProps) => {
   return (
     <div className="flex min-h-[400px] w-[720px] flex-col rounded-xl  bg-white">
       <textarea
+        value={value}
+        onChange={onChange}
         placeholder={placeholder}
         className="h-full w-full grow resize-none rounded-t-xl border border-gray-200 p-6 outline-none transition-all duration-75 hover:border-grayBlue-200 focus:border-grayBlue-300"
       />
