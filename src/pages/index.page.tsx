@@ -33,7 +33,7 @@ export default function Home() {
     try {
       const generationResponse = await axios.post('/api/generate', {
         systemMessage:
-          'Summarize this email in Korean. Make it as short and concise as possible but include all the key points.',
+          'Summarize this email in Korean. Make it as short as possible and only include key points.',
         userMessage: inputText,
       })
 
