@@ -48,7 +48,7 @@ module.exports = {
         normal: '0',
       },
       backgroundImage: {
-        suit: 'linear-gradient(87.97deg, #0968E5 0%, #091970 102.09%)',
+        suit: 'linear-gradient(90deg, #0968E5 0%, #091970 100%)',
       },
     },
   },

@@ -1,6 +1,10 @@
+'use client'
+
+import TextBox from '@/components/TextBox'
 import ParamailLogo from 'public/paramail.svg'
 
 export default function Home() {
+  const handleButtonClick = () => {}
   return (
     <main className="flex flex-col justify-center px-12 py-6">
       <div className="flex h-9 items-center">
@@ -15,6 +19,13 @@ export default function Home() {
           선택지를 생성합니다.
         </p>
       </div>
+      <TextBox
+        placeholder="받은 메일을 이곳에 붙여넣기 하세요."
+        button={{
+          label: '번역 & 분석',
+          onClick: handleButtonClick,
+        }}
+      />
     </main>
   )
 }
