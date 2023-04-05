@@ -2,8 +2,12 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { Configuration, OpenAIApi } from 'openai'
 import {
   systemMessage,
-  userMessageTemplate,
-  assistantMessageTemplate,
+  userMessageTemplate1,
+  assistantMessageTemplate1,
+  userMessageTemplate2,
+  assistantMessageTemplate2,
+  userMessageTemplate3,
+  assistantMessageTemplate3,
 } from './promptData'
 
 const configuration = new Configuration({
@@ -32,11 +36,27 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           },
           {
             role: 'user',
-            content: userMessageTemplate,
+            content: userMessageTemplate1,
           },
           {
             role: 'assistant',
-            content: assistantMessageTemplate,
+            content: assistantMessageTemplate1,
+          },
+          {
+            role: 'user',
+            content: userMessageTemplate2,
+          },
+          {
+            role: 'assistant',
+            content: assistantMessageTemplate2,
+          },
+          {
+            role: 'user',
+            content: userMessageTemplate3,
+          },
+          {
+            role: 'assistant',
+            content: assistantMessageTemplate3,
           },
           {
             role: 'user',
