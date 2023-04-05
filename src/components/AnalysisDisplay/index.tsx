@@ -1,5 +1,6 @@
 import SectionSubHeader from '@/components/SectionSubHeader'
 import { CheckIcon } from '@heroicons/react/20/solid'
+import AnswerPresetsToggleGroup from './AnswerPresetsToggleGroup'
 
 const textSeparator = (text: string) => {
   const summary = text.match(/Summary:\s*(.*?)\s*Action points:/)
@@ -17,8 +18,9 @@ const textSeparator = (text: string) => {
 
 function processList(text: string) {
   const regex = /_\^/g
-  const processedString = text.replace(regex, '')
-  const items = processedString.split('\n').filter(item => item.trim() !== '')
+  const processedString = text?.replace(regex, '')
+  const items =
+    processedString?.split('\n').filter(item => item.trim() !== '') || []
 
   return items
 }
@@ -43,7 +45,7 @@ const AnalysisDisplay = ({ text }: AnalysisDisplayProps) => {
             <ul className="flex flex-col gap-2">
               {processList(actionPoints).map((item, i) => (
                 <li key={i} className="flex items-center gap-2">
-                  <CheckIcon className="h-4 w-4 text-grayBlue-400" />
+                  <CheckIcon className="h-4 w-4 shrink-0 text-grayBlue-400" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -54,11 +56,7 @@ const AnalysisDisplay = ({ text }: AnalysisDisplayProps) => {
       <div className=" flex flex-col gap-6">
         <SectionSubHeader>답변 내용 선택</SectionSubHeader>
         <article>
-          <ul>
-            {processList(possibleAnswers).map((item, i) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ul>
+          <AnswerPresetsToggleGroup list={processList(possibleAnswers)} />
         </article>
       </div>
     </section>

@@ -41,6 +41,11 @@ module.exports = {
           800: '#293056',
           900: '#101323',
         },
+        blue: {
+          25: '#F5F9FF',
+          850: '#0A40A9',
+          960: '#0A207A',
+        },
       },
       letterSpacing: {
         tighter: '-0.04em',
