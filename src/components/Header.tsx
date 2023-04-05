@@ -21,4 +21,8 @@ const Header = ({ isInProgress = false }: { isInProgress?: boolean }) => {
   )
 }
 
+Header.defaultProps = {
+  isInProgress: false,
+}
+
 export default Header

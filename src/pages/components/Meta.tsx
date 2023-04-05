@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-export default function Meta() {
+const Meta = () => {
   return (
     <Head>
       <title>Paramail - AI 영어 메일 작성기</title>
@@ -13,3 +13,5 @@ export default function Meta() {
     </Head>
   )
 }
+
+export default Meta

@@ -43,6 +43,4 @@ Action points:
 확인할 사항이 없습니다.
 
 Possible answers:
-답변이 필요하지 않습니다.
-
-`
+답변이 필요하지 않습니다.`

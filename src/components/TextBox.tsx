@@ -4,7 +4,7 @@ import Button from '@/components/Button'
 interface TextBoxProps {
   placeholder?: string
   value: string
-  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void
+  [x: string]: any
   button: {
     label: string
     [x: string]: any
@@ -29,6 +29,10 @@ const TextBox = ({ value, onChange, placeholder, button }: TextBoxProps) => {
       </div>
     </div>
   )
+}
+
+TextBox.defaultProps = {
+  placeholder: '',
 }
 
 export default TextBox

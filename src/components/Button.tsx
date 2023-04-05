@@ -1,3 +1,5 @@
+import React from 'react'
+
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string
   icon?: React.ReactNode
@@ -5,17 +7,12 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   [x: string]: any
 }
 
-const Button = ({
-  label,
-  onClick,
-  icon,
-  variation = 'primary',
-  ...props
-}: ButtonProps) => {
+const Button = ({ label, onClick, icon, variation, ...props }: ButtonProps) => {
   return (
     <>
       {variation === 'primary' && (
         <button
+          type="button"
           onClick={onClick}
           className="group h-10 rounded-full bg-suit p-[1px]"
           {...props}
@@ -30,6 +27,7 @@ const Button = ({
       )}
       {variation === 'secondary' && (
         <button
+          type="button"
           onClick={onClick}
           className="h-9 rounded-lg border border-gray-300 bg-white px-3.5 text-sm font-medium text-gray-800 drop-shadow-xs transition-all hover:bg-gray-50"
           {...props}
@@ -39,6 +37,11 @@ const Button = ({
       )}
     </>
   )
+}
+
+Button.defaultProps = {
+  icon: null,
+  variation: 'primary',
 }
 
 export default Button
