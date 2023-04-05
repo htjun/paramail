@@ -1,13 +1,13 @@
 import { useState, FormEvent } from 'react'
 import axios from 'axios'
-import Meta from './components/Meta'
 import Header from '@/components/Header'
 import SectionHeader from '@/components/SectionHeader'
 import TextBox from '@/components/TextBox'
 import TranslationDisplay from '@/components/TranslationDisplay'
 import AnalysisDisplay from '@/components/AnalysisDisplay'
+import Meta from './components/Meta'
 
-export default function Home() {
+const Home = () => {
   const [progress, setProgress] = useState({
     translated: false,
     generated: false,
@@ -36,9 +36,13 @@ export default function Home() {
           'Summarize this email in Korean. Make it as short as possible and only include key points.',
         userMessage: inputText,
       })
-
+      if (process.env.NODE_ENV === 'development') {
+        console.log(generationResponse.data.result)
+      }
       setGeneratedText(generationResponse.data.result.returnedText)
-    } catch (error) {}
+    } catch (error) {
+      console.error(error)
+    }
   }
   return (
     <>
@@ -68,7 +72,7 @@ export default function Home() {
                 original={inputText}
                 translated={translatedText}
               />
-              <AnalysisDisplay summary={generatedText} />
+              <AnalysisDisplay text={generatedText} />
             </div>
           )}
         </main>
@@ -76,3 +80,5 @@ export default function Home() {
     </>
   )
 }
+
+export default Home

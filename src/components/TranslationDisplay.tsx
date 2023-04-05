@@ -1,14 +1,5 @@
 import SectionSubHeader from '@/components/SectionSubHeader'
-
-const formatTextToParagraphs = (text: string) => {
-  const textArray = text.split('\n')
-  const paragraphs = textArray.map((text, index) => (
-    <p key={index} className="py-2">
-      {text}
-    </p>
-  ))
-  return paragraphs
-}
+import formatTextToParagraphs from '@/utils/formatTextToParagraphs'
 
 interface TranslationDisplayProps {
   original: string
@@ -24,12 +15,22 @@ const TranslationDisplay = ({
       <div className="flex flex-col gap-6">
         <SectionSubHeader>원본</SectionSubHeader>
         <article className="text-gray-500">
-          {formatTextToParagraphs(original)}
+          {formatTextToParagraphs(original).map((paragraph, index) => (
+            <p key={index} className="py-2">
+              {paragraph}
+            </p>
+          ))}
         </article>
       </div>
       <div className="flex flex-col gap-6">
         <SectionSubHeader>번역본</SectionSubHeader>
-        <article>{formatTextToParagraphs(translated)}</article>
+        <article>
+          {formatTextToParagraphs(translated).map((paragraph, index) => (
+            <p key={index} className="py-2">
+              {paragraph}
+            </p>
+          ))}
+        </article>
       </div>
     </section>
   )

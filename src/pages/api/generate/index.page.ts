@@ -1,5 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Configuration, OpenAIApi } from 'openai'
+import {
+  systemMessage,
+  userMessageTemplate,
+  assistantMessageTemplate,
+} from './promptData'
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -15,7 +20,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       return
     }
 
-    const { systemMessage, userMessage } = req.body
+    const { userMessage } = req.body
 
     try {
       const response = await openai.createChatCompletion({
@@ -24,6 +29,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           {
             role: 'system',
             content: systemMessage,
+          },
+          {
+            role: 'user',
+            content: userMessageTemplate,
+          },
+          {
+            role: 'assistant',
+            content: assistantMessageTemplate,
           },
           {
             role: 'user',

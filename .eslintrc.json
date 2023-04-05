@@ -39,6 +39,7 @@
         "unnamedComponents": "arrow-function"
       }
     ],
-    "prettier/prettier": "warn"
+    "prettier/prettier": "warn",
+    "react/no-array-index-key": "off"
   }
 }
