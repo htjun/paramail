@@ -11,7 +11,7 @@ const TranslationDisplay = ({
   translated,
 }: TranslationDisplayProps) => {
   return (
-    <section className="drop-shadow- grid grid-cols-2 gap-12 rounded-xl border border-gray-200 bg-white px-6 pb-8 pt-6">
+    <section className="grid grid-cols-2 gap-12 rounded-xl border border-gray-200 bg-white px-6 pb-8 pt-6 drop-shadow-xs">
       <div className="flex flex-col gap-6">
         <SectionSubHeader>원본</SectionSubHeader>
         <article className="text-gray-500">

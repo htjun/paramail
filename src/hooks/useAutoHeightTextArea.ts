@@ -1,16 +1,16 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useCallback } from 'react'
 
-const useAutoHeightTextArea = () => {
+const useAutoHeightTextArea = (offset: number = 0) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null)
 
-  const onInput = () => {
+  const onInput = useCallback(() => {
     if (textAreaRef.current) {
       textAreaRef.current.style.height = 'auto'
       textAreaRef.current.style.height = `${
-        textAreaRef.current.scrollHeight + 2
+        textAreaRef.current.scrollHeight + offset
       }px`
     }
-  }
+  }, [offset])
 
   useEffect(() => {
     const textArea = textAreaRef.current
@@ -22,7 +22,7 @@ const useAutoHeightTextArea = () => {
         textArea.removeEventListener('input', onInput)
       }
     }
-  }, [])
+  }, [onInput])
 
   return textAreaRef
 }
