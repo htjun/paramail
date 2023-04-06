@@ -6,7 +6,7 @@ const AnswerPresetsToggleGroup = ({ list }) => {
     <ToggleGroup.Root
       className="flex flex-col gap-3"
       type="single"
-      defaultValue="answer-1"
+      defaultValue="answer-0"
       aria-label="Text alignment"
       orientation="vertical"
     >

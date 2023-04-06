@@ -33,7 +33,7 @@ const AnalysisDisplay = ({ text }: AnalysisDisplayProps) => {
   const { summary, actionPoints, possibleAnswers } = textSeparator(text)
 
   return (
-    <section className="drop-shadow- grid grid-cols-2 gap-12 rounded-xl border border-gray-200 bg-white p-6">
+    <section className="drop-shadow- grid grid-cols-2 gap-12 rounded-xl border border-gray-200 bg-white px-6 pb-8 pt-6">
       <div className="flex flex-col gap-12">
         <div className="flex flex-col gap-6">
           <SectionSubHeader>내용 요약</SectionSubHeader>
