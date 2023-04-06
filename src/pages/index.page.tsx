@@ -48,7 +48,7 @@ const Home = () => {
     <>
       <Meta />
       <div className="flex justify-center">
-        <main className="flex w-full max-w-screen-xl flex-col justify-center px-12 py-6">
+        <main className="flex w-full max-w-screen-xl flex-col justify-center px-12 pb-16 pt-6">
           <Header isInProgress={progress.translated} />
           <SectionHeader
             title="메일 번역 & 분석"

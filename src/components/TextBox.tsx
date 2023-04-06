@@ -1,5 +1,6 @@
 import WandSVG from 'public/wand.svg'
 import Button from '@/components/Button'
+import useAutoHeightTextArea from '@/hooks/useAutoHeightTextArea'
 
 interface TextBoxProps {
   placeholder?: string
@@ -12,9 +13,12 @@ interface TextBoxProps {
 }
 
 const TextBox = ({ value, onChange, placeholder, button }: TextBoxProps) => {
+  const textAreaRef = useAutoHeightTextArea()
+
   return (
-    <div className="flex min-h-[400px] w-[720px] flex-col rounded-xl  bg-white drop-shadow-xs">
+    <div className="flex min-h-[400px] w-full max-w-[960px] flex-col rounded-xl  bg-white drop-shadow-xs">
       <textarea
+        ref={textAreaRef}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
