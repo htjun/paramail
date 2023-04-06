@@ -35,6 +35,7 @@ interface AnalysisDisplayProps {
 const AnalysisDisplay = ({ text }: AnalysisDisplayProps) => {
   const { summary, actionPoints, possibleAnswers } = textSeparator(text)
   const [toggleActiveItem, setToggleActiveItem] = useState<number | null>(1)
+  const [answer, setAnswer] = useState<string>('')
 
   return (
     <section className="rounded-xl border border-gray-200 bg-white drop-shadow-xs">
@@ -65,6 +66,7 @@ const AnalysisDisplay = ({ text }: AnalysisDisplayProps) => {
               list={processList(possibleAnswers)}
               value={toggleActiveItem}
               setValue={setToggleActiveItem}
+              setAnswer={setAnswer}
             />
           </article>
         </div>
@@ -74,6 +76,7 @@ const AnalysisDisplay = ({ text }: AnalysisDisplayProps) => {
           label="메일 생성하기"
           onClick={() => {}}
           icon={<WandSVG className="h-4 w-4" />}
+          disabled={answer === ''}
         />
       </div>
     </section>

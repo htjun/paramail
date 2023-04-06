@@ -2,7 +2,7 @@ import * as ToggleGroup from '@radix-ui/react-toggle-group'
 import useAutoHeightTextArea from '@/hooks/useAutoHeightTextArea'
 import ToggleGroupItem from './ToggleGroupItem'
 
-const AnswerPresetsToggleGroup = ({ list, value, setValue }) => {
+const AnswerPresetsToggleGroup = ({ list, value, setValue, setAnswer }) => {
   const textAreaRef = useAutoHeightTextArea()
   const numberOfItems = list.length
 
@@ -15,7 +15,12 @@ const AnswerPresetsToggleGroup = ({ list, value, setValue }) => {
       orientation="vertical"
       value={value}
       onValueChange={newValue => {
-        if (newValue) setValue(newValue)
+        if (newValue) {
+          setValue(newValue)
+          if (newValue <= numberOfItems) {
+            setAnswer(list[Number(newValue) - 1])
+          }
+        }
       }}
     >
       {list.map((item, i) => (
@@ -28,6 +33,7 @@ const AnswerPresetsToggleGroup = ({ list, value, setValue }) => {
         tabIndex={numberOfItems}
         onClick={() => {
           textAreaRef.current?.focus()
+          setAnswer(textAreaRef.current?.value)
         }}
       >
         <textarea
@@ -35,6 +41,9 @@ const AnswerPresetsToggleGroup = ({ list, value, setValue }) => {
           placeholder="직접 작성하기"
           className="w-full resize-none focus:outline-none group-data-[state=on]:bg-blue-25"
           rows={1}
+          onChange={e => {
+            setAnswer(e.target.value)
+          }}
         />
       </ToggleGroupItem>
     </ToggleGroup.Root>
