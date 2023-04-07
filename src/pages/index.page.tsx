@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Header from '@/components/Header'
 import Meta from './components/Meta'
 import ReceivedEmailInputSection from './components/ReceivedEmailInputSection'
@@ -10,6 +10,16 @@ const Home = () => {
   const [progressStep, setProgressStep] = useState(0)
   const [receivedEmailValue, setReceivedEmailValue] = useState<string>('')
   const [answerSummary, setAnswerSummary] = useState<string>('')
+
+  const createdEmailSectionRef = useRef(null)
+
+  useEffect(() => {
+    if (progressStep === 2) {
+      createdEmailSectionRef.current.scrollIntoView({
+        behavior: 'smooth',
+      })
+    }
+  }, [progressStep])
 
   return (
     <>
@@ -37,10 +47,12 @@ const Home = () => {
             </>
           )}
           {progressStep > 1 && (
-            <CreatedEmailSection
-              receivedEmailValue={receivedEmailValue}
-              answerSummary={answerSummary}
-            />
+            <div ref={createdEmailSectionRef}>
+              <CreatedEmailSection
+                receivedEmailValue={receivedEmailValue}
+                answerSummary={answerSummary}
+              />
+            </div>
           )}
         </main>
       </div>
