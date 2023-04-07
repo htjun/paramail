@@ -32,8 +32,7 @@ const Home = () => {
 
     try {
       const generationResponse = await axios.post('/api/generate', {
-        systemMessage:
-          'Summarize this email in Korean. Make it as short as possible and only include key points.',
+        reqType: 'analysis',
         userMessage: inputText,
       })
       if (process.env.NODE_ENV === 'development') {
@@ -72,9 +71,14 @@ const Home = () => {
                 original={inputText}
                 translated={translatedText}
               />
-              <AnalysisDisplay text={generatedText} />
+              <AnalysisDisplay
+                text={generatedText}
+                progress={progress}
+                setProgress={setProgress}
+              />
             </div>
           )}
+          {progress.generated && <div>Hallo</div>}
         </main>
       </div>
     </>

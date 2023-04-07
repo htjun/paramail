@@ -1,14 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Configuration, OpenAIApi } from 'openai'
-import {
-  systemMessage,
-  userMessageTemplate1,
-  assistantMessageTemplate1,
-  userMessageTemplate2,
-  assistantMessageTemplate2,
-  userMessageTemplate3,
-  assistantMessageTemplate3,
-} from './promptData'
+import { analysisPromptMessages } from './promptData'
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -24,45 +16,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       return
     }
 
-    const { userMessage } = req.body
+    const { reqType, userMessage } = req.body
+
+    const promptMessages =
+      reqType === 'analysis' ? analysisPromptMessages(userMessage) : []
 
     try {
       const response = await openai.createChatCompletion({
         model: 'gpt-3.5-turbo',
-        messages: [
-          {
-            role: 'system',
-            content: systemMessage,
-          },
-          {
-            role: 'user',
-            content: userMessageTemplate1,
-          },
-          {
-            role: 'assistant',
-            content: assistantMessageTemplate1,
-          },
-          {
-            role: 'user',
-            content: userMessageTemplate2,
-          },
-          {
-            role: 'assistant',
-            content: assistantMessageTemplate2,
-          },
-          {
-            role: 'user',
-            content: userMessageTemplate3,
-          },
-          {
-            role: 'assistant',
-            content: assistantMessageTemplate3,
-          },
-          {
-            role: 'user',
-            content: userMessage,
-          },
-        ],
+        messages: promptMessages,
         max_tokens: 2000,
         temperature: 0.1,
       })

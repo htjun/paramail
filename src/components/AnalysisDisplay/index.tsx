@@ -30,12 +30,22 @@ function processList(text: string) {
 
 interface AnalysisDisplayProps {
   text: string
+  progress: any
+  setProgress: any
 }
 
-const AnalysisDisplay = ({ text }: AnalysisDisplayProps) => {
+const AnalysisDisplay = ({
+  text,
+  progress,
+  setProgress,
+}: AnalysisDisplayProps) => {
   const { summary, actionPoints, possibleAnswers } = textSeparator(text)
   const [toggleActiveItem, setToggleActiveItem] = useState<number | null>(1)
   const [answer, setAnswer] = useState<string>('')
+
+  const handleMailCreation = () => {
+    setProgress({ ...progress, generated: true })
+  }
 
   return (
     <section className="rounded-xl border border-gray-200 bg-white drop-shadow-xs">
@@ -74,7 +84,7 @@ const AnalysisDisplay = ({ text }: AnalysisDisplayProps) => {
       <div className="flex justify-end border-t border-gray-200 p-6">
         <Button
           label="메일 생성하기"
-          onClick={() => {}}
+          onClick={handleMailCreation}
           icon={<WandSVG className="h-4 w-4" />}
           disabled={answer === ''}
         />
