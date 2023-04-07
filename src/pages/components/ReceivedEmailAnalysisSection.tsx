@@ -27,7 +27,7 @@ const ReceivedEmailAnalysisSection = ({
   }
 
   return (
-    <div className="mt-8">
+    <div className="flex flex-col gap-8">
       <SectionHeader
         title="메일 분석"
         description="받은 메일을 요약하고 가능한 답변 목록을 생성합니다."

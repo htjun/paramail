@@ -17,7 +17,7 @@ const TextBox = ({ value, onChange, placeholder, button }: TextBoxProps) => {
   const textAreaRef = useAutoHeightTextArea(2)
 
   return (
-    <div className="flex min-h-[400px] w-full max-w-[960px] flex-col rounded-xl  bg-white drop-shadow-xs">
+    <div className="flex min-h-[400px] w-full max-w-[800px] flex-col rounded-xl  bg-white drop-shadow-xs">
       <textarea
         ref={textAreaRef}
         value={value}

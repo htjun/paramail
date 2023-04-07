@@ -24,7 +24,7 @@ const AnswerPresetsToggleGroup = ({ list, value, setValue, setAnswer }) => {
       }}
     >
       {list.map((item, i) => (
-        <ToggleGroupItem value={i + 1} tabIndex={i}>
+        <ToggleGroupItem value={i + 1} tabIndex={i} key={i}>
           {item}
         </ToggleGroupItem>
       ))}

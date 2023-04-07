@@ -13,7 +13,7 @@ const ReceivedEmailInputSection = ({
     setProgressStep(1)
   }
   return (
-    <>
+    <div className="flex flex-col gap-8">
       <SectionHeader
         title="받은 메일 입력"
         description="받은 영어 이메일을 입력해 주세요. 제목과 보낸 사람의 이름을 함께 넣으면 더 도움이 됩니다."
@@ -28,7 +28,7 @@ const ReceivedEmailInputSection = ({
           onClick: handleTranslateButtonClick,
         }}
       />
-    </>
+    </div>
   )
 }
 

@@ -25,35 +25,37 @@ const Home = () => {
     <>
       <Meta />
       <div className="flex justify-center">
-        <main className="flex w-full max-w-screen-xl flex-col justify-center px-12 pb-16 pt-6">
+        <main className="flex w-full max-w-screen-xl flex-col justify-center gap-12 px-12 pb-16 pt-6">
           <Header isInProgress={progressStep !== 0} />
-          {progressStep === 0 && (
-            <ReceivedEmailInputSection
-              receivedEmailValue={receivedEmailValue}
-              setReceivedEmailValue={setReceivedEmailValue}
-              setProgressStep={setProgressStep}
-            />
-          )}
-          {progressStep > 0 && (
-            <>
-              <ReceivedEmailTranslationSection
-                emailInput={receivedEmailValue}
-              />
-              <ReceivedEmailAnalysisSection
-                emailInput={receivedEmailValue}
-                setProgressStep={setProgressStep}
-                setAnswerSummary={setAnswerSummary}
-              />
-            </>
-          )}
-          {progressStep > 1 && (
-            <div ref={createdEmailSectionRef}>
-              <CreatedEmailSection
+          <div className="flex flex-col gap-16">
+            {progressStep === 0 && (
+              <ReceivedEmailInputSection
                 receivedEmailValue={receivedEmailValue}
-                answerSummary={answerSummary}
+                setReceivedEmailValue={setReceivedEmailValue}
+                setProgressStep={setProgressStep}
               />
-            </div>
-          )}
+            )}
+            {progressStep > 0 && (
+              <>
+                <ReceivedEmailTranslationSection
+                  emailInput={receivedEmailValue}
+                />
+                <ReceivedEmailAnalysisSection
+                  emailInput={receivedEmailValue}
+                  setProgressStep={setProgressStep}
+                  setAnswerSummary={setAnswerSummary}
+                />
+              </>
+            )}
+            {progressStep > 1 && (
+              <div ref={createdEmailSectionRef}>
+                <CreatedEmailSection
+                  receivedEmailValue={receivedEmailValue}
+                  answerSummary={answerSummary}
+                />
+              </div>
+            )}
+          </div>
         </main>
       </div>
     </>

@@ -42,7 +42,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       res.status(200).json({
         result: {
           returnedText: response.data.choices?.[0]?.message?.content,
-          usage: response.data.usage?.total_tokens,
+          usage: response.data.usage,
         },
       })
     } catch (error: any) {

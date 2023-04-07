@@ -57,6 +57,10 @@ const useAnalysis = (inputText: string): AnalysisResult => {
         const possibleAnswerList = processList(possibleAnswers)
 
         setData({ summary, actionPointList, possibleAnswerList })
+
+        if (process.env.NODE_ENV === 'development') {
+          console.log('Analysis response: ', analysisResponse.data.result)
+        }
       } catch (err) {
         setError(err as Error)
       } finally {

@@ -28,7 +28,7 @@ const CreatedEmailSection = ({ receivedEmailValue, answerSummary }) => {
     })
   }
   return (
-    <div className="mt-8">
+    <div className="flex flex-col gap-8">
       <SectionHeader
         title="메일 생성 & 수정"
         description="AI가 생성한 메일을 확인 및 수정한 후, 복사하여 원하는 곳에 붙여넣기 하세요."
