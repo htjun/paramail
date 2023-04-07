@@ -5,6 +5,7 @@ import SectionHeader from '@/components/SectionHeader'
 import TextBox from '@/components/TextBox'
 import TranslationDisplay from '@/components/TranslationDisplay'
 import AnalysisDisplay from '@/components/AnalysisDisplay'
+import EmailGenerationDisplay from '@/components/EmailGenerationDisplay'
 import Meta from './components/Meta'
 
 const Home = () => {
@@ -15,6 +16,7 @@ const Home = () => {
   const [inputText, setInputText] = useState('')
   const [translatedText, setTranslatedText] = useState('')
   const [generatedText, setGeneratedText] = useState<any>('')
+  const [createdEmail, setCreatedEmail] = useState<any>('')
 
   const handleTranslateButtonClick = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -78,7 +80,9 @@ const Home = () => {
               />
             </div>
           )}
-          {progress.generated && <div>Hallo</div>}
+          {progress.generated && (
+            <EmailGenerationDisplay original={createdEmail} />
+          )}
         </main>
       </div>
     </>

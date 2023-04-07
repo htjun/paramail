@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Configuration, OpenAIApi } from 'openai'
-import { analysisPromptMessages } from './promptData'
+import { analysisPromptMessages, generatePromptMessages } from './promptData'
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -18,8 +18,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     const { reqType, userMessage } = req.body
 
-    const promptMessages =
-      reqType === 'analysis' ? analysisPromptMessages(userMessage) : []
+    let promptMessages = []
+
+    switch (reqType) {
+      case 'analysis':
+        promptMessages = analysisPromptMessages(userMessage)
+        break
+      case 'generate':
+        promptMessages = generatePromptMessages(userMessage)
+        break
+      default:
+        break
+    }
 
     try {
       const response = await openai.createChatCompletion({

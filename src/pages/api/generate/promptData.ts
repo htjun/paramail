@@ -71,3 +71,114 @@ export const analysisPromptMessages = (
     },
   ]
 }
+
+export const generatePromptMessages = (
+  userMessage: string
+): ChatCompletionRequestMessage[] => {
+  return [
+    {
+      role: 'system',
+      content: `Write an answer email in English for the received email based on the answer summary provided.`,
+    },
+    {
+      role: 'user',
+      content: `Received email: Hi Jason!
+
+      Thanks for reaching out.
+      
+      Are you using the iOS 16 and WatchOS 9.0?
+      
+      If so, it can be the same issue that recently our Developers have also recognized with the WatchOS app, especially with the new OS released by Apple.
+      
+      For the latest update we received from the Developers, the WatchOS 9.1 will be soon released and the issue will be fixed completely. So, we recommend that you can try to update the WatchOS 9.1.
+      
+      If the issue still happens, please let us know.
+      
+      Habitify Habitify from Habitify
+      
+      Answer summary: WatchOS 9.1로 업데이트하였지만, 문제가 여전히 발생합니다. 어떻게 해결할 수 있을까요?`,
+    },
+    {
+      role: 'assistant',
+      content: `Subject: Re: Issue with Habitify WatchOS App - WatchOS 9.1 Update
+
+      Hello Habitify,
+      
+      Thank you for your prompt response. I have updated my Apple Watch to WatchOS 9.1 as you suggested, but unfortunately, the issue with the Habitify app still persists.
+      
+      Could you please advise on how I can resolve this issue? I really enjoy using the app and would like to continue using it on my Apple Watch.
+      
+      Looking forward to your assistance.
+      
+      Best regards,
+      
+      Jason`,
+    },
+    {
+      role: 'user',
+      content: `Received email: Hello Jason,
+
+      Thank you for contacting us.
+      
+      In order for us to check our system to see if your card is still present, we will need the full credit card number. We will delete your information once this case is closed for your privacy reasons.
+      
+      Could you please reply to this email with your full credit card number?
+      
+      Thanks and we hope you have a great day,
+      Paige
+      
+      The Wilson Parking Team
+      
+      Answer summary: 제 카드 정보를 이메일로 보내기는 위험합니다. 다른 방법으로 확인할 수 있을까요?`,
+    },
+    {
+      role: 'assistant',
+      content: `Subject: Re: Request for Full Credit Card Number
+
+      Hello Paige,
+      
+      Thank you for your response. I appreciate your efforts to assist me with my concern. However, I am hesitant to send my full credit card number through email due to security reasons.
+      
+      Is there any other way for you to check your system and see if my card is still present without me sharing my full credit card number? Perhaps, there could be an alternative way to verify my identity or my account details?
+      
+      I appreciate your understanding and I look forward to hearing from you.
+      
+      Best regards,
+      
+      Jason`,
+    },
+    {
+      role: 'user',
+      content: `Received email: If could you please advice the date from the 01/08/22 onwards when someone will be available at the collection address between 09.00am – 05.00pm to hand the boxed machine to the courier.
+      Thank you.
+      
+      Answer summary:  1월 10일, 1월 12일, 1월 14일에 수령 가능합니다.`,
+    },
+    {
+      role: 'assistant',
+      content: `Subject: Re: Requested Date for Courier Collection
+
+      Dear [Name],
+      
+      Thank you for your email. We are pleased to inform you that we can arrange for someone to be available at the collection address to hand the boxed machine to the courier on the following dates:
+      
+      - January 10th
+      - January 12th
+      - January 14th
+      
+      All of these dates are available between 09.00 am – 05.00 pm.
+      
+      Please let us know which date works best for you and we will arrange accordingly.
+      
+      Thank you for choosing our services.
+      
+      Best regards,
+      
+      [Your Name]`,
+    },
+    {
+      role: 'user',
+      content: userMessage,
+    },
+  ]
+}

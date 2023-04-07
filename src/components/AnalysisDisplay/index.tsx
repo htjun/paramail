@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import axios from 'axios'
 import SectionSubHeader from '@/components/SectionSubHeader'
 import Button from '@/components/Button'
 import { CheckIcon } from '@heroicons/react/20/solid'
@@ -40,11 +41,25 @@ const AnalysisDisplay = ({
   setProgress,
 }: AnalysisDisplayProps) => {
   const { summary, actionPoints, possibleAnswers } = textSeparator(text)
-  const [toggleActiveItem, setToggleActiveItem] = useState<number | null>(1)
+  const [toggleActiveItem, setToggleActiveItem] = useState<number | null>(null)
   const [answer, setAnswer] = useState<string>('')
 
-  const handleMailCreation = () => {
-    setProgress({ ...progress, generated: true })
+  const handleMailCreation = async e => {
+    e.preventDefault()
+
+    try {
+      const generationResponse = await axios.post('/api/generate', {
+        reqType: 'generate',
+        userMessage: answer,
+      })
+      if (process.env.NODE_ENV === 'development') {
+        console.log(generationResponse.data.result)
+      }
+
+      setProgress({ ...progress, generated: true })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
@@ -86,7 +101,7 @@ const AnalysisDisplay = ({
           label="메일 생성하기"
           onClick={handleMailCreation}
           icon={<WandSVG className="h-4 w-4" />}
-          disabled={answer === ''}
+          disabled={answer.trim().length === 0}
         />
       </div>
     </section>
