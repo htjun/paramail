@@ -1,6 +1,6 @@
 import * as ToggleGroup from '@radix-ui/react-toggle-group'
 import useAutoHeightTextArea from '@/hooks/useAutoHeightTextArea'
-import ToggleGroupItem from './ToggleGroupItem'
+import ToggleGroupItem from '@/components/ToggleGroupItem'
 
 const AnswerPresetsToggleGroup = ({ list, value, setValue, setAnswer }) => {
   const textAreaRef = useAutoHeightTextArea()
