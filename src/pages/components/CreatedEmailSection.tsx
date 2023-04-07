@@ -7,6 +7,7 @@ import formatTextToParagraphs from '@/utils/formatTextToParagraphs'
 import { DocumentDuplicateIcon } from '@heroicons/react/20/solid'
 import useEmailCreation from '@/hooks/useEmailCreation'
 import useTranslate from '@/hooks/useTranslation'
+import useCopyToClipboard from '@/hooks/useCopyToClipboard'
 
 const CreatedEmailSection = ({ receivedEmailValue, answerSummary }) => {
   const {
@@ -19,8 +20,11 @@ const CreatedEmailSection = ({ receivedEmailValue, answerSummary }) => {
     error: translationError,
     translatedText,
   } = useTranslate(data)
+  const [copyToClipboard, { success }]: any = useCopyToClipboard()
 
-  const handleCopyToClipboard = () => {}
+  const handleCopyToClipboard = () => {
+    copyToClipboard(data)
+  }
   return (
     <div className="mt-8">
       <SectionHeader
@@ -28,7 +32,7 @@ const CreatedEmailSection = ({ receivedEmailValue, answerSummary }) => {
         description="AI가 생성한 메일을 확인 및 수정한 후, 복사하여 원하는 곳에 붙여넣기 하세요."
       />
       <section className="rounded-xl border border-gray-200 bg-white drop-shadow-xs">
-        <div className="grid grid-cols-2 gap-12 p-6 pb-12">
+        <div className="grid min-h-[400px] grid-cols-2 gap-12 p-6 pb-12">
           <div className="flex flex-col gap-6">
             <SectionSubHeader>원본</SectionSubHeader>
             <article>
@@ -37,7 +41,7 @@ const CreatedEmailSection = ({ receivedEmailValue, answerSummary }) => {
               ) : (
                 formatTextToParagraphs(data).map((paragraph, index) => (
                   <p key={index} className="py-2">
-                    {paragraph}
+                    {paragraph.trim()}
                   </p>
                 ))
               )}
@@ -55,7 +59,7 @@ const CreatedEmailSection = ({ receivedEmailValue, answerSummary }) => {
                 formatTextToParagraphs(translatedText).map(
                   (paragraph, index) => (
                     <p key={index} className="py-2">
-                      {paragraph}
+                      {paragraph.trim()}
                     </p>
                   )
                 )
@@ -66,7 +70,10 @@ const CreatedEmailSection = ({ receivedEmailValue, answerSummary }) => {
             </article>
           </div>
         </div>
-        <div className="flex justify-end border-t border-gray-200 p-6">
+        <div className="flex items-center justify-end border-t border-gray-200 p-6">
+          {success && (
+            <p className="mr-4 text-sm text-gray-500">복사되었습니다.</p>
+          )}
           <Button
             label="원본 복사하기"
             onClick={handleCopyToClipboard}

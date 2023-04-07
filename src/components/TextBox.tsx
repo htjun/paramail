@@ -1,5 +1,4 @@
 import { ReactNode } from 'react'
-import WandSVG from 'public/wand.svg'
 import Button from '@/components/Button'
 import useAutoHeightTextArea from '@/hooks/useAutoHeightTextArea'
 

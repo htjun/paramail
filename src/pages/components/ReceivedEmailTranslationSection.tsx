@@ -19,7 +19,7 @@ const ReceivedEmailTranslationSection = ({ emailInput }) => {
       <section
         className={twMerge(
           sectionContainer,
-          'grid grid-cols-2 gap-12 px-6 pb-8 pt-6 '
+          'grid min-h-[400px] grid-cols-2 gap-12 px-6 pb-8 pt-6'
         )}
       >
         <div className="flex flex-col gap-6">

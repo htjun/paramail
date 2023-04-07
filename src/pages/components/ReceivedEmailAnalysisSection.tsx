@@ -37,7 +37,7 @@ const ReceivedEmailAnalysisSection = ({
           <div className="flex flex-col gap-12">
             <div className="flex flex-col gap-6">
               <SectionSubHeader>내용 요약</SectionSubHeader>
-              <article>
+              <article className="min-h-[80px]">
                 {loading ? <LoadingDots /> : summary}
                 {error && (
                   <ErrorMessage text="메일 분석 과정에서 문제가 발생했습니다." />
@@ -46,7 +46,7 @@ const ReceivedEmailAnalysisSection = ({
             </div>
             <div className="flex flex-col gap-6">
               <SectionSubHeader>체크리스트</SectionSubHeader>
-              <article>
+              <article className="min-h-[80px]">
                 <ul className="flex flex-col gap-3">
                   {loading ? (
                     <LoadingDots />
@@ -64,7 +64,7 @@ const ReceivedEmailAnalysisSection = ({
           </div>
           <div className=" flex flex-col gap-6">
             <SectionSubHeader>답변 내용 선택</SectionSubHeader>
-            <article>
+            <article className="min-h-[80px]">
               {loading ? (
                 <LoadingDots />
               ) : (
