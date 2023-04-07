@@ -24,7 +24,7 @@ const ReceivedEmailTranslationSection = ({ emailInput }) => {
       >
         <div className="flex flex-col gap-6">
           <SectionSubHeader>원본</SectionSubHeader>
-          <article className="text-gray-500">
+          <article>
             {formatTextToParagraphs(emailInput).map((paragraph, index) => (
               <p key={index} className="my-4">
                 {paragraph}
@@ -34,7 +34,7 @@ const ReceivedEmailTranslationSection = ({ emailInput }) => {
         </div>
         <div className="flex flex-col gap-6">
           <SectionSubHeader>번역본</SectionSubHeader>
-          <article>
+          <article className="text-gray-500">
             {loading && <LoadingDots />}
             {error && (
               <ErrorMessage text="번역이 올바르게 처리되지 않았습니다." />

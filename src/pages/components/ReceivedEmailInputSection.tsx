@@ -1,3 +1,4 @@
+import { LanguageIcon } from '@heroicons/react/20/solid'
 import SectionHeader from '@/components/SectionHeader'
 import TextBox from '@/components/TextBox'
 
@@ -22,6 +23,7 @@ const ReceivedEmailInputSection = ({
         placeholder="받은 메일을 이곳에 붙여넣기 하세요."
         button={{
           label: '번역 & 분석',
+          icon: <LanguageIcon className="h-4 w-4" />,
           onClick: handleTranslateButtonClick,
         }}
       />

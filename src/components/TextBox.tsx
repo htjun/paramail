@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import WandSVG from 'public/wand.svg'
 import Button from '@/components/Button'
 import useAutoHeightTextArea from '@/hooks/useAutoHeightTextArea'
@@ -8,6 +9,7 @@ interface TextBoxProps {
   [x: string]: any
   button: {
     label: string
+    icon?: ReactNode
     [x: string]: any
   }
 }
@@ -28,7 +30,7 @@ const TextBox = ({ value, onChange, placeholder, button }: TextBoxProps) => {
         <Button
           label={button.label}
           onClick={button.onClick}
-          icon={<WandSVG className="h-4 w-4" />}
+          icon={button.icon}
         />
       </div>
     </div>
