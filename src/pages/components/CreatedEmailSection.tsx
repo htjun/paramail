@@ -23,7 +23,9 @@ const CreatedEmailSection = ({ receivedEmailValue, answerSummary }) => {
   const [copyToClipboard, { success }]: any = useCopyToClipboard()
 
   const handleCopyToClipboard = () => {
-    copyToClipboard(data)
+    copyToClipboard(formatTextToParagraphs(data).join('\n\n'), {
+      format: 'text/plain',
+    })
   }
   return (
     <div className="mt-8">
@@ -41,7 +43,7 @@ const CreatedEmailSection = ({ receivedEmailValue, answerSummary }) => {
               ) : (
                 formatTextToParagraphs(data).map((paragraph, index) => (
                   <p key={index} className="py-2">
-                    {paragraph.trim()}
+                    {paragraph}
                   </p>
                 ))
               )}
@@ -59,7 +61,7 @@ const CreatedEmailSection = ({ receivedEmailValue, answerSummary }) => {
                 formatTextToParagraphs(translatedText).map(
                   (paragraph, index) => (
                     <p key={index} className="py-2">
-                      {paragraph.trim()}
+                      {paragraph}
                     </p>
                   )
                 )
