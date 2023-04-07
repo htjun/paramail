@@ -3,6 +3,8 @@ import { CheckIcon } from '@heroicons/react/20/solid'
 import SectionHeader from '@/components/SectionHeader'
 import SectionSubHeader from '@/components/SectionSubHeader'
 import Button from '@/components/Button'
+import LoadingDots from '@/components/LoadingDots'
+import ErrorMessage from '@/components/ErrorMessage'
 import useAnalysis from '@/hooks/useAnalysis'
 import { sectionContainer } from '@/styles/sharedClasses'
 import WandSVG from 'public/wand.svg'
@@ -24,9 +26,6 @@ const ReceivedEmailAnalysisSection = ({
     setProgressStep(2)
   }
 
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>Error</div>
-
   return (
     <div className="my-8">
       <SectionHeader
@@ -38,18 +37,27 @@ const ReceivedEmailAnalysisSection = ({
           <div className="flex flex-col gap-12">
             <div className="flex flex-col gap-6">
               <SectionSubHeader>내용 요약</SectionSubHeader>
-              <article>{summary}</article>
+              <article>
+                {loading ? <LoadingDots /> : summary}
+                {error && (
+                  <ErrorMessage text="메일 분석 과정에서 문제가 발생했습니다." />
+                )}
+              </article>
             </div>
             <div className="flex flex-col gap-6">
               <SectionSubHeader>체크리스트</SectionSubHeader>
               <article>
                 <ul className="flex flex-col gap-3">
-                  {actionPointList.map((item, i) => (
-                    <li key={i} className="flex items-start gap-1.5">
-                      <CheckIcon className="h-6 w-6 shrink-0 p-1 text-grayBlue-400" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
+                  {loading ? (
+                    <LoadingDots />
+                  ) : (
+                    actionPointList.map((item, i) => (
+                      <li key={i} className="flex items-start gap-1.5">
+                        <CheckIcon className="h-6 w-6 shrink-0 p-1 text-grayBlue-400" />
+                        <span>{item}</span>
+                      </li>
+                    ))
+                  )}
                 </ul>
               </article>
             </div>
@@ -57,12 +65,16 @@ const ReceivedEmailAnalysisSection = ({
           <div className=" flex flex-col gap-6">
             <SectionSubHeader>답변 내용 선택</SectionSubHeader>
             <article>
-              <AnswerPresetsToggleGroup
-                list={possibleAnswerList}
-                value={toggleActiveItem}
-                setValue={setToggleActiveItem}
-                setAnswer={setAnswer}
-              />
+              {loading ? (
+                <LoadingDots />
+              ) : (
+                <AnswerPresetsToggleGroup
+                  list={possibleAnswerList}
+                  value={toggleActiveItem}
+                  setValue={setToggleActiveItem}
+                  setAnswer={setAnswer}
+                />
+              )}
             </article>
           </div>
         </div>

@@ -1,6 +1,8 @@
 import SectionHeader from '@/components/SectionHeader'
 import SectionSubHeader from '@/components/SectionSubHeader'
 import Button from '@/components/Button'
+import LoadingDots from '@/components/LoadingDots'
+import ErrorMessage from '@/components/ErrorMessage'
 import formatTextToParagraphs from '@/utils/formatTextToParagraphs'
 import { DocumentDuplicateIcon } from '@heroicons/react/20/solid'
 import useEmailCreation from '@/hooks/useEmailCreation'
@@ -18,9 +20,6 @@ const CreatedEmailSection = ({ receivedEmailValue, answerSummary }) => {
     translatedText,
   } = useTranslate(data)
 
-  if (emailCreationLoading) return <div>Loading...</div>
-  if (emailCreationError) return <div>Error</div>
-
   const handleCopyToClipboard = () => {}
   return (
     <div className="my-10">
@@ -33,22 +32,36 @@ const CreatedEmailSection = ({ receivedEmailValue, answerSummary }) => {
           <div className="flex flex-col gap-6">
             <SectionSubHeader>원본</SectionSubHeader>
             <article>
-              {formatTextToParagraphs(data).map((paragraph, index) => (
-                <p key={index} className="py-2">
-                  {paragraph}
-                </p>
-              ))}
+              {emailCreationLoading ? (
+                <LoadingDots />
+              ) : (
+                formatTextToParagraphs(data).map((paragraph, index) => (
+                  <p key={index} className="py-2">
+                    {paragraph}
+                  </p>
+                ))
+              )}
+              {emailCreationError && (
+                <ErrorMessage text="메일 생성 과정에서 문제가 발생했습니다." />
+              )}
             </article>
           </div>
           <div className="flex flex-col gap-6">
             <SectionSubHeader>번역본</SectionSubHeader>
             <article className="text-gray-500">
-              {formatTextToParagraphs(translatedText).map(
-                (paragraph, index) => (
-                  <p key={index} className="py-2">
-                    {paragraph}
-                  </p>
+              {emailCreationLoading || translationLoading ? (
+                <LoadingDots />
+              ) : (
+                formatTextToParagraphs(translatedText).map(
+                  (paragraph, index) => (
+                    <p key={index} className="py-2">
+                      {paragraph}
+                    </p>
+                  )
                 )
+              )}
+              {translationError && (
+                <ErrorMessage text="생성된 메일을 번역하는 과정에서 문제가 발생했습니다." />
               )}
             </article>
           </div>
