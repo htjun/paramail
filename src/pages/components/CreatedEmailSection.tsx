@@ -4,16 +4,22 @@ import Button from '@/components/Button'
 import formatTextToParagraphs from '@/utils/formatTextToParagraphs'
 import { DocumentDuplicateIcon } from '@heroicons/react/20/solid'
 import useEmailCreation from '@/hooks/useEmailCreation'
+import useTranslate from '@/hooks/useTranslation'
 
 const CreatedEmailSection = ({ receivedEmailValue, answerSummary }) => {
   const {
-    loading,
-    error,
+    loading: emailCreationLoading,
+    error: emailCreationError,
     data = '',
   } = useEmailCreation({ receivedEmailValue, answerSummary })
+  const {
+    loading: translationLoading,
+    error: translationError,
+    translatedText,
+  } = useTranslate(data)
 
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>Error</div>
+  if (emailCreationLoading) return <div>Loading...</div>
+  if (emailCreationError) return <div>Error</div>
 
   const handleCopyToClipboard = () => {}
   return (
@@ -36,7 +42,15 @@ const CreatedEmailSection = ({ receivedEmailValue, answerSummary }) => {
           </div>
           <div className="flex flex-col gap-6">
             <SectionSubHeader>번역본</SectionSubHeader>
-            <article className="text-gray-500">text</article>
+            <article className="text-gray-500">
+              {formatTextToParagraphs(translatedText).map(
+                (paragraph, index) => (
+                  <p key={index} className="py-2">
+                    {paragraph}
+                  </p>
+                )
+              )}
+            </article>
           </div>
         </div>
         <div className="flex justify-end border-t border-gray-200 p-6">
