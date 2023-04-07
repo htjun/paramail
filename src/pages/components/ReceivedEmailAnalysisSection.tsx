@@ -27,10 +27,10 @@ const ReceivedEmailAnalysisSection = ({
   }
 
   return (
-    <div className="my-8">
+    <div className="mt-8">
       <SectionHeader
-        title="메일 번역"
-        description="받은 메일의 한국어 번역본을 확인하세요."
+        title="메일 분석"
+        description="받은 메일을 요약하고 가능한 답변 목록을 생성합니다."
       />
       <section className={sectionContainer}>
         <div className="grid grid-cols-2 gap-12 p-6 pb-12">
