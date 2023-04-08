@@ -1,5 +1,4 @@
-import { ReactNode } from 'react'
-import { MouseEvent } from 'react'
+import { ReactNode, MouseEvent } from 'react'
 import Button from '@/components/Button'
 import ParamailLogo from 'public/paramail.svg'
 
@@ -14,7 +13,7 @@ const Header = ({ isInProgress = false, tabsTrigger }: HeaderProps) => {
     window.location.reload()
   }
   return (
-    <div className="flex h-9 items-center gap-6">
+    <div className="flex h-9 items-center gap-8">
       <ParamailLogo />
       {isInProgress ? (
         <Button
