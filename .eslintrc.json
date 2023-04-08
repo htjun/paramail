@@ -15,6 +15,14 @@
     "sourceType": "module"
   },
   "rules": {
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        "required": {
+          "some": ["nesting", "id"]
+        }
+      }
+    ],
     "camelcase": "off",
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",

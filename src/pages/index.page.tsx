@@ -3,6 +3,7 @@ import Header from '@/components/Header'
 import { TabsRoot, TabsTrigger, TabsContent } from '@/components/Tabs'
 import Meta from './components/Meta'
 import ReplyFlow from './components/ReplyFlow'
+import NewMailFlow from './components/NewMailFlow'
 
 const Home = () => {
   const [inProgress, setInProgress] = useState(false)
@@ -29,6 +30,9 @@ const Home = () => {
             />
             <TabsContent value="reply">
               <ReplyFlow setInProgress={setInProgress} />
+            </TabsContent>
+            <TabsContent value="new">
+              <NewMailFlow />
             </TabsContent>
           </TabsRoot>
         </main>
