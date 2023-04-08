@@ -1,8 +1,14 @@
+import { ReactNode } from 'react'
 import { MouseEvent } from 'react'
 import Button from '@/components/Button'
 import ParamailLogo from 'public/paramail.svg'
 
-const Header = ({ isInProgress = false }: { isInProgress?: boolean }) => {
+interface HeaderProps {
+  isInProgress?: boolean
+  tabsTrigger: ReactNode
+}
+
+const Header = ({ isInProgress = false, tabsTrigger }: HeaderProps) => {
   const handleClickRestart = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     window.location.reload()
@@ -10,12 +16,14 @@ const Header = ({ isInProgress = false }: { isInProgress?: boolean }) => {
   return (
     <div className="flex h-9 items-center gap-6">
       <ParamailLogo />
-      {isInProgress && (
+      {isInProgress ? (
         <Button
           label="새로 시작"
           variation="secondary"
           onClick={handleClickRestart}
         />
+      ) : (
+        tabsTrigger
       )}
     </div>
   )
