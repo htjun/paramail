@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { LanguageIcon } from '@heroicons/react/20/solid'
 import SectionHeader from '@/components/SectionHeader'
 import TextBox from '@/components/TextBox'
@@ -7,8 +8,21 @@ const ReceivedEmailInputSection = ({
   setReceivedEmailValue,
   setProgressStep,
 }) => {
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+
+  const handleInputChange = e => {
+    setReceivedEmailValue(e.target.value)
+    setErrorMessage(null)
+  }
+
   const handleTranslateButtonClick = async e => {
     e.preventDefault()
+    setErrorMessage(null)
+
+    if (receivedEmailValue.length < 10) {
+      setErrorMessage('10자 이상이어야 합니다.')
+      return
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' })
     setProgressStep(1)
   }
@@ -20,8 +34,9 @@ const ReceivedEmailInputSection = ({
       />
       <TextBox
         value={receivedEmailValue}
-        onChange={e => setReceivedEmailValue(e.target.value)}
+        onChange={handleInputChange}
         placeholder="받은 메일을 이곳에 붙여넣기 하세요."
+        errorMessage={errorMessage}
         button={{
           label: '번역 & 분석',
           icon: <LanguageIcon className="h-4 w-4" />,

@@ -1,10 +1,12 @@
 import { ReactNode } from 'react'
 import Button from '@/components/Button'
+import ErrorMessage from '@/components/ErrorMessage'
 import useAutoHeightTextArea from '@/hooks/useAutoHeightTextArea'
 
 interface TextBoxProps {
   placeholder?: string
   value: string
+  errorMessage?: string
   [x: string]: any
   button: {
     label: string
@@ -13,7 +15,13 @@ interface TextBoxProps {
   }
 }
 
-const TextBox = ({ value, onChange, placeholder, button }: TextBoxProps) => {
+const TextBox = ({
+  value,
+  onChange,
+  placeholder,
+  errorMessage,
+  button,
+}: TextBoxProps) => {
   const textAreaRef = useAutoHeightTextArea(2)
 
   return (
@@ -25,7 +33,8 @@ const TextBox = ({ value, onChange, placeholder, button }: TextBoxProps) => {
         placeholder={placeholder}
         className="h-full w-full grow resize-none rounded-t-xl border border-gray-200 p-6 outline-none transition-all duration-75 hover:border-grayBlue-200 focus:border-grayBlue-300"
       />
-      <div className="flex justify-end rounded-b-xl border border-t-0 border-gray-200 p-6">
+      <div className="flex items-center justify-end gap-6 rounded-b-xl border border-t-0 border-gray-200 p-6">
+        {errorMessage && <ErrorMessage text={errorMessage} />}
         <Button
           label={button.label}
           onClick={button.onClick}
@@ -38,6 +47,7 @@ const TextBox = ({ value, onChange, placeholder, button }: TextBoxProps) => {
 
 TextBox.defaultProps = {
   placeholder: '',
+  errorMessage: null,
 }
 
 export default TextBox
