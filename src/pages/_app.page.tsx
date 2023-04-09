@@ -1,5 +1,6 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
+import { Analytics } from '@vercel/analytics/react'
 import { Inter, Noto_Sans_KR } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -16,6 +17,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         }
       `}</style>
       <Component {...pageProps} />
+      <Analytics />
     </>
   )
 }
