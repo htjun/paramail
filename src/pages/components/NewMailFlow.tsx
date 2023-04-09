@@ -73,12 +73,8 @@ const NewMailFlow = () => {
             className="min-h-[400px] w-full grow resize-none p-6 focus:outline-none"
           />
         </div>
-        <div className="flex items-center justify-end gap-6 rounded-b-xl border border-t-0 border-gray-200 p-6">
-          <Button
-            label="메일 생성"
-            onClick={handleNewMailCreation}
-            icon={<WandSVG className="h-4 w-4" />}
-          />
+        <div className="flex items-center justify-center gap-6 rounded-b-xl border border-t-0 border-gray-200 p-6 text-gray-600">
+          새 메일 생성하기는 아직 개발중입니다.
         </div>
       </div>
     </div>
