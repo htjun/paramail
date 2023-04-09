@@ -1,9 +1,7 @@
 import { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import SectionHeader from '@/components/SectionHeader'
-import Button from '@/components/Button'
 import useAutoHeightTextArea from '@/hooks/useAutoHeightTextArea'
-import WandSVG from 'public/wand.svg'
 
 const TextInput = ({ id, label, value, onChange, className }) => {
   return (
@@ -37,10 +35,6 @@ const NewMailFlow = () => {
 
   const handleInputBodyChange = e => {
     setInputBody(e.target.value)
-  }
-
-  const handleNewMailCreation = e => {
-    e.preventDefault()
   }
 
   return (
