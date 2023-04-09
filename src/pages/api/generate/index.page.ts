@@ -7,10 +7,6 @@ const configuration = new Configuration({
 })
 const openai = new OpenAIApi(configuration)
 
-export const config = {
-  runtime: 'edge',
-}
-
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     if (!configuration.apiKey) {
@@ -51,10 +47,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       })
     } catch (error: any) {
       if (error.response) {
-        console.error(error.response.status, error.response.data)
+        console.error(
+          'Error response from OpenAI API:',
+          error.response.status,
+          error.response.data
+        )
         res.status(error.response.status).json(error.response.data)
       } else {
         console.error(`Error with OpenAI API request: ${error.message}`)
+        console.error('Error details:', error)
         res.status(500).json({
           error: {
             message: 'An error occurred during your request.',
