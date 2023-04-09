@@ -7,6 +7,10 @@ const configuration = new Configuration({
 })
 const openai = new OpenAIApi(configuration)
 
+export const config = {
+  runtime: 'edge',
+}
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     if (!configuration.apiKey) {
