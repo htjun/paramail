@@ -5,13 +5,7 @@ import Button from '@/components/Button'
 import useAutoHeightTextArea from '@/hooks/useAutoHeightTextArea'
 import WandSVG from 'public/wand.svg'
 
-interface TextInputProps {
-  id: string
-  label: string
-  className?: string
-}
-
-const TextInput = ({ id, label, className }: TextInputProps) => {
+const TextInput = ({ id, label, value, onChange, className }) => {
   return (
     <div className={twMerge(className, 'flex h-16 items-center p-6')}>
       <label
@@ -23,6 +17,8 @@ const TextInput = ({ id, label, className }: TextInputProps) => {
       <input
         id={id}
         type="text"
+        value={value}
+        onChange={onChange}
         className="h-16 w-full p-2 focus:outline-none"
       />
     </div>
@@ -56,8 +52,18 @@ const NewMailFlow = () => {
       <div className="flex w-full max-w-[800px] flex-col rounded-xl bg-white drop-shadow-xs">
         <div className="rounded-t-xl border border-gray-200 outline-none transition-all duration-75 hover:border-grayBlue-200 focus:border-grayBlue-300">
           <div className="grid grid-cols-2 border-b border-gray-200">
-            <TextInput id="recipientName" label="받는 사람:" />
-            <TextInput id="senderName" label="보내는 사람:" />
+            <TextInput
+              id="recipientName"
+              label="받는 사람:"
+              value={inputRecipientName}
+              onChange={e => setInputRecipientName(e.target.value)}
+            />
+            <TextInput
+              id="senderName"
+              label="보내는 사람:"
+              value={inputSenderName}
+              onChange={e => setInputSenderName(e.target.value)}
+            />
           </div>
           <textarea
             ref={textAreaRef}
