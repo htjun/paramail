@@ -62,7 +62,7 @@ const TextBox = ({
 TextBox.defaultProps = {
   placeholder: '',
   errorMessage: null,
-  maxLength: 10000,
+  maxLength: 3000,
 }
 
 export default TextBox
