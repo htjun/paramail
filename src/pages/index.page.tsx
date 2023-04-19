@@ -11,32 +11,30 @@ const Home = () => {
   return (
     <>
       <Meta />
-      <div className="flex justify-center">
-        <main className="w-full max-w-screen-xl px-12 pb-16 pt-6">
-          <TabsRoot
-            defaultValue="reply"
-            className="flex flex-col justify-center gap-12"
-          >
-            <Header
-              isInProgress={inProgress}
-              tabsTrigger={
-                <TabsTrigger
-                  items={[
-                    { value: 'reply', label: '답변 메일' },
-                    { value: 'new', label: '새 메일' },
-                  ]}
-                />
-              }
+      <TabsRoot
+        defaultValue="reply"
+        className="flex w-full flex-col items-center justify-center gap-6"
+      >
+        <Header
+          isInProgress={inProgress}
+          tabsTrigger={
+            <TabsTrigger
+              items={[
+                { value: 'reply', label: '답변 메일' },
+                { value: 'new', label: '새 메일' },
+              ]}
             />
-            <TabsContent value="reply">
-              <ReplyFlow setInProgress={setInProgress} />
-            </TabsContent>
-            <TabsContent value="new">
-              <NewMailFlow />
-            </TabsContent>
-          </TabsRoot>
+          }
+        />
+        <main className="w-full max-w-screen-xl px-12 pb-16 pt-6">
+          <TabsContent value="reply">
+            <ReplyFlow setInProgress={setInProgress} />
+          </TabsContent>
+          <TabsContent value="new">
+            <NewMailFlow />
+          </TabsContent>
         </main>
-      </div>
+      </TabsRoot>
     </>
   )
 }
