@@ -26,7 +26,7 @@ const ReceivedEmailTranslationSection = ({ emailInput }) => {
           <SectionSubHeader>원본</SectionSubHeader>
           <article>
             {formatTextToParagraphs(emailInput).map((paragraph, index) => (
-              <p key={index} className="my-4">
+              <p key={index} className="my-4 break-words">
                 {paragraph}
               </p>
             ))}
@@ -40,7 +40,7 @@ const ReceivedEmailTranslationSection = ({ emailInput }) => {
               <ErrorMessage text="번역이 올바르게 처리되지 않았습니다." />
             )}
             {formatTextToParagraphs(translatedText).map((paragraph, index) => (
-              <p key={index} className="my-4">
+              <p key={index} className="my-4 break-words">
                 {paragraph}
               </p>
             ))}

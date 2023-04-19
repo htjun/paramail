@@ -3,7 +3,7 @@ import Head from 'next/head'
 const Meta = () => {
   return (
     <Head>
-      <title>Paramail - AI 영어 메일 작성기</title>
+      <title>Paramail - AI 영어 메일 분석/생성</title>
       <meta
         name="description"
         content="GPT 기반의 영어 메일 번역, 분석 및 작성 도구"
