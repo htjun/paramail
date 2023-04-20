@@ -1,5 +1,8 @@
-import Navigation from '@/components/Navigation'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { useSession, signIn } from 'next-auth/react'
 import { twMerge } from 'tailwind-merge'
+import Navigation from '@/components/Navigation'
 import { sectionContainer } from '@/styles/sharedClasses'
 
 const LoginItem = ({ label }) => {
@@ -14,6 +17,15 @@ const LoginItem = ({ label }) => {
 }
 
 const LoginPage = () => {
+  const { status, data: session } = useSession()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (status === 'authenticated' && session) {
+      router.push('/app')
+    }
+  }, [status, session, router])
+
   return (
     <>
       <Navigation />
@@ -26,7 +38,9 @@ const LoginPage = () => {
         >
           <h2>원하시는 로그인 방식을 선택하세요</h2>
           <div>
-            <LoginItem label="구글" />
+            <button type="button" onClick={() => signIn('google')}>
+              구글
+            </button>
           </div>
         </div>
       </main>

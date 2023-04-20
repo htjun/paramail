@@ -1,16 +1,31 @@
 import { ReactNode, MouseEvent } from 'react'
 import Link from 'next/link'
+import { useSession, signOut } from 'next-auth/react'
 import Button from '@/components/Button'
 import ParamailLogo from 'public/paramail.svg'
 
 const Account = () => {
+  const { data: session, status } = useSession()
+
   return (
-    <Link
-      href="/login"
-      className="flex h-9 items-center rounded-lg bg-white px-3.5 text-sm font-medium text-gray-500 transition-all hover:bg-gray-100 hover:text-gray-900"
-    >
-      로그인
-    </Link>
+    <div>
+      {session ? (
+        <button
+          type="button"
+          onClick={() => signOut()}
+          className='className="flex hover:text-gray-900" h-9 items-center rounded-lg bg-white px-3.5 text-sm font-medium text-gray-500 transition-all hover:bg-gray-100'
+        >
+          로그아웃
+        </button>
+      ) : (
+        <Link
+          href="/login"
+          className="flex h-9 items-center rounded-lg bg-white px-3.5 text-sm font-medium text-gray-500 transition-all hover:bg-gray-100 hover:text-gray-900"
+        >
+          로그인
+        </Link>
+      )}
+    </div>
   )
 }
 
