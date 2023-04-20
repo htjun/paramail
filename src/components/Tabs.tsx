@@ -11,7 +11,7 @@ export const TabsTrigger = ({ items }: TabsTriggerProps) => {
   return (
     <TabsPrimitive.List
       aria-label="tabs"
-      className="flex gap-0.5 rounded-lg border border-gray-100 bg-gray-25 p-0.5"
+      className="flex gap-0.5 rounded-lg border border-gray-200 bg-gray-50 p-0.5"
     >
       {items.map(item => (
         <TabsPrimitive.Trigger
