@@ -5,7 +5,7 @@ const Document = () => {
   return (
     <Html lang="en">
       <Head />
-      <body className={twMerge('bg-gray-50', 'text-gray-900', 'antialiased')}>
+      <body className={twMerge('bg-gray-25', 'text-gray-900', 'antialiased')}>
         <Main />
         <NextScript />
       </body>
