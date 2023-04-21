@@ -49,6 +49,12 @@
       }
     ],
     "prettier/prettier": "warn",
-    "react/no-array-index-key": "off"
+    "react/no-array-index-key": "off",
+    "no-restricted-exports": [
+      "error",
+      {
+        "restrictedNamedExports": []
+      }
+    ]
   }
 }

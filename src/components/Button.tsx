@@ -1,4 +1,5 @@
 import React from 'react'
+import { buttonSecondary } from '@/styles/sharedClasses'
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string
@@ -39,7 +40,7 @@ const Button = ({
         <button
           type="button"
           onClick={onClick}
-          className="h-9 rounded-lg border border-gray-300 bg-white px-3.5 text-sm font-medium text-gray-800 drop-shadow-xs transition-all hover:bg-gray-50"
+          className={buttonSecondary}
           disabled={disabled}
           {...props}
         >
