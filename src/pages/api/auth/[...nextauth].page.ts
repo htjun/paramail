@@ -1,8 +1,11 @@
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import FacebookProvider from 'next-auth/providers/facebook'
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
+import prisma from '@/lib/prismadb'
 
 export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || '',
@@ -15,7 +18,7 @@ export const authOptions: NextAuthOptions = {
   ],
   pages: {
     signIn: '/login',
-    // error: '/login/error',
+    error: '/login/error',
     // signOut: '/signout'
   },
   secret: process.env.NEXT_AUTH_SECRET,

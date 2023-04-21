@@ -7,6 +7,8 @@ import ParamailLogo from 'public/paramail.svg'
 const Account = () => {
   const { data: session, status } = useSession()
 
+  if (status === 'loading') return null
+
   return (
     <div>
       {session ? (
