@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 const PrivacyPolicyPage = () => {
   return (
     <main>
@@ -17,6 +18,7 @@ const PrivacyPolicyPage = () => {
         <a
           href="https://www.freeprivacypolicy.com/free-privacy-policy-generator/"
           target="_blank"
+          rel="noreferrer"
         >
           Free Privacy Policy Generator
         </a>
@@ -107,7 +109,7 @@ const PrivacyPolicyPage = () => {
             <strong>Website</strong> refers to Paramail, accessible from{' '}
             <a
               href="https://paramail.app"
-              rel="external nofollow noopener"
+              rel="external nofollow noopener noreferrer"
               target="_blank"
             >
               https://paramail.app
@@ -195,6 +197,7 @@ const PrivacyPolicyPage = () => {
         <a
           href="https://www.freeprivacypolicy.com/blog/sample-privacy-policy-template/#Use_Of_Cookies_And_Tracking"
           target="_blank"
+          rel="noreferrer"
         >
           Free Privacy Policy website
         </a>{' '}
