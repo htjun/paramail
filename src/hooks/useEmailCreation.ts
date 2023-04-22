@@ -42,7 +42,7 @@ const useEmailCreation = ({
     if (answerSummary.trim() !== '') {
       createEmail()
     }
-  }, [receivedEmailValue, answerSummary])
+  }, [receivedEmailValue, answerSummary, session])
 
   return { loading, error, data }
 }
