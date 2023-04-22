@@ -1,3 +1,16 @@
-export { default } from 'next-auth/middleware'
+import { withAuth } from 'next-auth/middleware'
 
-export const config = { matcher: ['/apps/:path*'] }
+export default withAuth(
+  function middleware(req) {
+    console.log(req.nextauth.token)
+  },
+  {
+    callbacks: {
+      authorized: ({ token }) => token?.role === 'user',
+    },
+    pages: {
+      signIn: '/login',
+    },
+  }
+)
+export const config = { matcher: ['/app/:path*'] }

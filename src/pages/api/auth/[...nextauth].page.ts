@@ -5,6 +5,9 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import prisma from '@/lib/prismadb'
 
 export const authOptions: NextAuthOptions = {
+  session: {
+    strategy: 'jwt',
+  },
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
@@ -16,10 +19,13 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     }),
   ],
-  pages: {
-    signIn: '/login',
-    error: '/login/error',
-    // signOut: '/signout'
+  callbacks: {
+    jwt(params) {
+      if (params.token) {
+        params.token.role = 'user'
+      }
+      return params.token
+    },
   },
   secret: process.env.NEXT_AUTH_SECRET,
 }
