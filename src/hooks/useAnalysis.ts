@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useSession } from 'next-auth/react'
 
 const textSeparator = (text: string) => {
   const summary = text.match(/Summary:\s*(.*?)\s*Action points:/)
@@ -38,6 +39,7 @@ const useAnalysis = (inputText: string): AnalysisResult => {
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<Error | null>(null)
   const [data, setData] = useState<any>({})
+  const { data: session } = useSession()
 
   useEffect(() => {
     const analyseText = async () => {
@@ -48,6 +50,7 @@ const useAnalysis = (inputText: string): AnalysisResult => {
         const analysisResponse = await axios.post('/api/generate', {
           reqType: 'analysis',
           userMessage: inputText,
+          session,
         })
         const rawData = analysisResponse.data.result.returnedText
         const { summary, actionPoints, possibleAnswers } =
@@ -71,7 +74,7 @@ const useAnalysis = (inputText: string): AnalysisResult => {
     if (inputText.trim() !== '') {
       analyseText()
     }
-  }, [inputText])
+  }, [inputText, session])
 
   return { loading, error, data }
 }
