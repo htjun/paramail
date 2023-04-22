@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Configuration, OpenAIApi } from 'openai'
+import prisma from '@/lib/prismadb'
 import { analysisPromptMessages, generatePromptMessages } from './promptData'
 
 const configuration = new Configuration({
@@ -16,7 +17,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       return
     }
 
-    const { reqType, userMessage } = req.body
+    const { reqType, userMessage, session } = req.body
 
     let promptMessages = []
 
@@ -31,6 +32,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         break
     }
 
+    const prismaUser = await prisma.user.findUnique({
+      where: {
+        email: session.user.email,
+      },
+    })
+
     try {
       const response = await openai.createChatCompletion({
         model: 'gpt-3.5-turbo',
@@ -39,10 +46,22 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         temperature: 0.1,
       })
 
+      const returnedText = response.data.choices?.[0]?.message?.content
+      const usage = Number(response.data.usage.total_tokens)
+
       res.status(200).json({
         result: {
-          returnedText: response.data.choices?.[0]?.message?.content,
-          usage: response.data.usage,
+          returnedText,
+          usage,
+        },
+      })
+
+      // eslint-disable-next-line no-unused-vars
+      const usageResponse = await prisma.usage.create({
+        data: {
+          userId: prismaUser.id,
+          tokenUsage: usage,
+          usageType: String(reqType),
         },
       })
     } catch (error: any) {

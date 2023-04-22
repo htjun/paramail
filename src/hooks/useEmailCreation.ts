@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useSession } from 'next-auth/react'
 
 interface EmailCreationResult {
   loading: boolean
@@ -14,6 +15,7 @@ const useEmailCreation = ({
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<Error | null>(null)
   const [data, setData] = useState<string>('')
+  const { data: session } = useSession()
 
   useEffect(() => {
     const createEmail = async () => {
@@ -26,6 +28,7 @@ const useEmailCreation = ({
           userMessage: `Received email: ${receivedEmailValue}
           
           Answer summary: ${answerSummary}`,
+          session,
         })
 
         setData(emailCreationResponse.data.result.returnedText)
@@ -39,7 +42,7 @@ const useEmailCreation = ({
     if (answerSummary.trim() !== '') {
       createEmail()
     }
-  }, [receivedEmailValue, answerSummary])
+  }, [receivedEmailValue, answerSummary, session])
 
   return { loading, error, data }
 }
