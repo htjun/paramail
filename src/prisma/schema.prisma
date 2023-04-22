@@ -62,7 +62,7 @@ model Usage {
   id         Int       @id @default(autoincrement())
   createdAt  DateTime  @default(now())
   userId     String
-  tokenUsage Int?      @default(0)
+  tokenUsage Int       @default(0)
   type       UsageType
   User       User      @relation(fields: [userId], references: [id])
 }
