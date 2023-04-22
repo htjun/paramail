@@ -53,16 +53,11 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-enum UsageType {
-  analysis
-  generate
-}
-
 model Usage {
-  id         Int       @id @default(autoincrement())
-  createdAt  DateTime  @default(now())
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
   userId     String
-  tokenUsage Int       @default(0)
-  usageType  UsageType
-  User       User      @relation(fields: [userId], references: [id])
+  tokenUsage Int      @default(0)
+  usageType  String
+  User       User     @relation(fields: [userId], references: [id])
 }
