@@ -31,7 +31,7 @@ const LandingPage = () => {
             <button
               type="submit"
               id="stb_form_submit_button"
-              className={`${buttonClasses('primary', 'lg')} min-[400px]:w-auto`}
+              className={`${buttonClasses('cta', 'lg')} min-[400px]:w-auto`}
             >
               무료로 시작하기
             </button>

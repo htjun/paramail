@@ -1,5 +1,5 @@
 import { ReactNode, useState } from 'react'
-import Button from '@/components/Button'
+import FancyButton from '@/components/FancyButton'
 import ErrorMessage from '@/components/ErrorMessage'
 import useAutoHeightTextArea from '@/hooks/useAutoHeightTextArea'
 
@@ -33,7 +33,7 @@ const TextBox = ({
   }
 
   return (
-    <div className="shadow-xs flex min-h-[400px] w-full max-w-[800px] flex-col  rounded-xl bg-white">
+    <div className="drop-shadow-xs flex min-h-[400px] w-full max-w-[800px] flex-col  rounded-xl bg-white">
       <textarea
         ref={textAreaRef}
         value={value}
@@ -49,7 +49,7 @@ const TextBox = ({
             {textCount} / {maxLength}
           </div>
         )}
-        <Button
+        <FancyButton
           label={button.label}
           onClick={button.onClick}
           icon={button.icon}

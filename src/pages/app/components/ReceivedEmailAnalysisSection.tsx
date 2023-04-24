@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { CheckIcon } from '@heroicons/react/20/solid'
 import SectionHeader from '@/components/SectionHeader'
 import SectionSubHeader from '@/components/SectionSubHeader'
-import Button from '@/components/Button'
+import FancyButton from '@/components/FancyButton'
 import LoadingDots from '@/components/LoadingDots'
 import ErrorMessage from '@/components/ErrorMessage'
 import useAnalysis from '@/hooks/useAnalysis'
@@ -79,7 +79,7 @@ const ReceivedEmailAnalysisSection = ({
           </div>
         </div>
         <div className="flex justify-end border-t border-gray-200 p-6">
-          <Button
+          <FancyButton
             label="메일 생성하기"
             onClick={handleMailCreation}
             icon={<WandSVG className="h-4 w-4" />}
