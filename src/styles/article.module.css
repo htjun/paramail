@@ -1,0 +1,31 @@
+.article {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.article h1 {
+  font-size: 2rem;
+}
+
+.article h2 {
+  font-size: 1.5rem;
+}
+
+.article p {
+  font-size: 0.9rem;
+}
+
+.article a {
+  text-decoration: underline;
+}
+
+.article ul {
+  padding-left: 1rem;
+}
+
+.article ul li {
+  list-style: disc;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
