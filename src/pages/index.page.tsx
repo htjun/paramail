@@ -12,15 +12,19 @@ const LandingPage = () => {
     >
       <header className="flex h-16 shrink-0 items-center justify-between border-b px-4 md:h-20 md:px-8">
         <ParamailLogo className="w-16 text-indigo-600 md:w-20" />
-        <div className="flex items-center gap-4">
-          <Link href="/login" className={buttonClasses('ghost', 'md')}>
+        <div className="flex items-center gap-2 md:gap-4">
+          <Link
+            href="/login"
+            className={twMerge(buttonClasses('ghost', 'md'), 'px-2 md:px-4')}
+          >
             로그인
           </Link>
           <Link
             href="/signup"
-            className="flex h-12 items-center justify-center rounded-full border border-indigo-300 px-4 font-medium text-indigo-500 transition-colors hover:border-indigo-500 hover:bg-indigo-500 hover:text-white"
+            className="flex h-10 items-center justify-center rounded-full border border-indigo-300 px-3 font-medium text-indigo-500 transition-colors hover:border-indigo-500 hover:bg-indigo-500 hover:text-white md:h-12 md:px-4"
           >
-            무료로 시작하기
+            <span className="hidden md:inline-block">무료로&nbsp;</span>
+            <span>시작하기</span>
           </Link>
         </div>
       </header>
