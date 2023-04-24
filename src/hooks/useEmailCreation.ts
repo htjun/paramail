@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
 
@@ -17,32 +17,32 @@ const useEmailCreation = ({
   const [data, setData] = useState<string>('')
   const { data: session } = useSession()
 
-  useEffect(() => {
-    const createEmail = async () => {
-      setLoading(true)
-      setError(null)
+  const createEmail = useCallback(async () => {
+    if (answerSummary.trim() === '') return
 
-      try {
-        const emailCreationResponse = await axios.post('/api/generate', {
-          reqType: 'generate',
-          userMessage: `Received email: ${receivedEmailValue}
-          
-          Answer summary: ${answerSummary}`,
-          session,
-        })
+    setLoading(true)
+    setError(null)
 
-        setData(emailCreationResponse.data.result.returnedText)
-      } catch (err) {
-        setError(err as Error)
-      } finally {
-        setLoading(false)
-      }
-    }
+    try {
+      const emailCreationResponse = await axios.post('/api/generate', {
+        reqType: 'generate',
+        userMessage: `Received email: ${receivedEmailValue}
+        
+        Answer summary: ${answerSummary}`,
+        session,
+      })
 
-    if (answerSummary.trim() !== '') {
-      createEmail()
+      setData(emailCreationResponse.data.result.returnedText)
+    } catch (err) {
+      setError(err as Error)
+    } finally {
+      setLoading(false)
     }
   }, [receivedEmailValue, answerSummary, session])
+
+  useEffect(() => {
+    createEmail()
+  }, [answerSummary, createEmail])
 
   return { loading, error, data }
 }
