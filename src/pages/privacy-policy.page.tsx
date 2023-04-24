@@ -1,7 +1,12 @@
+import { LandingPageNavigation } from '@/components/Navigation'
+import { twMerge } from 'tailwind-merge'
+import { sectionContainer } from '@/styles/sharedClasses'
+import styles from '@/styles/article.module.css'
+
 /* eslint-disable react/no-unescaped-entities */
-const PrivacyPolicyPage = () => {
+const PrivacyPolicyContent = () => {
   return (
-    <main>
+    <main className={styles.article}>
       <h1>Privacy Policy</h1>
       <p>Last updated: April 21, 2023</p>
       <p>
@@ -505,6 +510,24 @@ const PrivacyPolicyPage = () => {
       <ul>
         <li>By email: admin@paramail.app</li>
       </ul>
+    </main>
+  )
+}
+
+const PrivacyPolicyPage = () => {
+  return (
+    <main>
+      <LandingPageNavigation />
+      <div className="flex w-full flex-col items-center justify-center px-4 py-12">
+        <div
+          className={twMerge(
+            sectionContainer,
+            'flex w-full max-w-[900px] flex-col gap-6 px-6 py-8'
+          )}
+        >
+          <PrivacyPolicyContent />
+        </div>
+      </div>
     </main>
   )
 }
