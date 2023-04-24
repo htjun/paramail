@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Navigation from '@/components/Navigation'
 import { TabsRoot, TabsTrigger, TabsContent } from '@/components/Tabs'
-import Meta from './components/Meta'
+import Meta from '@/components/Meta'
 import ReplyFlow from './components/ReplyFlow'
 import NewMailFlow from './components/NewMailFlow'
 
@@ -10,7 +10,7 @@ const Home = () => {
 
   return (
     <>
-      <Meta />
+      <Meta title="이메일 생성하기" />
       <TabsRoot
         defaultValue="reply"
         className="flex w-full flex-col items-center justify-center gap-6"

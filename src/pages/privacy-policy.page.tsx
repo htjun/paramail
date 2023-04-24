@@ -1,3 +1,4 @@
+import Meta from '@/components/Meta'
 import { LandingPageNavigation } from '@/components/Navigation'
 import { twMerge } from 'tailwind-merge'
 import { sectionContainer } from '@/styles/sharedClasses'
@@ -516,19 +517,22 @@ const PrivacyPolicyContent = () => {
 
 const PrivacyPolicyPage = () => {
   return (
-    <main>
-      <LandingPageNavigation />
-      <div className="flex w-full flex-col items-center justify-center px-4 py-12">
-        <div
-          className={twMerge(
-            sectionContainer,
-            'flex w-full max-w-[900px] flex-col gap-6 px-6 py-8'
-          )}
-        >
-          <PrivacyPolicyContent />
+    <>
+      <Meta title="Privacy Policy" />
+      <main>
+        <LandingPageNavigation />
+        <div className="flex w-full flex-col items-center justify-center px-4 py-12">
+          <div
+            className={twMerge(
+              sectionContainer,
+              'flex w-full max-w-[900px] flex-col gap-6 px-6 py-8'
+            )}
+          >
+            <PrivacyPolicyContent />
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   )
 }
 
