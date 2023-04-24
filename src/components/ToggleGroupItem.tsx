@@ -13,7 +13,7 @@ const ToggleGroupItem = ({
   value,
   children,
   tabIndex,
-  onClick,
+  onClick = () => {},
 }: ToggleGroupItemProps) => {
   return (
     <ToggleGroup.Item
@@ -28,10 +28,6 @@ const ToggleGroupItem = ({
       </div>
     </ToggleGroup.Item>
   )
-}
-
-ToggleGroupItem.defaultProps = {
-  onClick: () => {},
 }
 
 export default ToggleGroupItem

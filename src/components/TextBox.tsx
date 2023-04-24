@@ -19,9 +19,9 @@ interface TextBoxProps {
 const TextBox = ({
   value,
   onChange,
-  placeholder,
-  errorMessage,
-  maxLength,
+  placeholder = '',
+  errorMessage = null,
+  maxLength = 3000,
   button,
 }: TextBoxProps) => {
   const [textCount, setTextCount] = useState(0)
@@ -57,12 +57,6 @@ const TextBox = ({
       </div>
     </div>
   )
-}
-
-TextBox.defaultProps = {
-  placeholder: '',
-  errorMessage: null,
-  maxLength: 3000,
 }
 
 export default TextBox

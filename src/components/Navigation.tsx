@@ -30,7 +30,10 @@ interface NavigationProps {
   tabsTrigger?: ReactNode
 }
 
-const Navigation = ({ isInProgress = false, tabsTrigger }: NavigationProps) => {
+const Navigation = ({
+  isInProgress = false,
+  tabsTrigger = null,
+}: NavigationProps) => {
   const handleClickRestart = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     window.location.reload()
@@ -59,13 +62,8 @@ const Navigation = ({ isInProgress = false, tabsTrigger }: NavigationProps) => {
   )
 }
 
-Navigation.defaultProps = {
-  isInProgress: false,
-  tabsTrigger: null,
-}
-
 export const LandingPageNavigation = ({
-  page,
+  page = '',
 }: {
   page?: 'signup' | 'login' | ''
 }) => {
@@ -95,10 +93,6 @@ export const LandingPageNavigation = ({
       </div>
     </header>
   )
-}
-
-LandingPageNavigation.defaultProps = {
-  page: '',
 }
 
 export default Navigation

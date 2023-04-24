@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge'
 import SectionHeader from '@/components/SectionHeader'
 import useAutoHeightTextArea from '@/hooks/useAutoHeightTextArea'
 
-const TextInput = ({ id, label, value, onChange, className }) => {
+const TextInput = ({ id, label, value, onChange, className = '' }) => {
   return (
     <div className={twMerge(className, 'flex h-16 items-center p-6')}>
       <label
@@ -23,10 +23,6 @@ const TextInput = ({ id, label, value, onChange, className }) => {
   )
 }
 
-TextInput.defaultProps = {
-  className: '',
-}
-
 const NewMailFlow = () => {
   const [inputRecipientName, setInputRecipientName] = useState<string>('')
   const [inputSenderName, setInputSenderName] = useState<string>('')
@@ -43,7 +39,7 @@ const NewMailFlow = () => {
         title="새 메일 내용 입력"
         description="작성할 메일의 내용을 한글로 간략히 입력해 주세요."
       />
-      <div className="shadow-xs flex w-full max-w-[800px] flex-col rounded-xl bg-white">
+      <div className="flex w-full max-w-[800px] flex-col rounded-xl bg-white shadow-xs">
         <div className="rounded-t-xl border border-gray-200 outline-none transition-all duration-75 hover:border-grayBlue-200 focus:border-grayBlue-300">
           <div className="grid grid-cols-2 border-b border-gray-200">
             <TextInput

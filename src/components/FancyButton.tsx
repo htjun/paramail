@@ -11,8 +11,8 @@ interface FancyButtonButtonProps
 const FancyButton = ({
   label,
   onClick,
-  icon,
-  disabled,
+  icon = null,
+  disabled = false,
   ...props
 }: FancyButtonButtonProps) => {
   return (
@@ -32,11 +32,6 @@ const FancyButton = ({
       </div>
     </button>
   )
-}
-
-FancyButton.defaultProps = {
-  icon: null,
-  disabled: false,
 }
 
 export default FancyButton
