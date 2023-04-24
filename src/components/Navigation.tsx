@@ -1,6 +1,7 @@
 import { ReactNode, MouseEvent } from 'react'
 import Link from 'next/link'
 import { useSession, signOut } from 'next-auth/react'
+import { twMerge } from 'tailwind-merge'
 import ParamailLogo from 'public/paramail.svg'
 import { buttonClasses } from '@/styles/sharedClasses'
 
@@ -77,7 +78,7 @@ export const LandingPageNavigation = ({
         {page !== 'login' && (
           <Link
             href="/login"
-            // className={twMerge(buttonClasses('ghost', 'md'), 'px-2 md:px-4')}
+            className={twMerge(buttonClasses('ghost', 'md'), 'px-2 md:px-4')}
           >
             로그인
           </Link>
