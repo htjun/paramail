@@ -1,8 +1,6 @@
 import { useSession, signIn } from 'next-auth/react'
 import { twMerge } from 'tailwind-merge'
-import Navigation from '@/components/Navigation'
 import { UserCircleIcon } from '@heroicons/react/24/outline'
-import { sectionContainer, buttonSecondary } from '@/styles/sharedClasses'
 import { LandingPageNavigation } from '@/components/Navigation'
 import { sectionContainer, buttonClasses } from '@/styles/sharedClasses'
 
@@ -15,7 +13,7 @@ const LoginItem = ({ method, label }) => {
     <button
       type="button"
       onClick={handleClick}
-      className={twMerge(buttonSecondary, 'w-full text-base')}
+      className={twMerge(buttonClasses('secondary', 'md'), 'w-full')}
     >
       {label}
     </button>
@@ -26,10 +24,7 @@ const LoginPage = () => {
   const { data: session } = useSession()
 
   return (
-    <>
-      <Navigation />
-      <main className="flex w-full flex-col items-center justify-center px-4 py-12">
-    <main>
+    <div>
       <LandingPageNavigation page="login" />
       <div className="flex w-full flex-col items-center justify-center px-4 py-12">
         <div
@@ -54,7 +49,7 @@ const LoginPage = () => {
           )}
         </div>
       </div>
-    </main>
+    </div>
   )
 }
 

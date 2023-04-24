@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
 
@@ -41,40 +41,39 @@ const useAnalysis = (inputText: string): AnalysisResult => {
   const [data, setData] = useState<any>({})
   const { data: session } = useSession()
 
-  useEffect(() => {
-    const analyseText = async () => {
-      setLoading(true)
-      setError(null)
+  const analyseText = useCallback(async () => {
+    if (inputText.trim() === '') return
 
-      try {
-        const analysisResponse = await axios.post('/api/generate', {
-          reqType: 'analysis',
-          userMessage: inputText,
-          session,
-        })
-        const rawData = analysisResponse.data.result.returnedText
-        const { summary, actionPoints, possibleAnswers } =
-          textSeparator(rawData)
+    setLoading(true)
+    setError(null)
 
-        const actionPointList = processList(actionPoints)
-        const possibleAnswerList = processList(possibleAnswers)
+    try {
+      const analysisResponse = await axios.post('/api/generate', {
+        reqType: 'analysis',
+        userMessage: inputText,
+        session,
+      })
+      const rawData = analysisResponse.data.result.returnedText
+      const { summary, actionPoints, possibleAnswers } = textSeparator(rawData)
 
-        setData({ summary, actionPointList, possibleAnswerList })
+      const actionPointList = processList(actionPoints)
+      const possibleAnswerList = processList(possibleAnswers)
 
-        if (process.env.NODE_ENV === 'development') {
-          console.log('Analysis response: ', analysisResponse.data.result)
-        }
-      } catch (err) {
-        setError(err as Error)
-      } finally {
-        setLoading(false)
+      setData({ summary, actionPointList, possibleAnswerList })
+
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Analysis response: ', analysisResponse.data.result)
       }
-    }
-
-    if (inputText.trim() !== '') {
-      analyseText()
+    } catch (err) {
+      setError(err as Error)
+    } finally {
+      setLoading(false)
     }
   }, [inputText, session])
+
+  useEffect(() => {
+    analyseText()
+  }, [inputText, analyseText])
 
   return { loading, error, data }
 }

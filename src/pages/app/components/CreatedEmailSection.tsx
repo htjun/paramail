@@ -1,6 +1,6 @@
 import SectionHeader from '@/components/SectionHeader'
 import SectionSubHeader from '@/components/SectionSubHeader'
-import Button from '@/components/Button'
+import FancyButton from '@/components/FancyButton'
 import LoadingDots from '@/components/LoadingDots'
 import ErrorMessage from '@/components/ErrorMessage'
 import formatTextToParagraphs from '@/utils/formatTextToParagraphs'
@@ -33,7 +33,7 @@ const CreatedEmailSection = ({ receivedEmailValue, answerSummary }) => {
         title="메일 생성 & 수정"
         description="AI가 생성한 메일을 확인 및 수정한 후, 복사하여 원하는 곳에 붙여넣기 하세요."
       />
-      <section className="rounded-xl border border-gray-200 bg-white drop-shadow-xs">
+      <section className="rounded-xl border border-gray-200 bg-white shadow-xs">
         <div className="grid min-h-[400px] grid-cols-2 gap-12 p-6 pb-12">
           <div className="flex flex-col gap-6">
             <SectionSubHeader>원본</SectionSubHeader>
@@ -76,7 +76,7 @@ const CreatedEmailSection = ({ receivedEmailValue, answerSummary }) => {
           {success && (
             <p className="mr-4 text-sm text-gray-500">복사되었습니다.</p>
           )}
-          <Button
+          <FancyButton
             label="원본 복사하기"
             onClick={handleCopyToClipboard}
             icon={<DocumentDuplicateIcon className="h-4 w-4" />}

@@ -55,6 +55,7 @@
       {
         "restrictedNamedExports": []
       }
-    ]
+    ],
+    "no-nested-ternary": "off"
   }
 }

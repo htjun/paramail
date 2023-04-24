@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 
 interface TranslateResult {
@@ -12,28 +12,28 @@ const useTranslate = (inputText: string): TranslateResult => {
   const [error, setError] = useState<Error | null>(null)
   const [translatedText, setTranslatedText] = useState<string>('')
 
-  useEffect(() => {
-    const translateText = async () => {
-      setLoading(true)
-      setError(null)
+  const translateText = useCallback(async () => {
+    if (inputText.trim() === '') return
 
-      try {
-        const translationResponse = await axios.post('/api/translate', {
-          text: inputText,
-        })
+    setLoading(true)
+    setError(null)
 
-        setTranslatedText(translationResponse.data.translations)
-      } catch (err) {
-        setError(err as Error)
-      } finally {
-        setLoading(false)
-      }
-    }
+    try {
+      const translationResponse = await axios.post('/api/translate', {
+        text: inputText,
+      })
 
-    if (inputText.trim() !== '') {
-      translateText()
+      setTranslatedText(translationResponse.data.translations)
+    } catch (err) {
+      setError(err as Error)
+    } finally {
+      setLoading(false)
     }
   }, [inputText])
+
+  useEffect(() => {
+    translateText()
+  }, [inputText, translateText])
 
   return { loading, error, translatedText }
 }

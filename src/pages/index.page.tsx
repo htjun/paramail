@@ -18,7 +18,7 @@ const LandingPage = () => {
               <h2 className="text-base font-medium tracking-tighter text-indigo-500 md:text-xl">
                 외국어 이메일 분석/작성 앱 파라메일
               </h2>
-              <h1 className="tracking-tightest max-w-[520px] text-center text-4xl font-medium leading-tight md:text-5xl md:leading-tight">
+              <h1 className="max-w-[520px] text-center text-4xl font-medium leading-tight tracking-tightest md:text-5xl md:leading-tight">
                 이제 누구나 외국어 이메일을 읽고 쓸 수 있습니다
               </h1>
             </div>
