@@ -2,6 +2,8 @@ import { ReactNode, MouseEvent } from 'react'
 import Link from 'next/link'
 import { useSession, signOut } from 'next-auth/react'
 import Button from '@/components/Button'
+// import { buttonClasses } from '@/styles/sharedClasses'
+import { twMerge } from 'tailwind-merge'
 import ParamailLogo from 'public/paramail.svg'
 
 const Account = () => {
@@ -66,6 +68,43 @@ const Navigation = ({ isInProgress = false, tabsTrigger }: NavigationProps) => {
 Navigation.defaultProps = {
   isInProgress: false,
   tabsTrigger: null,
+}
+
+export const LandingPageNavigation = ({
+  page,
+}: {
+  page?: 'signup' | 'login' | ''
+}) => {
+  return (
+    <header className="flex h-16 shrink-0 items-center justify-between border-b px-4 md:h-20 md:px-8">
+      <Link href="/" className="group py-2">
+        <ParamailLogo className="w-16 text-indigo-600 group-hover:text-indigo-500 md:w-20" />
+      </Link>
+      <div className="flex items-center gap-2 md:gap-4">
+        {page !== 'login' && (
+          <Link
+            href="/login"
+            // className={twMerge(buttonClasses('ghost', 'md'), 'px-2 md:px-4')}
+          >
+            로그인
+          </Link>
+        )}
+        {page !== 'signup' && (
+          <Link
+            href="/signup"
+            className="flex h-10 items-center justify-center rounded-full border border-indigo-300 px-3 font-medium text-indigo-500 transition-colors hover:border-indigo-500 hover:bg-indigo-500 hover:text-white md:h-12 md:px-4"
+          >
+            <span className="hidden md:inline-block">무료로&nbsp;</span>
+            <span>시작하기</span>
+          </Link>
+        )}
+      </div>
+    </header>
+  )
+}
+
+LandingPageNavigation.defaultProps = {
+  page: '',
 }
 
 export default Navigation

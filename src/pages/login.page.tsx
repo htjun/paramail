@@ -3,6 +3,8 @@ import { twMerge } from 'tailwind-merge'
 import Navigation from '@/components/Navigation'
 import { UserCircleIcon } from '@heroicons/react/24/outline'
 import { sectionContainer, buttonSecondary } from '@/styles/sharedClasses'
+import { LandingPageNavigation } from '@/components/Navigation'
+import { sectionContainer, buttonClasses } from '@/styles/sharedClasses'
 
 const LoginItem = ({ method, label }) => {
   const handleClick = e => {
@@ -27,6 +29,9 @@ const LoginPage = () => {
     <>
       <Navigation />
       <main className="flex w-full flex-col items-center justify-center px-4 py-12">
+    <main>
+      <LandingPageNavigation page="login" />
+      <div className="flex w-full flex-col items-center justify-center px-4 py-12">
         <div
           className={twMerge(
             sectionContainer,
@@ -48,8 +53,8 @@ const LoginPage = () => {
             <>로그인 되었습니다.</>
           )}
         </div>
-      </main>
-    </>
+      </div>
+    </main>
   )
 }
 
