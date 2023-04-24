@@ -1,8 +1,9 @@
 import { useSession, signIn } from 'next-auth/react'
+import Link from 'next/link'
 import { twMerge } from 'tailwind-merge'
-import Navigation from '@/components/Navigation'
 import { UserCircleIcon } from '@heroicons/react/24/outline'
-import { sectionContainer, buttonSecondary } from '@/styles/sharedClasses'
+import { sectionContainer, buttonClasses } from '@/styles/sharedClasses'
+import ParamailLogo from 'public/paramail.svg'
 
 const LoginItem = ({ method, label }) => {
   const handleClick = e => {
@@ -13,7 +14,7 @@ const LoginItem = ({ method, label }) => {
     <button
       type="button"
       onClick={handleClick}
-      className={twMerge(buttonSecondary, 'w-full text-base')}
+      className={twMerge(buttonClasses('secondary', 'md'), 'w-full')}
     >
       {label}
     </button>
@@ -25,7 +26,11 @@ const LoginPage = () => {
 
   return (
     <>
-      <Navigation />
+      <header className="flex h-16 shrink-0 items-center justify-between border-b px-4 md:h-20 md:px-8">
+        <Link href="/" className="group py-2">
+          <ParamailLogo className="w-16 text-indigo-600 group-hover:text-indigo-500 md:w-20" />
+        </Link>
+      </header>
       <main className="flex w-full flex-col items-center justify-center px-4 py-12">
         <div
           className={twMerge(

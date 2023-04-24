@@ -1,8 +1,8 @@
 import { ReactNode, MouseEvent } from 'react'
 import Link from 'next/link'
 import { useSession, signOut } from 'next-auth/react'
-import Button from '@/components/Button'
 import ParamailLogo from 'public/paramail.svg'
+import { buttonClasses } from '@/styles/sharedClasses'
 
 const Account = () => {
   const { data: session, status } = useSession()
@@ -11,21 +11,14 @@ const Account = () => {
 
   return (
     <div>
-      {session ? (
+      {session && (
         <button
           type="button"
           onClick={() => signOut()}
-          className='className="flex hover:text-gray-900" h-9 items-center rounded-lg bg-white px-3.5 text-sm font-medium text-gray-500 transition-all hover:bg-gray-100'
+          className={buttonClasses('ghost', 'sm')}
         >
           로그아웃
         </button>
-      ) : (
-        <Link
-          href="/login"
-          className="flex h-9 items-center rounded-lg bg-white px-3.5 text-sm font-medium text-gray-500 transition-all hover:bg-gray-100 hover:text-gray-900"
-        >
-          로그인
-        </Link>
       )}
     </div>
   )
@@ -43,17 +36,19 @@ const Navigation = ({ isInProgress = false, tabsTrigger }: NavigationProps) => {
   }
 
   return (
-    <header className="flex h-9 w-full items-center justify-between border-b bg-white px-6 py-8">
-      <div className="flex items-center gap-9">
-        <Link href="/app">
-          <ParamailLogo />
+    <header className="flex h-16 w-full items-center justify-between border-b bg-white px-4 md:px-8">
+      <div className="flex items-center gap-8">
+        <Link href="/app" className="group py-2">
+          <ParamailLogo className="w-16 text-indigo-600 transition-colors group-hover:text-indigo-500 md:w-18" />
         </Link>
         {isInProgress ? (
-          <Button
-            label="새로 시작"
-            variation="secondary"
+          <button
+            type="button"
             onClick={handleClickRestart}
-          />
+            className={buttonClasses('secondary', 'sm')}
+          >
+            새로 시작
+          </button>
         ) : (
           tabsTrigger
         )}

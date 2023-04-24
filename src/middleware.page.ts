@@ -1,16 +1,11 @@
 import { withAuth } from 'next-auth/middleware'
 
-export default withAuth(
-  function middleware(req) {
-    console.log(req.nextauth.token)
+export default withAuth({
+  callbacks: {
+    authorized: ({ token }) => token?.role === 'user',
   },
-  {
-    callbacks: {
-      authorized: ({ token }) => token?.role === 'user',
-    },
-    pages: {
-      signIn: '/login',
-    },
-  }
-)
+  pages: {
+    signIn: '/login',
+  },
+})
 export const config = { matcher: ['/app/:path*'] }

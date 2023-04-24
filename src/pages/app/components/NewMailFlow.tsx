@@ -43,7 +43,7 @@ const NewMailFlow = () => {
         title="새 메일 내용 입력"
         description="작성할 메일의 내용을 한글로 간략히 입력해 주세요."
       />
-      <div className="flex w-full max-w-[800px] flex-col rounded-xl bg-white drop-shadow-xs">
+      <div className="shadow-xs flex w-full max-w-[800px] flex-col rounded-xl bg-white">
         <div className="rounded-t-xl border border-gray-200 outline-none transition-all duration-75 hover:border-grayBlue-200 focus:border-grayBlue-300">
           <div className="grid grid-cols-2 border-b border-gray-200">
             <TextInput

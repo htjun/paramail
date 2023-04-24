@@ -58,6 +58,6 @@ model Usage {
   createdAt  DateTime @default(now())
   userId     String
   tokenUsage Int      @default(0)
-  usageType  String
+  type       String
   User       User     @relation(fields: [userId], references: [id])
 }
