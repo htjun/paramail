@@ -50,6 +50,9 @@ module.exports = {
           850: '#0A40A9',
           960: '#0A207A',
         },
+        indigo: {
+          25: '#F5F9FF',
+        },
       },
       width: {
         18: '4.5rem',
@@ -67,6 +70,7 @@ module.exports = {
       backgroundImage: {
         suit: 'linear-gradient(90deg, #0968E5 0%, #091970 100%)',
         subtle: 'linear-gradient(rgba(255,255,255,.15),rgba(255,255,255,0))',
+        indigoGradient: 'linear-gradient(110deg, #6C65EF 0%, #271FA4 100%)',
       },
       boxShadow: {
         xs: '0px 1px 2px rgba(16, 24, 40, 0.05)',
