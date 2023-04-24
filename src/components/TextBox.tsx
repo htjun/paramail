@@ -33,7 +33,7 @@ const TextBox = ({
   }
 
   return (
-    <div className="flex min-h-[400px] w-full max-w-[800px] flex-col rounded-xl  bg-white drop-shadow-xs">
+    <div className="shadow-xs flex min-h-[400px] w-full max-w-[800px] flex-col  rounded-xl bg-white">
       <textarea
         ref={textAreaRef}
         value={value}

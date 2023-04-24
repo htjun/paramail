@@ -10,6 +10,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sansEng: ['Inter', 'sans-serif'],
+        sansKr: ['Noto Sans ', 'serif'],
+      },
       colors: {
         transparent: 'transparent',
         current: 'currentColor',
@@ -47,15 +51,24 @@ module.exports = {
           960: '#0A207A',
         },
       },
+      width: {
+        18: '4.5rem',
+      },
       letterSpacing: {
+        tightest: '-0.06em',
         tighter: '-0.04em',
         tight: '-0.02em',
         normal: '0',
       },
+      lineHeight: {
+        none: '1',
+        tight: '1.2',
+      },
       backgroundImage: {
         suit: 'linear-gradient(90deg, #0968E5 0%, #091970 100%)',
+        subtle: 'linear-gradient(rgba(255,255,255,.15),rgba(255,255,255,0))',
       },
-      dropShadow: {
+      boxShadow: {
         xs: '0px 1px 2px rgba(16, 24, 40, 0.05)',
         sm: [
           '0px 1px 3px rgba(16, 24, 40, 0.1)',
@@ -75,6 +88,13 @@ module.exports = {
         ],
         '2xl': '0px 24px 48px -12px rgba(16, 24, 40, 0.18)',
         '3xl': '0px 32px 64px -12px rgba(16, 24, 40, 0.14)',
+        btn: [
+          '0px 24px 22px rgba(23, 6, 100, 0.04)',
+          '0px 9px 8px rgba(23, 6, 100, 0.05)',
+          '0px 5px 4px rgba(23, 6, 100, 0.07)',
+          '0px 3px 2px rgba(23, 6, 100, 0.08)',
+          '0px 1.2px 0.8px rgba(23, 6, 100, 0.12)',
+        ],
       },
     },
   },
