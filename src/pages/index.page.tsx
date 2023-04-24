@@ -12,9 +12,17 @@ const LandingPage = () => {
     >
       <header className="flex h-16 shrink-0 items-center justify-between border-b px-4 md:h-20 md:px-8">
         <ParamailLogo className="w-16 text-indigo-600 md:w-20" />
-        <Link href="/login" className={buttonClasses('ghost', 'md')}>
-          로그인
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link href="/login" className={buttonClasses('ghost', 'md')}>
+            로그인
+          </Link>
+          <Link
+            href="/signup"
+            className="flex h-12 items-center justify-center rounded-full border border-indigo-300 px-4 font-medium text-indigo-500 transition-colors hover:border-indigo-500 hover:bg-indigo-500 hover:text-white"
+          >
+            무료로 시작하기
+          </Link>
+        </div>
       </header>
       <div className="flex grow flex-col justify-between">
         <div className="flex grow flex-col items-center justify-center px-6 pb-8 pt-20 md:px-8">
@@ -28,13 +36,12 @@ const LandingPage = () => {
               </h1>
             </div>
 
-            <button
-              type="submit"
-              id="stb_form_submit_button"
+            <Link
+              href="/signup"
               className={`${buttonClasses('cta', 'lg')} min-[400px]:w-auto`}
             >
               무료로 시작하기
-            </button>
+            </Link>
           </div>
         </div>
         <div className="flex w-full overflow-x-hidden md:justify-center">
