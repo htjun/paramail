@@ -61,7 +61,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         data: {
           userId: prismaUser.id,
           tokenUsage: usage,
-          type: String(reqType),
+          type: reqType,
         },
       })
     } catch (error: any) {

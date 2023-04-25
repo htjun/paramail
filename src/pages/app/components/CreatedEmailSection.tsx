@@ -31,7 +31,7 @@ const CreatedEmailSection = ({ receivedEmailValue, answerSummary }) => {
     <div className="flex flex-col gap-8">
       <SectionHeader
         title="메일 생성 & 수정"
-        description="AI가 생성한 메일을 확인 및 수정한 후, 복사하여 원하는 곳에 붙여넣기 하세요."
+        description="AI가 생성한 메일을 확인하고 복사하여 원하는 곳에 붙여넣기 하세요."
       />
       <section className="rounded-xl border border-gray-200 bg-white shadow-xs">
         <div className="grid min-h-[400px] grid-cols-2 gap-12 p-6 pb-12">
