@@ -93,7 +93,7 @@ const NewEmailInputSection = ({
             value={newEmailValue.content}
             onChange={handleInputContentChange}
             placeholder="보낼 메일의 내용을 입력해 주세요."
-            className="min-h-[400px] w-full grow resize-none p-6 focus:outline-none"
+            className="min-h-[300px] w-full grow resize-none p-6 focus:outline-none"
             required
           />
         </div>
