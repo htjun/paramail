@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import NewEmailInputSection from './NewEmailInputSection'
+import CreatedEmailSection from './CreatedEmailSection'
 
 const NewMailFlow = ({ setInProgress }) => {
   const [progressStep, setProgressStep] = useState(0)
@@ -26,7 +27,9 @@ const NewMailFlow = ({ setInProgress }) => {
           />
         </div>
       )}
-      {progressStep > 0 && <>step 2</>}
+      {progressStep > 0 && (
+        <CreatedEmailSection newEmailValue={newEmailValue} />
+      )}
     </div>
   )
 }

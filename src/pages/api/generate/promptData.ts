@@ -72,7 +72,7 @@ export const analysisPromptMessages = (
   ]
 }
 
-export const generatePromptMessages = (
+export const createReplyEmailPromptMessages = (
   userMessage: string
 ): ChatCompletionRequestMessage[] => {
   return [
@@ -175,6 +175,21 @@ export const generatePromptMessages = (
       Best regards,
       
       [Your Name]`,
+    },
+    {
+      role: 'user',
+      content: userMessage,
+    },
+  ]
+}
+
+export const createNewEmailPromptMessages = (
+  userMessage: string
+): ChatCompletionRequestMessage[] => {
+  return [
+    {
+      role: 'system',
+      content: `Write an email in English based on the provided data.`,
     },
     {
       role: 'user',

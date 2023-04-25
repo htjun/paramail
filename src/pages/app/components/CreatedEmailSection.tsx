@@ -9,12 +9,26 @@ import useEmailCreation from '@/hooks/useEmailCreation'
 import useTranslate from '@/hooks/useTranslation'
 import useCopyToClipboard from '@/hooks/useCopyToClipboard'
 
-const CreatedEmailSection = ({ receivedEmailValue, answerSummary }) => {
+interface CreatedEmailSectionProps {
+  receivedEmailValue?: string
+  answerSummary?: string
+  newEmailValue?: {
+    sender: string
+    recipient: string
+    content: string
+  }
+}
+
+const CreatedEmailSection = ({
+  receivedEmailValue,
+  answerSummary,
+  newEmailValue,
+}: CreatedEmailSectionProps) => {
   const {
     loading: emailCreationLoading,
     error: emailCreationError,
     data = '',
-  } = useEmailCreation({ receivedEmailValue, answerSummary })
+  } = useEmailCreation({ receivedEmailValue, answerSummary, newEmailValue })
   const {
     loading: translationLoading,
     error: translationError,
@@ -30,7 +44,7 @@ const CreatedEmailSection = ({ receivedEmailValue, answerSummary }) => {
   return (
     <div className="flex flex-col gap-8">
       <SectionHeader
-        title="메일 생성 & 수정"
+        title="메일 생성 & 복사"
         description="AI가 생성한 메일을 확인하고 복사하여 원하는 곳에 붙여넣기 하세요."
       />
       <section className="rounded-xl border border-gray-200 bg-white shadow-xs">
