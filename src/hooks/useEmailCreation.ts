@@ -2,6 +2,16 @@ import { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
 
+interface EmailCreationProps {
+  receivedEmailValue?: string
+  answerSummary?: string
+  newEmailValue?: {
+    sender: string
+    recipient: string
+    content: string
+  }
+}
+
 interface EmailCreationResult {
   loading: boolean
   error: Error | null
@@ -11,24 +21,32 @@ interface EmailCreationResult {
 const useEmailCreation = ({
   receivedEmailValue,
   answerSummary,
-}): EmailCreationResult => {
+  newEmailValue,
+}: EmailCreationProps): EmailCreationResult => {
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<Error | null>(null)
   const [data, setData] = useState<string>('')
   const { data: session } = useSession()
 
   const createEmail = useCallback(async () => {
-    if (answerSummary.trim() === '') return
-
     setLoading(true)
     setError(null)
 
     try {
-      const emailCreationResponse = await axios.post('/api/generate', {
-        reqType: 'generate',
-        userMessage: `Received email: ${receivedEmailValue}
+      const isReplyEmail = answerSummary && answerSummary.trim() !== ''
+      const emailType = isReplyEmail ? 'createReplyEmail' : 'createNewEmail'
+      const messageContent =
+        emailType === 'createReplyEmail'
+          ? `Received email: ${receivedEmailValue}
         
-        Answer summary: ${answerSummary}`,
+        Answer summary: ${answerSummary}`
+          : `Sender: ${newEmailValue?.sender}
+        Recipient: ${newEmailValue?.recipient}
+        Content: ${newEmailValue?.content}`
+
+      const emailCreationResponse = await axios.post('/api/generate', {
+        reqType: emailType,
+        userMessage: messageContent,
         session,
       })
 
@@ -38,11 +56,13 @@ const useEmailCreation = ({
     } finally {
       setLoading(false)
     }
-  }, [receivedEmailValue, answerSummary, session])
+  }, [receivedEmailValue, answerSummary, newEmailValue])
 
   useEffect(() => {
-    createEmail()
-  }, [answerSummary, createEmail])
+    if (answerSummary?.trim() !== '' || newEmailValue?.content.trim() !== '') {
+      createEmail()
+    }
+  }, [answerSummary, newEmailValue, createEmail])
 
   return { loading, error, data }
 }

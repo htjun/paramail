@@ -31,7 +31,7 @@ const Home = () => {
             <ReplyFlow setInProgress={setInProgress} />
           </TabsContent>
           <TabsContent value="new">
-            <NewMailFlow />
+            <NewMailFlow setInProgress={setInProgress} />
           </TabsContent>
         </main>
       </TabsRoot>

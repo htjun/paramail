@@ -1,7 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Configuration, OpenAIApi } from 'openai'
 import prisma from '@/lib/prismadb'
-import { analysisPromptMessages, generatePromptMessages } from './promptData'
+import {
+  analysisPromptMessages,
+  createReplyEmailPromptMessages,
+  createNewEmailPromptMessages,
+} from './promptData'
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -25,8 +29,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       case 'analysis':
         promptMessages = analysisPromptMessages(userMessage)
         break
-      case 'generate':
-        promptMessages = generatePromptMessages(userMessage)
+      case 'createReplyEmail':
+        promptMessages = createReplyEmailPromptMessages(userMessage)
+        break
+      case 'createNewEmail':
+        promptMessages = createNewEmailPromptMessages(userMessage)
         break
       default:
         break
@@ -49,6 +56,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const returnedText = response.data.choices?.[0]?.message?.content
       const usage = Number(response.data.usage.total_tokens)
 
+      if (process.env.NODE_ENV === 'development') {
+        console.log({
+          promptMessages,
+          returnedText,
+        })
+      }
+
       res.status(200).json({
         result: {
           returnedText,
@@ -61,7 +75,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         data: {
           userId: prismaUser.id,
           tokenUsage: usage,
-          type: String(reqType),
+          type: reqType,
         },
       })
     } catch (error: any) {
