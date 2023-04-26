@@ -32,8 +32,16 @@ const TextBox = ({
     setTextCount(e.target.value.length)
   }
 
+  const handleSubmit = e => {
+    e.preventDefault()
+    button.onClick(e)
+  }
+
   return (
-    <div className="drop-shadow-xs flex min-h-[400px] w-full max-w-[800px] flex-col  rounded-xl bg-white">
+    <form
+      onSubmit={handleSubmit}
+      className="drop-shadow-xs flex min-h-[400px] w-full max-w-[800px] flex-col  rounded-xl bg-white"
+    >
       <textarea
         ref={textAreaRef}
         value={value}
@@ -41,21 +49,18 @@ const TextBox = ({
         placeholder={placeholder}
         maxLength={maxLength}
         className="h-full w-full grow resize-none rounded-t-xl border border-gray-200 p-6 outline-none transition-all duration-75 hover:border-grayBlue-200 focus:border-grayBlue-300"
+        required
       />
-      <div className="flex items-center justify-end gap-6 rounded-b-xl border border-t-0 border-gray-200 p-6">
+      <div className="flex flex-col items-end justify-end gap-4 rounded-b-xl border border-t-0 border-gray-200 p-6 sm:flex-row sm:items-center sm:gap-6">
         {errorMessage && <ErrorMessage text={errorMessage} />}
         {textCount > maxLength * 0.9 && (
           <div className="text-sm text-gray-400">
             {textCount} / {maxLength}
           </div>
         )}
-        <FancyButton
-          label={button.label}
-          onClick={button.onClick}
-          icon={button.icon}
-        />
+        <FancyButton type="submit" label={button.label} icon={button.icon} />
       </div>
-    </div>
+    </form>
   )
 }
 
