@@ -48,7 +48,7 @@ const CreatedEmailSection = ({
         description="AI가 생성한 메일을 확인하고 복사하여 원하는 곳에 붙여넣기 하세요."
       />
       <section className="rounded-xl border border-gray-200 bg-white shadow-xs">
-        <div className="grid min-h-[400px] gap-12 px-4 py-4 md:grid-cols-2 md:pb-8 md:pt-6">
+        <div className="grid min-h-[400px] gap-12 px-4 py-4 md:grid-cols-2 md:px-6 md:pb-8 md:pt-6">
           <div className="flex flex-col gap-6">
             <SectionSubHeader>원본</SectionSubHeader>
             <article>
