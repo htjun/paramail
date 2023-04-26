@@ -20,7 +20,7 @@ const TextInput = ({ id, label, value, onChange, className = '' }) => {
         type="text"
         value={value}
         onChange={onChange}
-        className="h-16 w-full p-2 focus:outline-none"
+        className="h-16 w-full bg-transparent p-2 focus:outline-none"
         required
       />
     </div>
@@ -73,12 +73,13 @@ const NewEmailInputSection = ({
         className="flex w-full max-w-[800px] flex-col rounded-xl bg-white shadow-xs"
       >
         <div className="rounded-t-xl border border-gray-200 outline-none transition-all duration-75 hover:border-grayBlue-200 focus:border-grayBlue-300">
-          <div className="grid grid-cols-2 border-b border-gray-200">
+          <div className="grid border-b border-gray-200 md:grid-cols-2">
             <TextInput
               id="recipient"
               label="받는 사람:"
               value={newEmailValue.recipient}
               onChange={handleInputContentChange}
+              className="border-b border-gray-200 md:border-none"
             />
             <TextInput
               id="sender"
