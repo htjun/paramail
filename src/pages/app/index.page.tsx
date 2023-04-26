@@ -26,7 +26,7 @@ const Home = () => {
             />
           }
         />
-        <main className="w-full max-w-screen-xl px-12 pb-16 pt-6">
+        <main className="w-full max-w-screen-xl px-4 pb-16 pt-3 md:px-12 md:pt-6">
           <TabsContent value="reply">
             <ReplyFlow setInProgress={setInProgress} />
           </TabsContent>

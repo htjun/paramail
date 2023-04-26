@@ -33,7 +33,7 @@ const ReceivedEmailAnalysisSection = ({
         description="받은 메일을 요약하고 가능한 답변 목록을 생성합니다."
       />
       <section className={sectionContainer}>
-        <div className="grid grid-cols-2 gap-12 p-6 pb-12">
+        <div className="grid gap-12 px-4 py-4 md:grid-cols-2 md:pb-8 md:pt-6">
           <div className="flex flex-col gap-12">
             <div className="flex flex-col gap-6">
               <SectionSubHeader>내용 요약</SectionSubHeader>
