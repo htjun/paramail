@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { useSession, signIn } from 'next-auth/react'
 import { twMerge } from 'tailwind-merge'
 import { UserCircleIcon } from '@heroicons/react/24/outline'
@@ -23,6 +24,9 @@ const LoginItem = ({ method, label }) => {
 
 const LoginPage = () => {
   const { data: session } = useSession()
+  const router = useRouter()
+
+  if (session) router.push('/app')
 
   return (
     <>

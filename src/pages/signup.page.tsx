@@ -1,8 +1,9 @@
-import Meta from '@/components/Meta'
-import { useSession, signIn } from 'next-auth/react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useSession, signIn } from 'next-auth/react'
 import { twMerge } from 'tailwind-merge'
 import { UserCircleIcon } from '@heroicons/react/24/outline'
+import Meta from '@/components/Meta'
 import { LandingPageNavigation } from '@/components/Navigation'
 import { sectionContainer, buttonClasses } from '@/styles/sharedClasses'
 
@@ -24,6 +25,9 @@ const SignUpItem = ({ method, label }) => {
 
 const SignUpPage = () => {
   const { data: session } = useSession()
+  const router = useRouter()
+
+  if (session) router.push('/app')
 
   return (
     <>
