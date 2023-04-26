@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
 
@@ -40,9 +40,11 @@ const useAnalysis = (inputText: string): AnalysisResult => {
   const [error, setError] = useState<Error | null>(null)
   const [data, setData] = useState<any>({})
   const { data: session } = useSession()
+  const prevInputTextRef = useRef<string>('')
 
   const analyseText = useCallback(async () => {
-    if (inputText.trim() === '') return
+    if (inputText.trim() === '' || inputText === prevInputTextRef.current)
+      return
 
     setLoading(true)
     setError(null)
@@ -69,10 +71,11 @@ const useAnalysis = (inputText: string): AnalysisResult => {
     } finally {
       setLoading(false)
     }
-  }, [inputText, session])
+  }, [inputText])
 
   useEffect(() => {
     analyseText()
+    prevInputTextRef.current = inputText
   }, [inputText, analyseText])
 
   return { loading, error, data }

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
 
@@ -27,8 +27,18 @@ const useEmailCreation = ({
   const [error, setError] = useState<Error | null>(null)
   const [data, setData] = useState<string>('')
   const { data: session } = useSession()
+  const prevAnswerSummaryRef = useRef<string | undefined>('')
+  const prevNewEmailValueRef = useRef<EmailCreationProps['newEmailValue']>(null)
 
   const createEmail = useCallback(async () => {
+    if (
+      (answerSummary === prevAnswerSummaryRef.current &&
+        newEmailValue === prevNewEmailValueRef.current) ||
+      (answerSummary?.trim() === '' && newEmailValue?.content.trim() === '')
+    ) {
+      return
+    }
+
     setLoading(true)
     setError(null)
 
@@ -59,9 +69,9 @@ const useEmailCreation = ({
   }, [receivedEmailValue, answerSummary, newEmailValue])
 
   useEffect(() => {
-    if (answerSummary?.trim() !== '' || newEmailValue?.content.trim() !== '') {
-      createEmail()
-    }
+    createEmail()
+    prevAnswerSummaryRef.current = answerSummary
+    prevNewEmailValueRef.current = newEmailValue
   }, [answerSummary, newEmailValue, createEmail])
 
   return { loading, error, data }
