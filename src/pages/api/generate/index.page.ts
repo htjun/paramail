@@ -8,6 +8,11 @@ import {
 } from './promptData'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  if (req.method !== 'POST') {
+    res.status(405).json({ error: { message: 'Method not allowed' } })
+    return
+  }
+
   if (!configuration.apiKey) {
     res
       .status(500)
