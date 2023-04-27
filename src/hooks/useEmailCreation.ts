@@ -42,29 +42,36 @@ const useEmailCreation = ({
     setLoading(true)
     setError(null)
 
-    try {
-      const isReplyEmail = answerSummary && answerSummary.trim() !== ''
-      const emailType = isReplyEmail ? 'createReplyEmail' : 'createNewEmail'
-      const messageContent =
-        emailType === 'createReplyEmail'
-          ? `Received email: ${receivedEmailValue}
-        
-        Answer summary: ${answerSummary}`
-          : `Sender: ${newEmailValue?.sender}
-        Recipient: ${newEmailValue?.recipient}
-        Content: ${newEmailValue?.content}`
+    let usageResponse = 0
+    const isReplyEmail = answerSummary && answerSummary.trim() !== ''
+    const emailType = isReplyEmail ? 'createReplyEmail' : 'createNewEmail'
 
+    const messageContent =
+      emailType === 'createReplyEmail'
+        ? `Received email: ${receivedEmailValue}
+      
+      Answer summary: ${answerSummary}`
+        : `Sender: ${newEmailValue?.sender}
+      Recipient: ${newEmailValue?.recipient}
+      Content: ${newEmailValue?.content}`
+
+    try {
       const emailCreationResponse = await axios.post('/api/generate', {
         reqType: emailType,
         userMessage: messageContent,
-        session,
       })
-
-      setData(emailCreationResponse.data.result.returnedText)
+      const { returnedText, usage } = emailCreationResponse.data.result
+      usageResponse = usage
+      setData(returnedText)
     } catch (err) {
       setError(err as Error)
     } finally {
       setLoading(false)
+      axios.post('/api/db', {
+        userId: session?.user?.id,
+        tokenUsage: usageResponse,
+        type: emailType,
+      })
     }
   }, [receivedEmailValue, answerSummary, newEmailValue])
 

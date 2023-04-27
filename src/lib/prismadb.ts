@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client'
+import isDevEnv from '@/utils/isDevEnv'
 
 declare global {
   // eslint-disable-next-line
@@ -6,6 +7,6 @@ declare global {
 }
 
 const client = globalThis.prisma || new PrismaClient()
-if (process.env.NODE_ENV !== 'production') globalThis.prisma = client
+if (isDevEnv) globalThis.prisma = client
 
 export default client
