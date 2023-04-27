@@ -39,8 +39,8 @@ const useAnalysis = (inputText: string): AnalysisResult => {
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<Error | null>(null)
   const [data, setData] = useState<any>({})
-  const { data: session } = useSession()
   const prevInputTextRef = useRef<string>('')
+  const { data: session } = useSession()
 
   const analyseText = useCallback(async () => {
     if (inputText.trim() === '' || inputText === prevInputTextRef.current)
@@ -49,14 +49,17 @@ const useAnalysis = (inputText: string): AnalysisResult => {
     setLoading(true)
     setError(null)
 
+    let usageResponse = 0
+
     try {
       const analysisResponse = await axios.post('/api/generate', {
         reqType: 'analysis',
         userMessage: inputText,
-        session,
       })
-      const rawData = analysisResponse.data.result.returnedText
-      const { summary, actionPoints, possibleAnswers } = textSeparator(rawData)
+      const { returnedText, usage } = analysisResponse.data.result
+      usageResponse = usage
+      const { summary, actionPoints, possibleAnswers } =
+        textSeparator(returnedText)
 
       const actionPointList = processList(actionPoints)
       const possibleAnswerList = processList(possibleAnswers)
@@ -66,6 +69,11 @@ const useAnalysis = (inputText: string): AnalysisResult => {
       setError(err as Error)
     } finally {
       setLoading(false)
+      axios.post('/api/db', {
+        userId: session?.user?.id,
+        tokenUsage: usageResponse,
+        type: 'analysis',
+      })
     }
   }, [inputText])
 

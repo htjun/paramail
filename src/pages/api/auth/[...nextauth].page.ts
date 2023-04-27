@@ -20,11 +20,19 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    jwt(params) {
-      if (params.token) {
-        params.token.role = 'user'
+    async jwt({ token, account, profile }: any) {
+      if (account) {
+        token.accessToken = account.access_token
+        token.id = profile.id
       }
-      return params.token
+      return token
+    },
+    async session({ session, token }: any) {
+      if (token) {
+        session.accessToken = token.accessToken
+        session.user.id = token.sub
+      }
+      return session
     },
   },
   secret: process.env.NEXT_AUTH_SECRET,
