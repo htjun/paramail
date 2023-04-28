@@ -1,10 +1,9 @@
 import type { AppProps } from 'next/app'
 import { Analytics } from '@vercel/analytics/react'
 import { inter, notoSansKR } from '@/lib/fonts'
-import { SessionProvider } from 'next-auth/react'
 import '@/styles/globals.css'
 
-const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
+const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       {/* eslint-disable */}
@@ -14,9 +13,9 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
           --inter-font: ${inter.style.fontFamily};
         }
       `}</style>
-      <SessionProvider session={session}>
-        <Component {...pageProps} />
-      </SessionProvider>
+
+      <Component {...pageProps} />
+
       <Analytics />
     </>
   )

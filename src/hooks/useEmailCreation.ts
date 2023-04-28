@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import axios from 'axios'
-import { useSession } from 'next-auth/react'
 
 interface EmailCreationProps {
   receivedEmailValue?: string
@@ -26,7 +25,6 @@ const useEmailCreation = ({
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<Error | null>(null)
   const [data, setData] = useState<string>('')
-  const { data: session } = useSession()
   const prevAnswerSummaryRef = useRef<string | undefined>('')
   const prevNewEmailValueRef = useRef<EmailCreationProps['newEmailValue']>(null)
 
@@ -42,7 +40,6 @@ const useEmailCreation = ({
     setLoading(true)
     setError(null)
 
-    let usageResponse = 0
     const isReplyEmail = answerSummary && answerSummary.trim() !== ''
     const emailType = isReplyEmail ? 'createReplyEmail' : 'createNewEmail'
 
@@ -60,18 +57,12 @@ const useEmailCreation = ({
         reqType: emailType,
         userMessage: messageContent,
       })
-      const { returnedText, usage } = emailCreationResponse.data.result
-      usageResponse = usage
+      const { returnedText } = emailCreationResponse.data.result
       setData(returnedText)
     } catch (err) {
       setError(err as Error)
     } finally {
       setLoading(false)
-      axios.post('/api/db', {
-        userId: session?.user?.id,
-        tokenUsage: usageResponse,
-        type: emailType,
-      })
     }
   }, [receivedEmailValue, answerSummary, newEmailValue])
 

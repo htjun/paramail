@@ -1,27 +1,18 @@
 import { ReactNode, MouseEvent } from 'react'
 import Link from 'next/link'
-import { useSession, signOut } from 'next-auth/react'
 import { twMerge } from 'tailwind-merge'
 import ParamailLogo from 'public/paramail.svg'
 import { buttonClasses } from '@/styles/sharedClasses'
 
 const Account = () => {
-  const { data: session, status } = useSession()
-
-  if (status === 'loading') return null
-
   return (
-    <div>
-      {session && (
-        <button
-          type="button"
-          onClick={() => signOut()}
-          className={buttonClasses('ghost', 'sm')}
-        >
-          로그아웃
-        </button>
-      )}
-    </div>
+    <button
+      type="button"
+      onClick={() => {}}
+      className={buttonClasses('ghost', 'sm')}
+    >
+      로그아웃
+    </button>
   )
 }
 

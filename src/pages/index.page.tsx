@@ -1,6 +1,4 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/react'
 import Meta from '@/components/Meta'
 import { notoSansKR } from '@/lib/fonts'
 import { twMerge } from 'tailwind-merge'
@@ -9,11 +7,6 @@ import { buttonClasses } from '@/styles/sharedClasses'
 import Preview from 'public/preview.svg'
 
 const LandingPage = () => {
-  const { data: session } = useSession()
-  const router = useRouter()
-
-  if (session) router.push('/app')
-
   return (
     <>
       <Meta />
