@@ -39,7 +39,7 @@ const SignUpPage = () => {
     <>
       <Meta title="계정 만들기" />
       <main>
-        <LandingPageNavigation page="signup" />
+        <LandingPageNavigation clean />
         <div className="flex w-full flex-col items-center justify-center px-4 py-12">
           <div
             className={twMerge(

@@ -9,10 +9,10 @@ export const buttonClasses = (
   size: 'sm' | 'md' | 'lg' | 'xl'
 ) => {
   const baseStyle =
-    'flex justify-center items-center shrink-0 font-medium ring-offset-2 transition-all focus:outline-none focus:ring focus:ring-2 focus:ring-indigo-500'
+    'flex justify-center items-center shrink-0 font-medium ring-offset-2 transition-all focus-visible:outline-none focus-visible:ring focus-visible:ring-2 focus-visible:ring-indigo-500'
 
   const buttonStyle = {
-    cta: 'rounded-full bg-indigo-500 bg-subtle text-white shadow-btn hover:bg-indigo-600 focus:outline-none',
+    cta: 'rounded-full bg-indigo-500 bg-subtle text-white shadow-btn hover:bg-indigo-600 focus-visible:outline-none',
     primary:
       'rounded-lg border border-gray-300 bg-white text-gray-800 shadow-xs hover:bg-gray-50',
     secondary:

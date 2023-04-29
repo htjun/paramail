@@ -58,6 +58,7 @@
     ],
     "no-nested-ternary": "off",
     "react/require-default-props": "off",
-    "react-hooks/exhaustive-deps": "off"
+    "react-hooks/exhaustive-deps": "off",
+    "react/button-has-type": "off"
   }
 }

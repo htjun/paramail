@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useSessionContext } from '@supabase/auth-helpers-react'
-import Navigation from '@/components/Navigation'
+import { AppNavigation } from '@/components/Navigation'
 import { TabsRoot, TabsTrigger, TabsContent } from '@/components/Tabs'
 import Meta from '@/components/Meta'
 import ReplyFlow from './components/ReplyFlow'
@@ -27,7 +27,7 @@ const AppPage = () => {
           defaultValue="reply"
           className="flex w-full flex-col items-center justify-center gap-6"
         >
-          <Navigation
+          <AppNavigation
             isInProgress={inProgress}
             tabsTrigger={
               <TabsTrigger

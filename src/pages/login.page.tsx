@@ -47,7 +47,7 @@ const LoginPage = () => {
     <>
       <Meta title="로그인" />
       <main>
-        <LandingPageNavigation page="login" />
+        <LandingPageNavigation clean />
         <div className="flex w-full flex-col items-center justify-center px-4 py-12">
           <div
             className={twMerge(
