@@ -43,7 +43,7 @@ const LandingPage = () => {
                 </div>
 
                 <Link
-                  href="/signup"
+                  href="/auth/signup"
                   className={`${buttonClasses('cta', 'lg')} min-[400px]:w-auto`}
                 >
                   무료로 시작하기

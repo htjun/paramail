@@ -3,8 +3,8 @@ import Link from 'next/link'
 import { useSessionContext } from '@supabase/auth-helpers-react'
 import AccountMenu from '@/components/Navigation/AccountMenu'
 import { twMerge } from 'tailwind-merge'
-import ParamailLogo from 'public/paramail.svg'
 import { buttonClasses } from '@/styles/sharedClasses'
+import ParamailLogo from 'public/paramail.svg'
 
 const Account = () => {
   const { isLoading, session } = useSessionContext()
@@ -14,7 +14,7 @@ const Account = () => {
       {!isLoading && session ? (
         <AccountMenu user={session.user} />
       ) : (
-        <Link href="/login" className={buttonClasses('ghost', 'sm')}>
+        <Link href="/auth/login" className={buttonClasses('ghost', 'sm')}>
           로그인
         </Link>
       )}
@@ -68,13 +68,13 @@ export const LandingPageNavigation = ({ clean }: { clean?: boolean }) => {
       {!clean && (
         <div className="flex items-center gap-2 md:gap-4">
           <Link
-            href="/login"
+            href="/auth/login"
             className={twMerge(buttonClasses('ghost', 'md'), 'px-2 md:px-4')}
           >
             로그인
           </Link>
           <Link
-            href="/signup"
+            href="/auth/signup"
             className="flex h-10 items-center justify-center rounded-full border border-indigo-300 px-3 font-medium text-indigo-500 transition-colors hover:border-indigo-500 hover:bg-indigo-500 hover:text-white md:h-12 md:px-4"
           >
             <span className="hidden md:inline-block">무료로&nbsp;</span>
