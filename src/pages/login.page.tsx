@@ -1,3 +1,7 @@
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { useSessionContext } from '@supabase/auth-helpers-react'
+import { supabase } from '@/lib/supabaseClient'
 import { twMerge } from 'tailwind-merge'
 import { UserCircleIcon } from '@heroicons/react/24/outline'
 import Meta from '@/components/Meta'
@@ -5,9 +9,17 @@ import { LandingPageNavigation } from '@/components/Navigation'
 import { sectionContainer, buttonClasses } from '@/styles/sharedClasses'
 
 const LoginItem = ({ method, label }) => {
-  const handleClick = e => {
+  const handleClick = async e => {
     e.preventDefault()
+
+    let { data, error } = await supabase.auth.signInWithOAuth({
+      provider: method,
+      options: {
+        redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/app`,
+      },
+    })
   }
+
   return (
     <button
       type="button"
@@ -20,6 +32,17 @@ const LoginItem = ({ method, label }) => {
 }
 
 const LoginPage = () => {
+  const router = useRouter()
+  const { isLoading, session } = useSessionContext()
+
+  useEffect(() => {
+    if (!isLoading && session) {
+      router.replace('/app')
+    }
+  }, [isLoading, session])
+
+  if (isLoading) return <>Login page loading...</>
+
   return (
     <>
       <Meta title="로그인" />

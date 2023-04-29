@@ -1,18 +1,35 @@
 import { ReactNode, MouseEvent } from 'react'
 import Link from 'next/link'
+import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 import { twMerge } from 'tailwind-merge'
 import ParamailLogo from 'public/paramail.svg'
 import { buttonClasses } from '@/styles/sharedClasses'
 
 const Account = () => {
+  const session = useSession()
+  const supabase = useSupabaseClient()
+
+  const handleClickSignOut = async e => {
+    e.preventDefault()
+    const { error } = await supabase.auth.signOut()
+  }
+
   return (
-    <button
-      type="button"
-      onClick={() => {}}
-      className={buttonClasses('ghost', 'sm')}
-    >
-      로그아웃
-    </button>
+    <div>
+      {session ? (
+        <button
+          type="button"
+          onClick={handleClickSignOut}
+          className={buttonClasses('ghost', 'sm')}
+        >
+          로그아웃
+        </button>
+      ) : (
+        <Link href="/login" className={buttonClasses('ghost', 'sm')}>
+          로그인
+        </Link>
+      )}
+    </div>
   )
 }
 
@@ -33,7 +50,7 @@ const Navigation = ({
   return (
     <header className="flex h-16 w-full items-center justify-between border-b bg-white px-4 md:px-8">
       <div className="flex items-center gap-8">
-        <Link href="/app" className="group py-2">
+        <Link href="/" className="group py-2">
           <ParamailLogo className="w-16 text-indigo-600 transition-colors group-hover:text-indigo-500 md:w-18" />
         </Link>
         {isInProgress ? (

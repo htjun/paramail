@@ -1,3 +1,6 @@
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { useSessionContext } from '@supabase/auth-helpers-react'
 import Link from 'next/link'
 import { twMerge } from 'tailwind-merge'
 import { UserCircleIcon } from '@heroicons/react/24/outline'
@@ -21,6 +24,17 @@ const SignUpItem = ({ method, label }) => {
 }
 
 const SignUpPage = () => {
+  const router = useRouter()
+  const { isLoading, session } = useSessionContext()
+
+  useEffect(() => {
+    if (!isLoading && session) {
+      router.replace('/app')
+    }
+  }, [isLoading, session])
+
+  if (isLoading) return <>Signup page loading...</>
+
   return (
     <>
       <Meta title="계정 만들기" />
