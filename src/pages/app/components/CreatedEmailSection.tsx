@@ -1,10 +1,11 @@
+import { DocumentDuplicateIcon } from '@heroicons/react/20/solid'
 import SectionHeader from '@/components/SectionHeader'
 import SectionSubHeader from '@/components/SectionSubHeader'
 import FancyButton from '@/components/FancyButton'
 import LoadingDots from '@/components/LoadingDots'
 import ErrorMessage from '@/components/ErrorMessage'
+import Tooltip from '@/components/Tooltip'
 import formatTextToParagraphs from '@/utils/formatTextToParagraphs'
-import { DocumentDuplicateIcon } from '@heroicons/react/20/solid'
 import useEmailCreation from '@/hooks/useEmailCreation'
 import useTranslate from '@/hooks/useTranslation'
 import useCopyToClipboard from '@/hooks/useCopyToClipboard'
@@ -67,7 +68,13 @@ const CreatedEmailSection = ({
             </article>
           </div>
           <div className="flex flex-col gap-6">
-            <SectionSubHeader>번역본</SectionSubHeader>
+            <SectionSubHeader>
+              <div>번역본</div>
+              <div className="flex items-center gap-0.5 font-normal text-gray-450">
+                <span>내용 확인용으로만 참고해주세요</span>
+                <Tooltip content="번역 품질이 좋지 않을 수 있으므로 내용 확인용으로만 참고해주세요. 원본은 최대한 자연스러운 영어로 작성되었습니다." />
+              </div>
+            </SectionSubHeader>
             <article className="text-gray-500">
               {emailCreationLoading || translationLoading ? (
                 <LoadingDots />
