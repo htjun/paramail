@@ -1,21 +1,29 @@
-import { useState } from 'react'
+import { useState, ChangeEvent, MouseEvent } from 'react'
 import { LanguageIcon } from '@heroicons/react/20/solid'
 import SectionHeader from '@/components/SectionHeader'
 import TextBox from '@/components/TextBox'
+
+interface ReceivedEmailInputSectionProps {
+  receivedEmailValue: string
+  setReceivedEmailValue: (value: string) => void
+  setProgressStep: (value: number) => void
+}
 
 const ReceivedEmailInputSection = ({
   receivedEmailValue,
   setReceivedEmailValue,
   setProgressStep,
-}) => {
+}: ReceivedEmailInputSectionProps) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
-  const handleInputChange = e => {
+  const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setReceivedEmailValue(e.target.value)
     setErrorMessage(null)
   }
 
-  const handleTranslateButtonClick = async e => {
+  const handleTranslateButtonClick = async (
+    e: MouseEvent<HTMLButtonElement>
+  ) => {
     e.preventDefault()
     setErrorMessage(null)
 

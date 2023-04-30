@@ -16,7 +16,7 @@ const textSeparator = (text: string) => {
   }
 }
 
-function processList(text: string) {
+function processList(text: string | undefined) {
   const regex = /_\^/g
   const processedString = text?.replace(regex, '')
   const items =

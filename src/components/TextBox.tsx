@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react'
+import { ReactNode, useState, FormEvent, ChangeEvent } from 'react'
 import FancyButton from '@/components/FancyButton'
 import ErrorMessage from '@/components/ErrorMessage'
 import useAutoHeightTextArea from '@/hooks/useAutoHeightTextArea'
@@ -6,7 +6,7 @@ import useAutoHeightTextArea from '@/hooks/useAutoHeightTextArea'
 interface TextBoxProps {
   placeholder?: string
   value: string
-  errorMessage?: string
+  errorMessage?: string | null
   maxLength?: number
   [x: string]: any
   button: {
@@ -27,12 +27,12 @@ const TextBox = ({
   const [textCount, setTextCount] = useState(0)
   const textAreaRef = useAutoHeightTextArea(2)
 
-  const handleTextAreaChange = e => {
+  const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     onChange(e)
     setTextCount(e.target.value.length)
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     button.onClick(e)
   }

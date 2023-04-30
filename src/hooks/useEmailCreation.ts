@@ -26,8 +26,10 @@ const useEmailCreation = ({
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<Error | null>(null)
   const [data, setData] = useState<string>('')
-  const prevAnswerSummaryRef = useRef<string | undefined>('')
-  const prevNewEmailValueRef = useRef<EmailCreationProps['newEmailValue']>(null)
+  const prevAnswerSummaryRef = useRef<string | undefined>(undefined)
+  const prevNewEmailValueRef = useRef<
+    EmailCreationProps['newEmailValue'] | undefined
+  >(undefined)
 
   const createEmail = useCallback(async () => {
     if (

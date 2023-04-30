@@ -1,4 +1,10 @@
-import { useState } from 'react'
+import {
+  useState,
+  Dispatch,
+  SetStateAction,
+  ChangeEvent,
+  FormEvent,
+} from 'react'
 import { twMerge } from 'tailwind-merge'
 import SectionHeader from '@/components/SectionHeader'
 import FancyButton from '@/components/FancyButton'
@@ -6,7 +12,21 @@ import ErrorMessage from '@/components/ErrorMessage'
 import useAutoHeightTextArea from '@/hooks/useAutoHeightTextArea'
 import WandSVG from 'public/wand.svg'
 
-const TextInput = ({ id, label, value, onChange, className = '' }) => {
+interface TextInputProps {
+  id: string
+  label: string
+  value: string
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  className?: string
+}
+
+const TextInput = ({
+  id,
+  label,
+  value,
+  onChange,
+  className = '',
+}: TextInputProps) => {
   return (
     <div className={twMerge(className, 'flex h-16 items-center p-6')}>
       <label
@@ -27,15 +47,33 @@ const TextInput = ({ id, label, value, onChange, className = '' }) => {
   )
 }
 
+interface NewEmailInputSectionProps {
+  setProgressStep: Dispatch<SetStateAction<number>>
+  newEmailValue: {
+    recipient: string
+    sender: string
+    content: string
+  }
+  setNewEmailValue: Dispatch<
+    SetStateAction<{
+      recipient: string
+      sender: string
+      content: string
+    }>
+  >
+}
+
 const NewEmailInputSection = ({
   setProgressStep,
   newEmailValue,
   setNewEmailValue,
-}) => {
+}: NewEmailInputSectionProps) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const textAreaRef = useAutoHeightTextArea(2)
 
-  const handleInputContentChange = e => {
+  const handleInputContentChange = (
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
     const { id } = e.target
 
     if (id === 'recipient') {
@@ -50,7 +88,7 @@ const NewEmailInputSection = ({
     setErrorMessage(null)
   }
 
-  const handleCreateButtonClick = e => {
+  const handleCreateButtonClick = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setErrorMessage(null)
 

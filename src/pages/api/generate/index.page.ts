@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import { ChatCompletionRequestMessage } from 'openai'
 import openai, { configuration } from '@/lib/openai'
 import isDevEnv from '@/utils/isDevEnv'
 import {
@@ -22,7 +23,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const { reqType, userMessage } = req.body
 
-  let promptMessages = []
+  let promptMessages: ChatCompletionRequestMessage[] = []
 
   switch (reqType) {
     case 'analysis':
@@ -47,7 +48,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     })
 
     const returnedText = response.data.choices?.[0]?.message?.content
-    const usage = Number(response.data.usage.total_tokens)
+    const usage = Number(response.data.usage?.total_tokens)
 
     if (isDevEnv) {
       console.log({

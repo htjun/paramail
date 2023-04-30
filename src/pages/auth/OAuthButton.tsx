@@ -1,11 +1,17 @@
+import { MouseEvent } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import { twMerge } from 'tailwind-merge'
 import { buttonClasses } from '@/styles/sharedClasses'
 import GoogleLogo from 'public/logo-google.svg'
 import FacebookLogo from 'public/logo-facebook.svg'
 
-const OAuthButton = ({ method, label }) => {
-  const handleClick = async e => {
+interface OAuthButtonProps {
+  method: 'google' | 'facebook'
+  label: string
+}
+
+const OAuthButton = ({ method, label }: OAuthButtonProps) => {
+  const handleClick = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
     await supabase.auth.signInWithOAuth({

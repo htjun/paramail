@@ -1,15 +1,15 @@
-import React from 'react'
+import { MouseEvent } from 'react'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import * as Popover from '@radix-ui/react-popover'
 import { twMerge } from 'tailwind-merge'
 import { XMarkIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 import { buttonClasses } from '@/styles/sharedClasses'
 
-const AccountMenu = ({ user }) => {
+const AccountMenu = ({ user }: { user: any }) => {
   const { user_metadata: userData } = user
   const supabase = useSupabaseClient()
 
-  const handleSignOut = async e => {
+  const handleSignOut = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     await supabase.auth.signOut()
   }
