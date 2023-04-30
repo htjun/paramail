@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import axios from 'axios'
+import isDevEnv from '@/utils/isDevEnv'
 
 interface EmailCreationProps {
   receivedEmailValue?: string
@@ -52,17 +53,24 @@ const useEmailCreation = ({
       Recipient: ${newEmailValue?.recipient}
       Content: ${newEmailValue?.content}`
 
+    let usageAmount = 0
+
     try {
       const emailCreationResponse = await axios.post('/api/generate', {
         reqType: emailType,
         userMessage: messageContent,
       })
-      const { returnedText } = emailCreationResponse.data.result
+      const { returnedText, usage } = emailCreationResponse.data.result
+      usageAmount = usage
       setData(returnedText)
     } catch (err) {
       setError(err as Error)
     } finally {
       setLoading(false)
+      axios.post('/api/usage-log', {
+        usageType: `${emailType}${isDevEnv && '-dev'}`,
+        usageAmount,
+      })
     }
   }, [receivedEmailValue, answerSummary, newEmailValue])
 

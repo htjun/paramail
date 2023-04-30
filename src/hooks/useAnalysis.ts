@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import axios from 'axios'
+import isDevEnv from '@/utils/isDevEnv'
 
 const textSeparator = (text: string) => {
   const summary = text.match(/Summary:\s*(.*?)\s*Action points:/)
@@ -47,12 +48,15 @@ const useAnalysis = (inputText: string): AnalysisResult => {
     setLoading(true)
     setError(null)
 
+    let usageAmount = 0
+
     try {
       const analysisResponse = await axios.post('/api/generate', {
         reqType: 'analysis',
         userMessage: inputText,
       })
-      const { returnedText } = analysisResponse.data.result
+      const { returnedText, usage } = analysisResponse.data.result
+      usageAmount = usage
       const { summary, actionPoints, possibleAnswers } =
         textSeparator(returnedText)
 
@@ -64,6 +68,10 @@ const useAnalysis = (inputText: string): AnalysisResult => {
       setError(err as Error)
     } finally {
       setLoading(false)
+      axios.post('/api/usage-log', {
+        usageType: `analysis${isDevEnv && '-dev'}`,
+        usageAmount,
+      })
     }
   }, [inputText])
 
