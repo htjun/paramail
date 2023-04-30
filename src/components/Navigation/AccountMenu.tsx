@@ -18,10 +18,11 @@ const AccountMenu = ({ user }: { user: any }) => {
     <Popover.Root>
       <Popover.Trigger asChild>
         <button
-          className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-lg px-3.5 text-sm font-medium text-gray-500 ring-offset-2 transition-all hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-lg px-1 text-sm font-medium text-gray-500 ring-offset-2 transition-all hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:px-3.5"
           aria-label="Account menu"
         >
-          <span>{userData.name}</span>
+          <span className="hidden shrink-0 sm:block">{userData.name}</span>
+          <span className="block shrink-0 sm:hidden">내 계정</span>
           <ChevronDownIcon className="h-4 w-4" />
         </button>
       </Popover.Trigger>

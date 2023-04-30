@@ -17,7 +17,7 @@ export const TabsTrigger = ({ items }: TabsTriggerProps) => {
         <TabsPrimitive.Trigger
           key={item.value}
           value={item.value}
-          className="h-8 w-20 rounded-md text-sm font-medium tracking-tight text-gray-400 transition-colors hover:text-gray-800 data-[state=active]:bg-white  data-[state=active]:text-gray-800 data-[state=active]:shadow-sm"
+          className="h-8 w-18 rounded-md text-sm font-medium tracking-tight text-gray-400 transition-colors hover:text-gray-800 data-[state=active]:bg-white data-[state=active]:text-gray-800  data-[state=active]:shadow-sm sm:w-20"
         >
           {item.label}
         </TabsPrimitive.Trigger>
