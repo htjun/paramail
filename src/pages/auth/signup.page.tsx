@@ -18,7 +18,7 @@ const SignUpPage = () => {
     }
   }, [isLoading, session])
 
-  if (isLoading) return <>Signup page loading...</>
+  if (isLoading) return null
 
   return (
     <>

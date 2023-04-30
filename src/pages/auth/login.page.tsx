@@ -18,7 +18,7 @@ const LoginPage = () => {
     }
   }, [isLoading, session])
 
-  if (isLoading) return <>Login page loading...</>
+  if (isLoading) return null
 
   return (
     <>
