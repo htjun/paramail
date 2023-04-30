@@ -5,7 +5,7 @@ const Tooltip = ({ content }: { content: string }) => {
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
-        <InformationCircleIcon className="h-8 w-8 rounded p-1.5 text-gray-500 hover:bg-gray-100" />
+        <InformationCircleIcon className="my-[-6px] h-8 w-8 rounded p-1.5 text-gray-500 hover:bg-gray-100" />
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Content
