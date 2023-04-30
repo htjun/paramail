@@ -4,19 +4,23 @@ import ReceivedEmailTranslationSection from './ReceivedEmailTranslationSection'
 import ReceivedEmailAnalysisSection from './ReceivedEmailAnalysisSection'
 import CreatedEmailSection from './CreatedEmailSection'
 
-const ReplyFlow = ({ setInProgress }) => {
+interface ReplyFlowProps {
+  setInProgress: (inProgress: boolean) => void
+}
+
+const ReplyFlow = ({ setInProgress }: ReplyFlowProps) => {
   const [progressStep, setProgressStep] = useState(0)
   const [receivedEmailValue, setReceivedEmailValue] = useState<string>('')
   const [answerSummary, setAnswerSummary] = useState<string>('')
 
-  const createdEmailSectionRef = useRef(null)
+  const createdEmailSectionRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     if (progressStep !== 0) {
       setInProgress(true)
     }
     if (progressStep === 2) {
-      createdEmailSectionRef.current.scrollIntoView({
+      createdEmailSectionRef.current?.scrollIntoView({
         behavior: 'smooth',
       })
     }

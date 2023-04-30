@@ -2,7 +2,11 @@ import { useState, useEffect } from 'react'
 import NewEmailInputSection from './NewEmailInputSection'
 import CreatedEmailSection from './CreatedEmailSection'
 
-const NewMailFlow = ({ setInProgress }) => {
+const NewMailFlow = ({
+  setInProgress,
+}: {
+  setInProgress: (inProgress: boolean) => void
+}) => {
   const [progressStep, setProgressStep] = useState(0)
   const [newEmailValue, setNewEmailValue] = useState({
     recipient: '',

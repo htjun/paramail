@@ -7,7 +7,11 @@ import formatTextToParagraphs from '@/utils/formatTextToParagraphs'
 import { sectionContainer } from '@/styles/sharedClasses'
 import useTranslate from '@/hooks/useTranslation'
 
-const ReceivedEmailTranslationSection = ({ emailInput }) => {
+const ReceivedEmailTranslationSection = ({
+  emailInput,
+}: {
+  emailInput: string
+}) => {
   const { loading, error, translatedText } = useTranslate(emailInput)
 
   return (

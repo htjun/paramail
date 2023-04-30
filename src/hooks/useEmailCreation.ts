@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import axios from 'axios'
-import { useSession } from 'next-auth/react'
+import isDevEnv from '@/utils/isDevEnv'
 
 interface EmailCreationProps {
   receivedEmailValue?: string
@@ -26,9 +26,10 @@ const useEmailCreation = ({
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<Error | null>(null)
   const [data, setData] = useState<string>('')
-  const { data: session } = useSession()
-  const prevAnswerSummaryRef = useRef<string | undefined>('')
-  const prevNewEmailValueRef = useRef<EmailCreationProps['newEmailValue']>(null)
+  const prevAnswerSummaryRef = useRef<string | undefined>(undefined)
+  const prevNewEmailValueRef = useRef<
+    EmailCreationProps['newEmailValue'] | undefined
+  >(undefined)
 
   const createEmail = useCallback(async () => {
     if (
@@ -42,7 +43,6 @@ const useEmailCreation = ({
     setLoading(true)
     setError(null)
 
-    let usageResponse = 0
     const isReplyEmail = answerSummary && answerSummary.trim() !== ''
     const emailType = isReplyEmail ? 'createReplyEmail' : 'createNewEmail'
 
@@ -55,22 +55,23 @@ const useEmailCreation = ({
       Recipient: ${newEmailValue?.recipient}
       Content: ${newEmailValue?.content}`
 
+    let usageAmount = 0
+
     try {
       const emailCreationResponse = await axios.post('/api/generate', {
         reqType: emailType,
         userMessage: messageContent,
       })
       const { returnedText, usage } = emailCreationResponse.data.result
-      usageResponse = usage
+      usageAmount = usage
       setData(returnedText)
     } catch (err) {
       setError(err as Error)
     } finally {
       setLoading(false)
-      axios.post('/api/db', {
-        userId: session?.user?.id,
-        tokenUsage: usageResponse,
-        type: emailType,
+      axios.post('/api/usage-log', {
+        usageType: `${emailType}${isDevEnv && '-dev'}`,
+        usageAmount,
       })
     }
   }, [receivedEmailValue, answerSummary, newEmailValue])

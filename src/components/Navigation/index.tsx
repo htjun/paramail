@@ -1,25 +1,22 @@
 import { ReactNode, MouseEvent } from 'react'
 import Link from 'next/link'
-import { useSession, signOut } from 'next-auth/react'
+import { useSessionContext } from '@supabase/auth-helpers-react'
+import AccountMenu from '@/components/Navigation/AccountMenu'
 import { twMerge } from 'tailwind-merge'
-import ParamailLogo from 'public/paramail.svg'
 import { buttonClasses } from '@/styles/sharedClasses'
+import ParamailLogo from 'public/paramail.svg'
 
 const Account = () => {
-  const { data: session, status } = useSession()
-
-  if (status === 'loading') return null
+  const { isLoading, session } = useSessionContext()
 
   return (
     <div>
-      {session && (
-        <button
-          type="button"
-          onClick={() => signOut()}
-          className={buttonClasses('ghost', 'sm')}
-        >
-          로그아웃
-        </button>
+      {!isLoading && session ? (
+        <AccountMenu user={session.user} />
+      ) : (
+        <Link href="/auth/login" className={buttonClasses('ghost', 'sm')}>
+          로그인
+        </Link>
       )}
     </div>
   )
@@ -30,7 +27,7 @@ interface NavigationProps {
   tabsTrigger?: ReactNode
 }
 
-const Navigation = ({
+export const AppNavigation = ({
   isInProgress = false,
   tabsTrigger = null,
 }: NavigationProps) => {
@@ -42,7 +39,7 @@ const Navigation = ({
   return (
     <header className="flex h-16 w-full items-center justify-between border-b bg-white px-4 md:px-8">
       <div className="flex items-center gap-8">
-        <Link href="/app" className="group py-2">
+        <Link href="/" className="group py-2">
           <ParamailLogo className="w-16 text-indigo-600 transition-colors group-hover:text-indigo-500 md:w-18" />
         </Link>
         {isInProgress ? (
@@ -62,37 +59,29 @@ const Navigation = ({
   )
 }
 
-export const LandingPageNavigation = ({
-  page = '',
-}: {
-  page?: 'signup' | 'login' | ''
-}) => {
+export const LandingPageNavigation = ({ clean }: { clean?: boolean }) => {
   return (
     <header className="flex h-16 shrink-0 items-center justify-between border-b px-4 md:h-20 md:px-8">
       <Link href="/" className="group py-2">
         <ParamailLogo className="w-16 text-indigo-600 group-hover:text-indigo-500 md:w-20" />
       </Link>
-      <div className="flex items-center gap-2 md:gap-4">
-        {page !== 'login' && (
+      {!clean && (
+        <div className="flex items-center gap-2 md:gap-4">
           <Link
-            href="/login"
+            href="/auth/login"
             className={twMerge(buttonClasses('ghost', 'md'), 'px-2 md:px-4')}
           >
             로그인
           </Link>
-        )}
-        {page !== 'signup' && (
           <Link
-            href="/signup"
+            href="/auth/signup"
             className="flex h-10 items-center justify-center rounded-full border border-indigo-300 px-3 font-medium text-indigo-500 transition-colors hover:border-indigo-500 hover:bg-indigo-500 hover:text-white md:h-12 md:px-4"
           >
             <span className="hidden md:inline-block">무료로&nbsp;</span>
             <span>시작하기</span>
           </Link>
-        )}
-      </div>
+        </div>
+      )}
     </header>
   )
 }
-
-export default Navigation

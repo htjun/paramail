@@ -2,7 +2,12 @@ import * as ToggleGroup from '@radix-ui/react-toggle-group'
 import useAutoHeightTextArea from '@/hooks/useAutoHeightTextArea'
 import ToggleGroupItem from '@/components/ToggleGroupItem'
 
-const AnswerPresetsToggleGroup = ({ list, value, setValue, setAnswer }) => {
+const AnswerPresetsToggleGroup = ({
+  list,
+  value,
+  setValue,
+  setAnswer,
+}: any) => {
   const textAreaRef = useAutoHeightTextArea()
   const numberOfItems = list.length
 
@@ -23,8 +28,8 @@ const AnswerPresetsToggleGroup = ({ list, value, setValue, setAnswer }) => {
         }
       }}
     >
-      {list.map((item, i) => (
-        <ToggleGroupItem value={i + 1} tabIndex={i} key={i}>
+      {list.map((item: string, i: number) => (
+        <ToggleGroupItem value={String(i + 1)} tabIndex={i} key={i}>
           {item}
         </ToggleGroupItem>
       ))}

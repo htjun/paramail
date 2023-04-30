@@ -1,0 +1,64 @@
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
+import { useSessionContext } from '@supabase/auth-helpers-react'
+import { twMerge } from 'tailwind-merge'
+import Meta from '@/components/Meta'
+import { LandingPageNavigation } from '@/components/Navigation'
+import { sectionContainer } from '@/styles/sharedClasses'
+import OAuthButton from './OAuthButton'
+
+const LoginPage = () => {
+  const router = useRouter()
+  const { isLoading, session } = useSessionContext()
+
+  useEffect(() => {
+    if (!isLoading && session) {
+      router.replace('/app')
+    }
+  }, [isLoading, session])
+
+  if (isLoading) return <>Login page loading...</>
+
+  return (
+    <>
+      <Meta title="로그인" />
+      <main>
+        <LandingPageNavigation clean />
+        <div className="flex w-full flex-col items-center justify-center px-4 py-12">
+          <div
+            className={twMerge(
+              sectionContainer,
+              'flex w-full max-w-lg flex-col gap-10 px-6 py-8'
+            )}
+          >
+            <div className="flex flex-col gap-2">
+              <h1 className="flex items-center gap-1.5 text-xl font-medium tracking-tight text-gray-700">
+                <span>로그인</span>
+              </h1>
+              <p className=" text-gray-500">
+                원하시는 로그인 방식을 선택하세요
+              </p>
+            </div>
+            <hr />
+            <div className="flex flex-col gap-3">
+              <OAuthButton method="google" label="구글" />
+              <OAuthButton method="facebook" label="페이스북" />
+            </div>
+            <div className="flex items-center gap-2 text-sm">
+              <span className="text-gray-500">아직 계정이 없으신가요?</span>
+              <Link
+                href="/auth/signup"
+                className="text-gray-700 underline decoration-gray-300 underline-offset-4 hover:text-gray-900 hover:decoration-gray-500"
+              >
+                무료로 시작하세요
+              </Link>
+            </div>
+          </div>
+        </div>
+      </main>
+    </>
+  )
+}
+
+export default LoginPage

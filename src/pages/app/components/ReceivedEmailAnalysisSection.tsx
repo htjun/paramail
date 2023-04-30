@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, Dispatch, SetStateAction, MouseEvent } from 'react'
 import { CheckIcon } from '@heroicons/react/20/solid'
 import SectionHeader from '@/components/SectionHeader'
 import SectionSubHeader from '@/components/SectionSubHeader'
@@ -10,17 +10,23 @@ import { sectionContainer } from '@/styles/sharedClasses'
 import WandSVG from 'public/wand.svg'
 import AnswerPresetsToggleGroup from './AnswerPresetsToggleGroup'
 
+interface ReceivedEmailAnalysisSectionProps {
+  emailInput: string
+  setProgressStep: Dispatch<SetStateAction<number>>
+  setAnswerSummary: Dispatch<SetStateAction<string>>
+}
+
 const ReceivedEmailAnalysisSection = ({
   emailInput,
   setProgressStep,
   setAnswerSummary,
-}) => {
+}: ReceivedEmailAnalysisSectionProps) => {
   const { loading, error, data } = useAnalysis(emailInput)
   const { summary, actionPointList = [], possibleAnswerList = [] } = data
   const [toggleActiveItem, setToggleActiveItem] = useState<number | null>(null)
   const [answer, setAnswer] = useState<string>('')
 
-  const handleMailCreation = async e => {
+  const handleMailCreation = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     setAnswerSummary(answer)
     setProgressStep(2)
