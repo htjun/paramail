@@ -5,7 +5,7 @@ import { useSessionContext } from '@supabase/auth-helpers-react'
 import { twMerge } from 'tailwind-merge'
 import Meta from '@/components/Meta'
 import { LandingPageNavigation } from '@/components/Navigation'
-import { sectionContainer } from '@/styles/sharedClasses'
+import { sectionContainer, textLink } from '@/styles/sharedClasses'
 import OAuthButton from './OAuthButton'
 
 const LoginPage = () => {
@@ -54,6 +54,19 @@ const LoginPage = () => {
                 무료로 시작하세요
               </Link>
             </div>
+          </div>
+        </div>
+        <div className="flex w-full justify-center">
+          <div className="max-w-sm text-center text-sm leading-relaxed tracking-tight text-gray-450">
+            계정 생성 또는 로그인 시{' '}
+            <Link href="/terms" target="_blank" className={textLink}>
+              서비스 약관
+            </Link>{' '}
+            및{' '}
+            <Link href="/privacy" target="_blank" className={textLink}>
+              개인정보 처리방침
+            </Link>
+            과 서비스 운영 관련 이메일 수신에 동의하는 것으로 간주합니다.
           </div>
         </div>
       </main>

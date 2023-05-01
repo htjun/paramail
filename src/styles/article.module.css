@@ -5,15 +5,29 @@
 }
 
 .article h1 {
-  font-size: 2rem;
+  font-size: 1.6rem;
+  font-weight: 500;
 }
 
 .article h2 {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-top: 1.2rem;
 }
 
 .article p {
   font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.article li {
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+
+.article ol {
+  list-style: decimal;
+  padding-left: 1rem;
 }
 
 .article a {

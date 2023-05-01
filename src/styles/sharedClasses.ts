@@ -29,3 +29,6 @@ export const buttonClasses = (
 
   return `${baseStyle} ${buttonStyle[style]} ${sizeClasses[size]}`
 }
+
+export const textLink =
+  'underline decoration-gray-300 underline-offset-4 hover:text-gray-900 hover:decoration-gray-500'
