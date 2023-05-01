@@ -23,9 +23,12 @@ const Document = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
-          content="Parade of Fans for Houston’s Funeral"
+          content="Paramail - AI 외국어 이메일 번역/분석/작성 앱"
         />
-        <meta name="twitter:description" content="" />
+        <meta
+          name="twitter:description"
+          content="GPT 언어 모델을 사용해 손쉽게 외국어 이메일을 번역, 분석, 작성할 수 있습니다."
+        />
         <meta name="twitter:image" content="https://paramail.app/og.png" />
         <link rel="canonical" href="https://paramail.app" />
         <link rel="icon" href="/favicon.ico" />
