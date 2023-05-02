@@ -70,7 +70,7 @@ const useEmailCreation = ({
     } finally {
       setLoading(false)
       axios.post('/api/usage-log', {
-        usageType: `${emailType}${isDevEnv && '-dev'}`,
+        usageType: `${emailType}${isDevEnv ? '-dev' : ''}`,
         usageAmount,
       })
     }

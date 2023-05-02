@@ -69,7 +69,7 @@ const useAnalysis = (inputText: string): AnalysisResult => {
     } finally {
       setLoading(false)
       axios.post('/api/usage-log', {
-        usageType: `analysis${isDevEnv && '-dev'}`,
+        usageType: `analysis${isDevEnv ? '-dev' : ''}`,
         usageAmount,
       })
     }
