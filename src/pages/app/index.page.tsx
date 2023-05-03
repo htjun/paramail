@@ -4,6 +4,7 @@ import { useSessionContext } from '@supabase/auth-helpers-react'
 import { AppNavigation } from '@/components/Navigation'
 import { TabsRoot, TabsTrigger, TabsContent } from '@/components/Tabs'
 import Meta from '@/components/Meta'
+import PageHeader from '@/components/PageHeader'
 import ReplyFlow from './components/ReplyFlow'
 import NewMailFlow from './components/NewMailFlow'
 
@@ -24,10 +25,7 @@ const AppPage = () => {
   return (
     <>
       <Meta title="이메일 생성하기" />
-      <TabsRoot
-        defaultValue="reply"
-        className="flex w-full flex-col items-center justify-center gap-6"
-      >
+      <TabsRoot defaultValue="reply">
         <AppNavigation
           isInProgress={inProgress}
           tabsTrigger={
@@ -39,14 +37,28 @@ const AppPage = () => {
             />
           }
         />
-        <main className="w-full max-w-screen-xl px-4 pb-16 pt-3 md:px-12 md:pt-6">
-          <TabsContent value="reply">
-            <ReplyFlow setInProgress={setInProgress} />
-          </TabsContent>
-          <TabsContent value="new">
-            <NewMailFlow setInProgress={setInProgress} />
-          </TabsContent>
-        </main>
+        <TabsContent value="reply" className="w-full">
+          <PageHeader
+            title="Reply email"
+            description="받은 메일을 번역하고 분석한 뒤, 답장 메일을 생성합니다."
+          />
+        </TabsContent>
+        <TabsContent value="new" className="w-full">
+          <PageHeader
+            title="New email"
+            description="새로운 이메일을 생성합니다."
+          />
+        </TabsContent>
+        <div className="flex flex-col items-center">
+          <main className="w-full max-w-screen-xl px-4 pb-16 pt-3 md:px-12 md:pt-6">
+            <TabsContent value="reply">
+              <ReplyFlow setInProgress={setInProgress} />
+            </TabsContent>
+            <TabsContent value="new">
+              <NewMailFlow setInProgress={setInProgress} />
+            </TabsContent>
+          </main>
+        </div>
       </TabsRoot>
     </>
   )
