@@ -22,6 +22,10 @@ module.exports = {
         gray: {
           25: '#FCFCFD',
           150: '#E9EBEF',
+          250: '#D9DCE2',
+        },
+        slate: {
+          550: '#566175',
         },
         grayBlue: {
           25: '#FCFCFD',

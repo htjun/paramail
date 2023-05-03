@@ -18,7 +18,7 @@ const AccountMenu = ({ user }: { user: any }) => {
     <Popover.Root>
       <Popover.Trigger asChild>
         <button
-          className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-lg px-1 text-sm font-medium text-gray-500 ring-offset-2 transition-all hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:px-3.5"
+          className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-full border border-gray-250 pl-3 pr-2 text-sm font-medium text-gray-500 ring-offset-2 transition-all hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:pl-4 sm:pr-3"
           aria-label="Account menu"
         >
           <span className="hidden shrink-0 sm:block">{userData.name}</span>
