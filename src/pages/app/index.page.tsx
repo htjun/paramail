@@ -50,7 +50,7 @@ const AppPage = () => {
           />
         </TabsContent>
         <div className="flex flex-col items-center">
-          <main className="w-full max-w-screen-xl px-4 pb-16 pt-3 md:px-12 md:pt-6">
+          <main className="w-full max-w-screen-xl px-4 py-8 md:px-12 md:py-12">
             <TabsContent value="reply">
               <ReplyFlow setInProgress={setInProgress} />
             </TabsContent>

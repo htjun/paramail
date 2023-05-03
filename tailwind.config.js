@@ -70,8 +70,8 @@ module.exports = {
       boxShadow: {
         xs: '0px 1px 2px rgba(16, 24, 40, 0.05)',
         sm: [
-          '0px 1px 3px rgba(16, 24, 40, 0.1)',
-          '0px 1px 2px rgba(16, 24, 40, 0.06)',
+          '0px 1px 2px rgba(16, 24, 40, 0.08)',
+          '0px 3px 2px rgba(16, 24, 40, 0.03)',
         ],
         md: [
           '0px 4px 8px -2px rgba(16, 24, 40, 0.1)',
@@ -97,5 +97,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 }

@@ -1,7 +1,12 @@
 import { useState, ChangeEvent, MouseEvent } from 'react'
 import { LanguageIcon } from '@heroicons/react/20/solid'
-import SectionHeader from '@/components/SectionHeader'
-import TextBox from '@/components/TextBox'
+import TextArea from '@/components/TextArea'
+import { twMerge } from 'tailwind-merge'
+import { sectionContainer, buttonClasses } from '@/styles/sharedClasses'
+import {
+  InboxArrowDownIcon,
+  InformationCircleIcon,
+} from '@heroicons/react/24/outline'
 
 interface ReceivedEmailInputSectionProps {
   receivedEmailValue: string
@@ -35,22 +40,57 @@ const ReceivedEmailInputSection = ({
     setProgressStep(1)
   }
   return (
-    <div className="flex flex-col gap-8">
-      <SectionHeader
-        title="받은 메일 입력"
-        description="받은 영어 이메일을 입력해 주세요. 제목과 보낸 사람의 이름을 함께 넣으면 더 도움이 됩니다."
-      />
-      <TextBox
-        value={receivedEmailValue}
-        onChange={handleInputChange}
-        placeholder="받은 메일을 이곳에 붙여넣기 하세요."
-        errorMessage={errorMessage}
-        button={{
-          label: '번역 & 분석',
-          icon: <LanguageIcon className="h-4 w-4" />,
-          onClick: handleTranslateButtonClick,
-        }}
-      />
+    <div className="flex items-start gap-6">
+      <section className={twMerge(sectionContainer, 'w-full flex-grow p-6')}>
+        <div className="mb-6 flex items-center gap-1.5">
+          <InboxArrowDownIcon className="h-4 w-4 text-gray-600" />
+          <span className="font-medium tracking-tight text-gray-800">
+            받은 메일 입력
+          </span>
+        </div>
+        <TextArea
+          id="received-email"
+          classNames="w-full min-h-[240px]"
+          placeholder="받은 영어 이메일을 이곳에 붙여넣기 하세요."
+          value={receivedEmailValue}
+          onChange={handleInputChange}
+        />
+        <div className="mt-6 flex items-center justify-end gap-6">
+          {errorMessage && (
+            <span className="text-sm text-red-500">{errorMessage}</span>
+          )}
+          <button
+            className={buttonClasses('primary', 'md')}
+            onClick={handleTranslateButtonClick}
+          >
+            <LanguageIcon className="h-4 w-4" />
+            <span>번역 & 분석</span>
+          </button>
+        </div>
+      </section>
+      <div className="hidden w-full max-w-xs rounded-lg border border-dashed border-gray-250 p-6 lg:block">
+        <div className="mb-6 flex items-center gap-1.5">
+          <InformationCircleIcon className="h-4 w-4 text-gray-500" />
+          <span className="font-medium tracking-tight text-gray-600">
+            받은 메일 입력 예시
+          </span>
+        </div>
+        <div className="prose text-sm text-slate-500">
+          <p>RBA cash rateraised to 3.85%</p>
+          <p>Hi Jason,</p>
+          <p>
+            Following a pause last month, the Reserve Bank of Australia (RBA)
+            today decided to increase the official cash rate by 0.25% to 3.85%.
+          </p>
+          <p>
+            If you&apos;d like to have a chat about what today&apos;s news means
+            for you and your finances, please don&apos;t hesitate to get in
+            touch.
+          </p>
+          <p>Regards</p>
+          <p>Spiro Kolokithas</p>
+        </div>
+      </div>
     </div>
   )
 }
