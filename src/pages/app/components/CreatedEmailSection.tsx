@@ -70,7 +70,7 @@ const CreatedEmailSection = ({
           <div className="flex flex-col gap-6">
             <SectionSubHeader>
               <div>번역본</div>
-              <div className="flex items-center gap-0.5 font-normal text-gray-450">
+              <div className="text-gray-450 flex items-center gap-0.5 font-normal">
                 <span>내용 확인용으로만 참고해주세요</span>
                 <Tooltip content="번역 품질이 좋지 않을 수 있으므로 내용 확인용으로만 참고해주세요. 원본은 최대한 자연스러운 영어로 작성되었습니다." />
               </div>
