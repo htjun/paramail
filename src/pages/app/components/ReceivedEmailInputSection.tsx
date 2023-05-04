@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, MouseEvent } from 'react'
+import { useState, ChangeEvent, FormEvent } from 'react'
 import { LanguageIcon } from '@heroicons/react/20/solid'
 import TextArea from '@/components/TextArea'
 import { twMerge } from 'tailwind-merge'
@@ -26,9 +26,7 @@ const ReceivedEmailInputSection = ({
     setErrorMessage(null)
   }
 
-  const handleTranslateButtonClick = async (
-    e: MouseEvent<HTMLButtonElement>
-  ) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setErrorMessage(null)
 
@@ -41,7 +39,10 @@ const ReceivedEmailInputSection = ({
   }
   return (
     <div className="flex items-start gap-6">
-      <section className={twMerge(sectionContainer, 'w-full flex-grow p-6')}>
+      <form
+        onSubmit={handleSubmit}
+        className={twMerge(sectionContainer, 'w-full flex-grow p-6')}
+      >
         <div className="mb-6 flex items-center gap-1.5">
           <InboxArrowDownIcon className="h-4 w-4 text-gray-600" />
           <span className="font-medium tracking-tight text-gray-800">
@@ -54,20 +55,18 @@ const ReceivedEmailInputSection = ({
           placeholder="받은 영어 이메일을 이곳에 붙여넣기 하세요."
           value={receivedEmailValue}
           onChange={handleInputChange}
+          required
         />
         <div className="mt-6 flex items-center justify-end gap-6">
           {errorMessage && (
             <span className="text-sm text-red-500">{errorMessage}</span>
           )}
-          <button
-            className={buttonClasses('primary', 'md')}
-            onClick={handleTranslateButtonClick}
-          >
+          <button type="submit" className={buttonClasses('primary', 'md')}>
             <LanguageIcon className="h-4 w-4" />
             <span>번역 & 분석</span>
           </button>
         </div>
-      </section>
+      </form>
       <div className="hidden w-full max-w-xs rounded-lg border border-dashed border-gray-250 p-6 lg:block">
         <div className="mb-6 flex items-center gap-1.5">
           <InformationCircleIcon className="h-4 w-4 text-gray-500" />
