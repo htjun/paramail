@@ -1,33 +1,47 @@
+import { ChangeEvent } from 'react'
 import { twMerge } from 'tailwind-merge'
 import useAutoHeightTextArea from '@/hooks/useAutoHeightTextArea'
+import { textInput } from '@/styles/sharedClasses'
 
 interface TextAreaProps {
   id: string
   label?: string
+  value: string
+  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
+  placeholder?: string | undefined
   classNames?: string
-  [x: string]: any
+  required?: boolean
 }
 
-const TextArea = ({ id, label, classNames, ...props }: TextAreaProps) => {
+const TextArea = ({
+  id,
+  label,
+  value,
+  onChange,
+  placeholder = undefined,
+  classNames,
+  required = false,
+}: TextAreaProps) => {
   const textAreaRef = useAutoHeightTextArea(2)
   return (
-    <>
+    <div className="flex flex-col gap-2">
       {label && (
-        <label htmlFor={id} className="mb-2 text-sm font-medium text-gray-700">
-          {label}
+        <label htmlFor={id} className="flex gap-1.5 text-sm text-gray-800">
+          <span>{label}</span>
+          {required && <span className="text-gray-500">(필수)</span>}
         </label>
       )}
       <textarea
         ref={textAreaRef}
         name={id}
         id={id}
-        className={twMerge(
-          'w-full resize-none rounded-md border border-slate-300 p-4 shadow-xs hover:border-grayBlue-200 focus:border-grayBlue-300 focus:outline-none',
-          classNames
-        )}
-        {...props}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className={twMerge(textInput, 'w-full resize-none p-4', classNames)}
+        required={required}
       />
-    </>
+    </div>
   )
 }
 

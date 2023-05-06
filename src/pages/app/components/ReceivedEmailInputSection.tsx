@@ -2,7 +2,12 @@ import { useState, ChangeEvent, FormEvent } from 'react'
 import { LanguageIcon } from '@heroicons/react/20/solid'
 import TextArea from '@/components/TextArea'
 import { twMerge } from 'tailwind-merge'
-import { sectionContainer, buttonClasses } from '@/styles/sharedClasses'
+import ErrorMessage from '@/components/ErrorMessage'
+import {
+  sectionContainer,
+  buttonClasses,
+  guideSection,
+} from '@/styles/sharedClasses'
 import {
   InboxArrowDownIcon,
   InformationCircleIcon,
@@ -26,7 +31,7 @@ const ReceivedEmailInputSection = ({
     setErrorMessage(null)
   }
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setErrorMessage(null)
 
@@ -58,16 +63,14 @@ const ReceivedEmailInputSection = ({
           required
         />
         <div className="mt-6 flex items-center justify-end gap-6">
-          {errorMessage && (
-            <span className="text-sm text-red-500">{errorMessage}</span>
-          )}
+          {errorMessage && <ErrorMessage text={errorMessage} />}
           <button type="submit" className={buttonClasses('primary', 'md')}>
             <LanguageIcon className="h-4 w-4" />
             <span>번역 & 분석</span>
           </button>
         </div>
       </form>
-      <div className="hidden w-full max-w-xs rounded-lg border border-dashed border-gray-250 p-6 lg:block">
+      <div className={twMerge(guideSection, 'hidden w-full max-w-xs lg:block')}>
         <div className="mb-6 flex items-center gap-1.5">
           <InformationCircleIcon className="h-4 w-4 text-gray-500" />
           <span className="font-medium tracking-tight text-gray-600">

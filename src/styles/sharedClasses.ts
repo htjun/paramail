@@ -32,3 +32,9 @@ export const buttonClasses = (
 
 export const textLink =
   'underline decoration-gray-300 underline-offset-4 hover:text-gray-900 hover:decoration-gray-500'
+
+export const textInput =
+  'rounded-md border border-slate-300 px-4 shadow-xs hover:border-grayBlue-200 focus:border-grayBlue-300 focus:outline-none'
+
+export const guideSection =
+  'rounded-lg border border-dashed border-gray-250 p-6'

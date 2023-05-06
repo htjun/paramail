@@ -30,7 +30,7 @@ const AccountMenu = ({ user }: { user: any }) => {
         <Popover.Content
           className="w-52 rounded border bg-white py-3 shadow-lg will-change-[transform,opacity]"
           collisionPadding={20}
-          sideOffset={0}
+          sideOffset={2}
         >
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-1 px-5 py-2">

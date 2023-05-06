@@ -46,7 +46,7 @@ const AppPage = () => {
         <TabsContent value="new" className="w-full">
           <PageHeader
             title="New email"
-            description="새로운 이메일을 생성합니다."
+            description="입력된 내용을 토대로 새로운 이메일을 생성합니다."
           />
         </TabsContent>
         <div className="flex flex-col items-center">
