@@ -2,11 +2,10 @@ import { useState, Dispatch, SetStateAction, MouseEvent } from 'react'
 import { CheckIcon } from '@heroicons/react/20/solid'
 import SectionHeader from '@/components/SectionHeader'
 import SectionSubHeader from '@/components/SectionSubHeader'
-import FancyButton from '@/components/FancyButton'
 import LoadingDots from '@/components/LoadingDots'
 import ErrorMessage from '@/components/ErrorMessage'
 import useAnalysis from '@/hooks/useAnalysis'
-import { sectionContainer } from '@/styles/sharedClasses'
+import { sectionContainer, buttonClasses } from '@/styles/sharedClasses'
 import WandSVG from 'public/wand.svg'
 import AnswerPresetsToggleGroup from './AnswerPresetsToggleGroup'
 
@@ -85,12 +84,14 @@ const ReceivedEmailAnalysisSection = ({
           </div>
         </div>
         <div className="flex justify-end border-t border-gray-200 p-6">
-          <FancyButton
-            label="메일 생성하기"
+          <button
             onClick={handleMailCreation}
-            icon={<WandSVG className="h-4 w-4" />}
+            className={buttonClasses('primary', 'md')}
             disabled={answer.trim().length === 0}
-          />
+          >
+            <WandSVG className="h-4 w-4" />
+            <span>메일 생성하기</span>
+          </button>
         </div>
       </section>
     </div>

@@ -1,7 +1,6 @@
 import { DocumentDuplicateIcon } from '@heroicons/react/20/solid'
 import SectionHeader from '@/components/SectionHeader'
 import SectionSubHeader from '@/components/SectionSubHeader'
-import FancyButton from '@/components/FancyButton'
 import LoadingDots from '@/components/LoadingDots'
 import ErrorMessage from '@/components/ErrorMessage'
 import Tooltip from '@/components/Tooltip'
@@ -9,6 +8,7 @@ import formatTextToParagraphs from '@/utils/formatTextToParagraphs'
 import useEmailCreation from '@/hooks/useEmailCreation'
 import useTranslate from '@/hooks/useTranslation'
 import useCopyToClipboard from '@/hooks/useCopyToClipboard'
+import { buttonClasses } from '@/styles/sharedClasses'
 
 interface CreatedEmailSectionProps {
   receivedEmailValue?: string
@@ -97,11 +97,13 @@ const CreatedEmailSection = ({
           {success && (
             <p className="mr-4 text-sm text-gray-500">복사되었습니다.</p>
           )}
-          <FancyButton
-            label="원본 복사하기"
+          <button
             onClick={handleCopyToClipboard}
-            icon={<DocumentDuplicateIcon className="h-4 w-4" />}
-          />
+            className={buttonClasses('primary', 'md')}
+          >
+            <DocumentDuplicateIcon className="h-4 w-4" />
+            <span>원본 복사하기</span>
+          </button>
         </div>
       </section>
     </div>
