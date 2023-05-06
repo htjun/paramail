@@ -84,7 +84,7 @@ const NewEmailInputSection = ({
             새 메일 입력
           </span>
         </div>
-        <div className="mb-8 grid grid-cols-2 gap-6">
+        <div className="mb-8 grid gap-6 md:grid-cols-2">
           <TextInput
             id="sender"
             label="보내는 사람"

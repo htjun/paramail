@@ -46,7 +46,10 @@ const ReceivedEmailInputSection = ({
     <div className="flex items-start gap-6">
       <form
         onSubmit={handleSubmit}
-        className={twMerge(sectionContainer, 'w-full flex-grow p-6')}
+        className={twMerge(
+          sectionContainer,
+          'w-full flex-grow px-4 py-6 md:p-6'
+        )}
       >
         <div className="mb-6 flex items-center gap-1.5">
           <InboxArrowDownIcon className="h-4 w-4 text-gray-600" />
