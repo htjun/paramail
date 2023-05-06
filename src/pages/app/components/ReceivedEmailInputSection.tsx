@@ -1,7 +1,17 @@
-import { useState, ChangeEvent, MouseEvent } from 'react'
+import { useState, ChangeEvent, FormEvent } from 'react'
 import { LanguageIcon } from '@heroicons/react/20/solid'
-import SectionHeader from '@/components/SectionHeader'
-import TextBox from '@/components/TextBox'
+import TextArea from '@/components/TextArea'
+import { twMerge } from 'tailwind-merge'
+import ErrorMessage from '@/components/ErrorMessage'
+import {
+  sectionContainer,
+  buttonClasses,
+  guideSection,
+} from '@/styles/sharedClasses'
+import {
+  InboxArrowDownIcon,
+  InformationCircleIcon,
+} from '@heroicons/react/24/outline'
 
 interface ReceivedEmailInputSectionProps {
   receivedEmailValue: string
@@ -21,9 +31,7 @@ const ReceivedEmailInputSection = ({
     setErrorMessage(null)
   }
 
-  const handleTranslateButtonClick = async (
-    e: MouseEvent<HTMLButtonElement>
-  ) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setErrorMessage(null)
 
@@ -35,22 +43,68 @@ const ReceivedEmailInputSection = ({
     setProgressStep(1)
   }
   return (
-    <div className="flex flex-col gap-8">
-      <SectionHeader
-        title="받은 메일 입력"
-        description="받은 영어 이메일을 입력해 주세요. 제목과 보낸 사람의 이름을 함께 넣으면 더 도움이 됩니다."
-      />
-      <TextBox
-        value={receivedEmailValue}
-        onChange={handleInputChange}
-        placeholder="받은 메일을 이곳에 붙여넣기 하세요."
-        errorMessage={errorMessage}
-        button={{
-          label: '번역 & 분석',
-          icon: <LanguageIcon className="h-4 w-4" />,
-          onClick: handleTranslateButtonClick,
-        }}
-      />
+    <div className="flex items-start gap-6">
+      <form
+        onSubmit={handleSubmit}
+        className={twMerge(
+          sectionContainer,
+          'w-full flex-grow px-4 py-6 md:p-6'
+        )}
+      >
+        <div className="mb-6 flex items-center gap-1.5">
+          <InboxArrowDownIcon className="h-4 w-4 text-gray-600" />
+          <span className="font-medium tracking-tight text-gray-800">
+            받은 메일 입력
+          </span>
+        </div>
+        <TextArea
+          id="received-email"
+          classNames="w-full min-h-[240px]"
+          placeholder="받은 영어 이메일을 이곳에 붙여넣기 하세요."
+          value={receivedEmailValue}
+          onChange={handleInputChange}
+          required
+        />
+        <div className="mt-6 flex items-center justify-end gap-6">
+          {errorMessage && <ErrorMessage text={errorMessage} />}
+          <button type="submit" className={buttonClasses('primary', 'md')}>
+            <LanguageIcon className="h-4 w-4" />
+            <span>번역 & 분석</span>
+          </button>
+        </div>
+      </form>
+      <div
+        className={twMerge(
+          guideSection,
+          'hidden w-full max-w-sm flex-col gap-6 lg:flex'
+        )}
+      >
+        <div className="flex items-center gap-1.5">
+          <InformationCircleIcon className="h-4 w-4 text-gray-500" />
+          <span className="font-medium tracking-tight text-gray-600">
+            받은 메일 입력 예시
+          </span>
+        </div>
+        <div className="rounded-md border border-gray-100 bg-gray-50 p-4 text-sm text-gray-500">
+          아래와 같이{' '}
+          <strong className="font-medium text-gray-600">발신자</strong>와{' '}
+          <strong className="font-medium text-gray-600">수신자</strong>의 이름이
+          포함되어 있으면 더 정확한 답장을 생성할 수 있습니다.
+        </div>
+        <div className="prose text-sm text-slate-500">
+          <p>Dear Jason,</p>
+
+          <p>
+            I hope you&apos;re well. I&apos;ve attached a document with
+            marketing and social media ideas and would appreciate your feedback.
+            Should we contact Emily for the launch event? Can we discuss this
+            over coffee next week?
+          </p>
+          <p>Looking forward to your response.</p>
+          <p>Best,</p>
+          <p>Richard</p>
+        </div>
+      </div>
     </div>
   )
 }

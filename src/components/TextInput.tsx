@@ -1,19 +1,40 @@
+import { ChangeEvent } from 'react'
+import { twMerge } from 'tailwind-merge'
+import { textInput } from '@/styles/sharedClasses'
+
 interface TextInputProps {
   id: string
   label: string
+  value: string
+  placeholder?: string | undefined
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  className?: string
+  required?: boolean
 }
 
-const TextInput = ({ id, label }: TextInputProps) => {
+const TextInput = ({
+  id,
+  label,
+  value,
+  placeholder = undefined,
+  onChange,
+  className,
+  required = false,
+}: TextInputProps) => {
   return (
-    <div className="flex w-full max-w-xs flex-col gap-2">
-      <label htmlFor={id} className="text-sm font-medium text-gray-700">
-        {label}
+    <div className="flex flex-col gap-2">
+      <label htmlFor={id} className="flex gap-1.5 text-sm text-gray-800">
+        <span>{label}</span>
+        {required && <span className="text-gray-500">(필수)</span>}
       </label>
       <input
-        type="text"
-        name={id}
         id={id}
-        className="h-10 w-full rounded-md border border-gray-200 px-4 shadow-sm hover:border-grayBlue-200 focus:border-grayBlue-300 focus:outline-none sm:text-sm"
+        type="text"
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className={twMerge(textInput, 'h-10 w-full', className)}
+        required={required}
       />
     </div>
   )

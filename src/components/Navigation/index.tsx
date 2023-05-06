@@ -37,8 +37,8 @@ export const AppNavigation = ({
   }
 
   return (
-    <header className="flex h-16 w-full items-center justify-between border-b bg-white px-4 md:px-8">
-      <div className="flex items-center gap-3 sm:gap-8">
+    <header className="flex h-16 w-full items-center justify-between border-b border-gray-150 bg-white px-4 md:px-8">
+      <div className="flex items-center gap-3 sm:gap-10">
         <Link href="/" className="group py-2">
           <ParamailLogo className="w-16 text-indigo-600 transition-colors group-hover:text-indigo-500 md:w-18" />
         </Link>

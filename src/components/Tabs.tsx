@@ -11,13 +11,13 @@ export const TabsTrigger = ({ items }: TabsTriggerProps) => {
   return (
     <TabsPrimitive.List
       aria-label="tabs"
-      className="flex gap-0.5 rounded-lg border border-gray-200 bg-gray-50 p-0.5"
+      className="flex h-9 gap-0.5 rounded-full bg-gray-50 shadow-[inset_0_0_0_1px_#E9EBEF]"
     >
       {items.map(item => (
         <TabsPrimitive.Trigger
           key={item.value}
           value={item.value}
-          className="h-8 w-18 rounded-md text-sm font-medium tracking-tight text-gray-400 transition-colors hover:text-gray-800 data-[state=active]:bg-white data-[state=active]:text-gray-800  data-[state=active]:shadow-sm sm:w-20"
+          className="h-9 rounded-full border border-transparent px-3 text-sm font-medium tracking-tight text-gray-400 transition-colors hover:text-gray-800 data-[state=active]:border-slate-300 data-[state=active]:bg-white data-[state=active]:text-gray-800 data-[state=active]:shadow-md sm:px-5"
         >
           {item.label}
         </TabsPrimitive.Trigger>

@@ -6,46 +6,19 @@ import {
   FormEvent,
 } from 'react'
 import { twMerge } from 'tailwind-merge'
-import SectionHeader from '@/components/SectionHeader'
-import FancyButton from '@/components/FancyButton'
+import TextInput from '@/components/TextInput'
+import TextArea from '@/components/TextArea'
 import ErrorMessage from '@/components/ErrorMessage'
-import useAutoHeightTextArea from '@/hooks/useAutoHeightTextArea'
+import {
+  PencilSquareIcon,
+  InformationCircleIcon,
+} from '@heroicons/react/24/outline'
+import {
+  sectionContainer,
+  buttonClasses,
+  guideSection,
+} from '@/styles/sharedClasses'
 import WandSVG from 'public/wand.svg'
-
-interface TextInputProps {
-  id: string
-  label: string
-  value: string
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void
-  className?: string
-}
-
-const TextInput = ({
-  id,
-  label,
-  value,
-  onChange,
-  className = '',
-}: TextInputProps) => {
-  return (
-    <div className={twMerge(className, 'flex h-16 items-center p-6')}>
-      <label
-        htmlFor={id}
-        className="grid h-16 shrink-0 place-items-center text-gray-500"
-      >
-        {label}
-      </label>
-      <input
-        id={id}
-        type="text"
-        value={value}
-        onChange={onChange}
-        className="h-16 w-full bg-transparent p-2 focus:outline-none"
-        required
-      />
-    </div>
-  )
-}
 
 interface NewEmailInputSectionProps {
   setProgressStep: Dispatch<SetStateAction<number>>
@@ -69,7 +42,6 @@ const NewEmailInputSection = ({
   setNewEmailValue,
 }: NewEmailInputSectionProps) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
-  const textAreaRef = useAutoHeightTextArea(2)
 
   const handleInputContentChange = (
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -88,7 +60,7 @@ const NewEmailInputSection = ({
     setErrorMessage(null)
   }
 
-  const handleCreateButtonClick = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setErrorMessage(null)
 
@@ -101,50 +73,65 @@ const NewEmailInputSection = ({
   }
 
   return (
-    <div className="flex flex-col gap-8">
-      <SectionHeader
-        title="새 메일 내용 입력"
-        description="작성할 메일의 내용을 한글로 간략히 입력해 주세요."
-      />
+    <div className="flex items-start gap-6">
       <form
-        onSubmit={handleCreateButtonClick}
-        className="flex w-full max-w-[800px] flex-col rounded-xl bg-white shadow-xs"
+        onSubmit={handleSubmit}
+        className={twMerge(sectionContainer, 'w-full flex-grow p-6')}
       >
-        <div className="rounded-t-xl border border-gray-200 outline-none transition-all duration-75 hover:border-grayBlue-200 focus:border-grayBlue-300">
-          <div className="grid border-b border-gray-200 md:grid-cols-2">
-            <TextInput
-              id="recipient"
-              label="받는 사람:"
-              value={newEmailValue.recipient}
-              onChange={handleInputContentChange}
-              className="border-b border-gray-200 md:border-none"
-            />
-            <TextInput
-              id="sender"
-              label="보내는 사람:"
-              value={newEmailValue.sender}
-              onChange={handleInputContentChange}
-            />
-          </div>
-          <textarea
-            id="content"
-            ref={textAreaRef}
-            value={newEmailValue.content}
+        <div className="mb-6 flex items-center gap-1.5">
+          <PencilSquareIcon className="h-4 w-4 text-gray-600" />
+          <span className="font-medium tracking-tight text-gray-800">
+            새 메일 입력
+          </span>
+        </div>
+        <div className="mb-8 grid gap-6 md:grid-cols-2">
+          <TextInput
+            id="sender"
+            label="보내는 사람"
+            value={newEmailValue.sender}
             onChange={handleInputContentChange}
-            placeholder="보낼 메일의 내용을 입력해 주세요."
-            className="min-h-[300px] w-full grow resize-none p-6 focus:outline-none"
-            required
+          />
+          <TextInput
+            id="recipient"
+            label="받는 사람"
+            value={newEmailValue.recipient}
+            onChange={handleInputContentChange}
           />
         </div>
-        <div className="flex items-center justify-end gap-6 rounded-b-xl border border-t-0 border-gray-200 p-6 text-gray-600">
+        <TextArea
+          id="content"
+          label="보낼 메일 내용"
+          value={newEmailValue.content}
+          onChange={handleInputContentChange}
+          required
+        />
+        <div className="mt-6 flex items-center justify-end gap-6">
           {errorMessage && <ErrorMessage text={errorMessage} />}
-          <FancyButton
-            type="submit"
-            label="생성하기"
-            icon={<WandSVG className="h-4 w-4" />}
-          />
+          <button type="submit" className={buttonClasses('primary', 'md')}>
+            <WandSVG className="h-4 w-4" />
+            <span>메일 생성</span>
+          </button>
         </div>
       </form>
+      <div className={twMerge(guideSection, 'hidden w-full max-w-sm lg:block')}>
+        <div className="mb-6 flex items-center gap-1.5">
+          <InformationCircleIcon className="h-4 w-4 text-gray-500" />
+          <span className="font-medium tracking-tight text-gray-600">
+            새 메일 입력 예시
+          </span>
+        </div>
+        <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-4 text-sm text-slate-500">
+          <div className="text-slate-700">보내는 사람</div>
+          <div>Min-soo</div>
+          <div className="text-slate-700">받는 사람</div>
+          <div>Brandon</div>
+          <div className="text-slate-700">보낼 메일 내용</div>
+          <div>
+            어제 보낸 문서 받았는지 확인해주세요. 그리고 다음주 미팅 시간
+            결정해주세요.
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

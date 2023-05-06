@@ -21,17 +21,11 @@ module.exports = {
         white: '#fff',
         gray: {
           25: '#FCFCFD',
-          50: '#F9FAFB',
-          100: '#F2F4F7',
-          200: '#EAECF0',
-          300: '#D0D5DD',
-          400: '#98A2B3',
-          450: '#7C8AA3',
-          500: '#667085',
-          600: '#475467',
-          700: '#344054',
-          800: '#344054',
-          900: '#101828',
+          150: '#E9EBEF',
+          250: '#D9DCE2',
+        },
+        slate: {
+          550: '#566175',
         },
         grayBlue: {
           25: '#FCFCFD',
@@ -76,8 +70,8 @@ module.exports = {
       boxShadow: {
         xs: '0px 1px 2px rgba(16, 24, 40, 0.05)',
         sm: [
-          '0px 1px 3px rgba(16, 24, 40, 0.1)',
-          '0px 1px 2px rgba(16, 24, 40, 0.06)',
+          '0px 1px 2px rgba(16, 24, 40, 0.08)',
+          '0px 3px 2px rgba(16, 24, 40, 0.03)',
         ],
         md: [
           '0px 4px 8px -2px rgba(16, 24, 40, 0.1)',
@@ -103,5 +97,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 }

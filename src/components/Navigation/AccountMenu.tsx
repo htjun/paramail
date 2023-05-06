@@ -2,7 +2,7 @@ import { MouseEvent } from 'react'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import * as Popover from '@radix-ui/react-popover'
 import { twMerge } from 'tailwind-merge'
-import { XMarkIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
+import { XMarkIcon, ChevronDownIcon, UserIcon } from '@heroicons/react/20/solid'
 import { buttonClasses } from '@/styles/sharedClasses'
 
 const AccountMenu = ({ user }: { user: any }) => {
@@ -18,19 +18,19 @@ const AccountMenu = ({ user }: { user: any }) => {
     <Popover.Root>
       <Popover.Trigger asChild>
         <button
-          className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-lg px-1 text-sm font-medium text-gray-500 ring-offset-2 transition-all hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:px-3.5"
+          className="flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full border border-gray-250 text-sm font-medium text-gray-500 ring-offset-2 transition-all hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:w-auto sm:pl-4 sm:pr-3"
           aria-label="Account menu"
         >
           <span className="hidden shrink-0 sm:block">{userData.name}</span>
-          <span className="block shrink-0 sm:hidden">내 계정</span>
-          <ChevronDownIcon className="h-4 w-4" />
+          <ChevronDownIcon className="hidden h-4 w-4 shrink-0 sm:block" />
+          <UserIcon className="block h-4 w-4 shrink-0 sm:hidden" />
         </button>
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Content
           className="w-52 rounded border bg-white py-3 shadow-lg will-change-[transform,opacity]"
           collisionPadding={20}
-          sideOffset={0}
+          sideOffset={2}
         >
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-1 px-5 py-2">
