@@ -113,14 +113,14 @@ const NewEmailInputSection = ({
           </button>
         </div>
       </form>
-      <div className={twMerge(guideSection, 'hidden w-full max-w-xs lg:block')}>
+      <div className={twMerge(guideSection, 'hidden w-full max-w-sm lg:block')}>
         <div className="mb-6 flex items-center gap-1.5">
           <InformationCircleIcon className="h-4 w-4 text-gray-500" />
           <span className="font-medium tracking-tight text-gray-600">
             새 메일 입력 예시
           </span>
         </div>
-        <div className="grid grid-cols-2 grid-cols-[auto_1fr] gap-x-3 gap-y-4 text-sm text-slate-500">
+        <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-4 text-sm text-slate-500">
           <div className="text-slate-700">보내는 사람</div>
           <div>Min-soo</div>
           <div className="text-slate-700">받는 사람</div>

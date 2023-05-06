@@ -73,27 +73,36 @@ const ReceivedEmailInputSection = ({
           </button>
         </div>
       </form>
-      <div className={twMerge(guideSection, 'hidden w-full max-w-xs lg:block')}>
-        <div className="mb-6 flex items-center gap-1.5">
+      <div
+        className={twMerge(
+          guideSection,
+          'hidden w-full max-w-sm flex-col gap-6 lg:flex'
+        )}
+      >
+        <div className="flex items-center gap-1.5">
           <InformationCircleIcon className="h-4 w-4 text-gray-500" />
           <span className="font-medium tracking-tight text-gray-600">
             받은 메일 입력 예시
           </span>
         </div>
+        <div className="rounded-md border border-gray-100 bg-gray-50 p-4 text-sm text-gray-500">
+          아래와 같이{' '}
+          <strong className="font-medium text-gray-600">발신자</strong>와{' '}
+          <strong className="font-medium text-gray-600">수신자</strong>의 이름이
+          포함되어 있으면 더 정확한 답장을 생성할 수 있습니다.
+        </div>
         <div className="prose text-sm text-slate-500">
-          <p>RBA cash rateraised to 3.85%</p>
-          <p>Hi Jason,</p>
+          <p>Dear Jason,</p>
+
           <p>
-            Following a pause last month, the Reserve Bank of Australia (RBA)
-            today decided to increase the official cash rate by 0.25% to 3.85%.
+            I hope you&apos;re well. I&apos;ve attached a document with
+            marketing and social media ideas and would appreciate your feedback.
+            Should we contact Emily for the launch event? Can we discuss this
+            over coffee next week?
           </p>
-          <p>
-            If you&apos;d like to have a chat about what today&apos;s news means
-            for you and your finances, please don&apos;t hesitate to get in
-            touch.
-          </p>
-          <p>Regards</p>
-          <p>Spiro Kolokithas</p>
+          <p>Looking forward to your response.</p>
+          <p>Best,</p>
+          <p>Richard</p>
         </div>
       </div>
     </div>
