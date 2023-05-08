@@ -69,7 +69,10 @@ export const LandingPageNavigation = ({ clean }: { clean?: boolean }) => {
         <div className="flex items-center gap-2 md:gap-4">
           <Link
             href="/auth/login"
-            className={twMerge(buttonClasses('ghost', 'md'), 'px-2 md:px-4')}
+            className={twMerge(
+              buttonClasses('ghost', 'md'),
+              'px-2 text-base md:px-4'
+            )}
           >
             로그인
           </Link>
