@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import Stripe from 'stripe'
-import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
+import { getServiceSupabase } from '@/lib/supabaseClient'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2022-11-15',
@@ -11,10 +11,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(401).send('Unauthorized')
   }
 
-  const supabaseServerClient = createServerSupabaseClient({
-    req,
-    res,
-  })
+  const supabaseServerClient = getServiceSupabase()
 
   const {
     record: { email, id: supabaseProfileId },
