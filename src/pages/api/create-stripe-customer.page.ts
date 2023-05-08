@@ -17,22 +17,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   })
 
   const {
-    record: { email },
+    record: { email, id: supabaseProfileId },
   } = req.body
 
   try {
     const customer = await stripe.customers.create({ email })
-
-    const {
-      data: { user },
-    } = await supabaseServerClient.auth.getUser()
 
     await supabaseServerClient
       .from('profiles')
       .update({
         stripe_customer: customer.id,
       })
-      .eq('id', user?.id)
+      .eq('id', supabaseProfileId)
 
     res.send({ message: `Stripe customer created: ${customer.id}` })
   } catch (error) {
