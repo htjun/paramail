@@ -57,7 +57,7 @@ const LoginPage = () => {
           </div>
         </div>
         <div className="flex w-full justify-center">
-          <div className="text-gray-450 max-w-sm text-center text-sm leading-relaxed tracking-tight">
+          <div className="max-w-sm text-center text-sm leading-relaxed tracking-tight text-gray-450">
             계정 생성 또는 로그인 시{' '}
             <Link href="/terms" target="_blank" className={textLink}>
               서비스 약관
