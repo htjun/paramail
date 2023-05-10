@@ -39,7 +39,10 @@ const OAuthButton = ({ method, label }: OAuthButtonProps) => {
     <button
       type="button"
       onClick={handleClick}
-      className={twMerge(buttonClasses('secondary', 'md'), 'relative w-full')}
+      className={twMerge(
+        buttonClasses('secondary', 'md'),
+        'relative w-full text-base'
+      )}
     >
       <span className="absolute left-4">{logoImg}</span>
       <span>{label}</span>
