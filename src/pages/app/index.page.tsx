@@ -15,53 +15,53 @@ const AppPage = () => {
   const { isLoading, session } = useSessionContext()
 
   useEffect(() => {
-    if (!isLoading && !session) {
+    if (!session) {
       router.replace('/')
     }
-  }, [isLoading, session])
+  }, [session])
 
-  if (isLoading) return null
-
-  return (
-    <>
-      <Meta title="이메일 생성하기" />
-      <TabsRoot defaultValue="reply">
-        <AppNavigation
-          isInProgress={inProgress}
-          tabsTrigger={
-            <TabsTrigger
-              items={[
-                { value: 'reply', label: '답변 메일' },
-                { value: 'new', label: '새 메일' },
-              ]}
+  if (!isLoading && !!session)
+    return (
+      <>
+        <Meta title="이메일 생성하기" />
+        <TabsRoot defaultValue="reply">
+          <AppNavigation
+            isInProgress={inProgress}
+            tabsTrigger={
+              <TabsTrigger
+                items={[
+                  { value: 'reply', label: '답변 메일' },
+                  { value: 'new', label: '새 메일' },
+                ]}
+              />
+            }
+          />
+          <TabsContent value="reply" className="w-full">
+            <PageHeader
+              title="Reply email"
+              description="받은 메일을 번역하고 분석한 뒤, 답장 메일을 생성합니다."
             />
-          }
-        />
-        <TabsContent value="reply" className="w-full">
-          <PageHeader
-            title="Reply email"
-            description="받은 메일을 번역하고 분석한 뒤, 답장 메일을 생성합니다."
-          />
-        </TabsContent>
-        <TabsContent value="new" className="w-full">
-          <PageHeader
-            title="New email"
-            description="입력된 내용을 토대로 새로운 이메일을 생성합니다."
-          />
-        </TabsContent>
-        <div className="flex flex-col items-center">
-          <main className="w-full max-w-screen-xl px-0 py-8 md:px-12 md:py-12">
-            <TabsContent value="reply">
-              <ReplyFlow setInProgress={setInProgress} />
-            </TabsContent>
-            <TabsContent value="new">
-              <NewMailFlow setInProgress={setInProgress} />
-            </TabsContent>
-          </main>
-        </div>
-      </TabsRoot>
-    </>
-  )
+          </TabsContent>
+          <TabsContent value="new" className="w-full">
+            <PageHeader
+              title="New email"
+              description="입력된 내용을 토대로 새로운 이메일을 생성합니다."
+            />
+          </TabsContent>
+          <div className="flex flex-col items-center">
+            <main className="w-full max-w-screen-xl px-0 py-8 md:px-12 md:py-12">
+              <TabsContent value="reply">
+                <ReplyFlow setInProgress={setInProgress} />
+              </TabsContent>
+              <TabsContent value="new">
+                <NewMailFlow setInProgress={setInProgress} />
+              </TabsContent>
+            </main>
+          </div>
+        </TabsRoot>
+      </>
+    )
+  return null
 }
 
 export default AppPage
