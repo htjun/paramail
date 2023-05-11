@@ -1,32 +1,21 @@
-export interface PlanProps {
-  id: number
-  name: {
-    label: string
-    color: string
-  }
-  price: string
-  currency: string
-  features: string[]
-}
-
-export const plansData: PlanProps[] = [
+export const plansData = [
   {
-    id: 0,
+    key: 'Free',
     name: {
       label: '무료',
       color: 'text-slate-500',
     },
-    price: '0',
+    price: 0,
     currency: '원',
     features: ['월 최대 5건 이메일 생성', '영어 이메일 사용 지원'],
   },
   {
-    id: 1,
+    key: 'Pro',
     name: {
       label: '프로',
       color: 'text-indigo-500',
     },
-    price: '4,900',
+    price: 4900,
     currency: '원',
     features: [
       '월 최대 100건 이메일 생성',
@@ -37,12 +26,12 @@ export const plansData: PlanProps[] = [
     ],
   },
   {
-    id: 2,
+    key: 'Business',
     name: {
       label: '비즈니스',
       color: 'text-navy-500',
     },
-    price: '24,900',
+    price: 24900,
     currency: '원',
     features: [
       '무제한 이메일 생성',
