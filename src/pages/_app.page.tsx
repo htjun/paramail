@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { AppProps } from 'next/app'
+import Head from 'next/head'
 import { Analytics } from '@vercel/analytics/react'
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { SessionContextProvider, Session } from '@supabase/auth-helpers-react'
@@ -21,6 +22,9 @@ const App = ({
 
   return (
     <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
       {/* eslint-disable */}
       <style jsx global>{`
         :root {
