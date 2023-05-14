@@ -1,11 +1,35 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import Stripe from 'stripe'
+import axios from 'axios'
 import isDevEnv from '@/utils/isDevEnv'
 
 const stripeSecretKey = isDevEnv
   ? process.env.STRIPE_SECRET_KEY_TEST
   : process.env.STRIPE_SECRET_KEY
+
+const { API_ROUTE_SECRET, SITE_URL } = process.env
+
+const stripe = new Stripe(stripeSecretKey!, {
+  apiVersion: '2022-11-15',
+})
+
+const createStripeCustomer = async (
+  email: string,
+  supabaseProfileId: string
+) => {
+  const { data } = await axios.post(
+    `${SITE_URL}/api/create-stripe-customer?API_ROUTE_SECRET=${API_ROUTE_SECRET}`,
+    {
+      record: {
+        email,
+        id: supabaseProfileId,
+      },
+    }
+  )
+
+  return data
+}
 
 export default async function handler(
   req: NextApiRequest,
@@ -27,20 +51,24 @@ export default async function handler(
   const {
     data: { stripe_customer },
   }: any = await supabaseServerClient
-    .from('profile')
+    .from('profiles')
     .select('stripe_customer')
     .eq('id', user.id)
     .single()
 
-  const stripe = new Stripe(stripeSecretKey!, {
-    apiVersion: '2022-11-15',
-  })
+  if (!stripe_customer) {
+    const stripeCustomerCreateRes = await createStripeCustomer(
+      user.email ?? '',
+      user.id
+    )
+    console.log('stripeCustomerCreateRes', stripeCustomerCreateRes)
+  }
 
-  const { priceId } = req.query
+  const { planId } = req.query
 
   const lineItems = [
     {
-      price: String(priceId),
+      price: String(planId),
       quantity: 1,
     },
   ]
@@ -50,8 +78,8 @@ export default async function handler(
     mode: 'subscription',
     payment_method_types: ['card'],
     line_items: lineItems,
-    success_url: `${process.env.CLIENT_URL}/payment/success`,
-    cancel_url: `${process.env.CLIENT_URL}/payment/cancelled`,
+    success_url: `${SITE_URL}/payment/success`,
+    cancel_url: `${SITE_URL}/payment/cancelled`,
   })
 
   res.send({

@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Stripe from 'stripe'
 import { twMerge } from 'tailwind-merge'
+import isDevEnv from '@/utils/isDevEnv'
 import Meta from '@/components/Meta'
 import { AppNavigation } from '@/components/Navigation'
 import { notoSansKR } from '@/lib/fonts'
@@ -51,7 +52,7 @@ const UpgradePage = ({ plans }: { plans: PlanProps[] }) => {
           <div className="mb-32 flex justify-center gap-8 px-6">
             <FreePlanCard user={profile} />
             {plans.map(plan => (
-              <PlanCard {...plan} user={profile} />
+              <PlanCard key={plan.id} {...plan} user={profile} />
             ))}
           </div>
         </main>
@@ -62,7 +63,11 @@ const UpgradePage = ({ plans }: { plans: PlanProps[] }) => {
 }
 
 export const getStaticProps = async () => {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  const stripeSecretKey = isDevEnv
+    ? process.env.STRIPE_SECRET_KEY_TEST
+    : process.env.STRIPE_SECRET_KEY
+
+  const stripe = new Stripe(stripeSecretKey!, {
     apiVersion: '2022-11-15',
   })
 

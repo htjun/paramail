@@ -1,14 +1,19 @@
 import { loadStripe } from '@stripe/stripe-js'
 import axios from 'axios'
 import { twMerge } from 'tailwind-merge'
+import isDevEnv from '@/utils/isDevEnv'
 import { inter } from '@/lib/fonts'
 import { buttonClasses } from '@/styles/sharedClasses'
 import { CheckIcon } from '@heroicons/react/20/solid'
 import { plansData } from './plansData'
 
+const nextPublicStripeKey = isDevEnv
+  ? process.env.NEXT_PUBLIC_STRIPE_KEY_TEST
+  : process.env.NEXT_PUBLIC_STRIPE_KEY
+
 const processSubscription = (planId: string) => async () => {
   const { data } = await axios.get(`/api/subscription/${planId}`)
-  const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!)
+  const stripe = await loadStripe(nextPublicStripeKey!)
   await stripe?.redirectToCheckout({ sessionId: data.id })
 }
 
