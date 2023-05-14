@@ -50,18 +50,20 @@ const PaymentSuccessPage = ({
                 <CheckBadgeIcon className="h-6 w-6 text-emerald-500" />
                 <span>결제가 완료되었습니다.</span>
               </h1>
-              <a
-                href={invoiceUrl}
-                target="_blank"
-                rel="noreferrer"
-                className={twMerge(
-                  textLink,
-                  'mt-4 flex items-center gap-2 self-start text-sm'
-                )}
-              >
-                <span>인보이스(Invoice) 확인</span>
-                <ArrowTopRightOnSquareIcon className="h-4 w-4 text-gray-450" />
-              </a>
+              {!!invoiceUrl && (
+                <a
+                  href={invoiceUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={twMerge(
+                    textLink,
+                    'mt-4 flex items-center gap-2 self-start text-sm'
+                  )}
+                >
+                  <span>인보이스(Invoice) 확인</span>
+                  <ArrowTopRightOnSquareIcon className="h-4 w-4 text-gray-450" />
+                </a>
+              )}
             </div>
             <div className="flex flex-col gap-3">
               <Link
