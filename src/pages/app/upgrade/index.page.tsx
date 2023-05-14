@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Stripe from 'stripe'
-import { useSessionContext } from '@supabase/auth-helpers-react'
 import { twMerge } from 'tailwind-merge'
 import Meta from '@/components/Meta'
 import { AppNavigation } from '@/components/Navigation'
@@ -11,25 +10,27 @@ import {
   marketingPageSubtitle,
 } from '@/styles/sharedClasses'
 import WandSVG from 'public/wand.svg'
+import useUserProfile from '@/hooks/useUserProfile'
 import PlanCard, { type PlanProps, FreePlanCard } from './PlanCard'
+import { formatProductName, formatCurrency } from './plansData'
 
 const UpgradePage = ({ plans }: { plans: PlanProps[] }) => {
   const router = useRouter()
-  const { isLoading, session } = useSessionContext()
+
+  const { profile, isLoading } = useUserProfile()
 
   useEffect(() => {
-    if (!isLoading && !session) {
+    if (!isLoading && !profile) {
       router.replace('/')
     }
-  }, [session])
+  }, [profile])
 
-  if (!isLoading && !!session)
+  if (!isLoading && !!profile)
     return (
       <>
         <Meta title="업그레이드" />
         <AppNavigation />
         <main className={notoSansKR.className}>
-          Plans:{JSON.stringify(plans)}
           <div className="align-center mb-16 mt-20 flex flex-col items-center gap-10">
             <div className="inline-flex h-10 rounded-full bg-magic p-[1px]">
               <div className="inline-flex h-full shrink-0 items-center gap-2 rounded-full bg-white px-4 text-[#F07E78]">
@@ -48,9 +49,9 @@ const UpgradePage = ({ plans }: { plans: PlanProps[] }) => {
             </p>
           </div>
           <div className="mb-32 flex justify-center gap-8 px-6">
-            <FreePlanCard />
+            <FreePlanCard user={profile} />
             {plans.map(plan => (
-              <PlanCard {...plan} />
+              <PlanCard {...plan} user={profile} />
             ))}
           </div>
         </main>
@@ -74,7 +75,7 @@ export const getStaticProps = async () => {
 
       return {
         id: price.id,
-        name: formatProductName(product.name),
+        name: formatProductName(product.metadata.id),
         price: price.unit_amount,
         currency: formatCurrency(price.currency),
       }

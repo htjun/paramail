@@ -12,7 +12,24 @@ const processSubscription = (planId: string) => async () => {
   await stripe?.redirectToCheckout({ sessionId: data.id })
 }
 
-const SubscribeButton = ({ planId }: { planId: string }) => {
+const SubscribeButton = ({
+  planId,
+  planName,
+  currentPlan,
+}: {
+  planId: string
+  planName: string
+  currentPlan: string
+}) => {
+  if (planName === currentPlan)
+    return (
+      <button className={buttonClasses('primary', 'md')} disabled>
+        현재 사용중인 플랜
+      </button>
+    )
+
+  if (planName === 'free') return null
+
   return (
     <button
       onClick={processSubscription(planId)}
@@ -32,10 +49,12 @@ export interface PlanProps {
   }
   price: number
   currency: string
+  user: any
 }
 
 const PlanCard = (plan: PlanProps) => {
-  const { id, name, price, currency } = plan
+  const { id, name, price, currency, user } = plan
+  const { plan: currentPlan } = user
 
   const [matchedPlan] = plansData.filter(item => item.key === name.original)
   const { features } = matchedPlan
@@ -71,21 +90,26 @@ const PlanCard = (plan: PlanProps) => {
               </li>
             ))}
           </ul>
-          <SubscribeButton planId={id} />
+          <SubscribeButton
+            planId={id}
+            planName={name.original}
+            currentPlan={currentPlan}
+          />
         </div>
       </div>
     </div>
   )
 }
 
-export const FreePlanCard = () => {
-  const freePlanData = plansData.filter(item => item.key === 'Free')[0]
+export const FreePlanCard = ({ user }: any) => {
+  const freePlanData = plansData.filter(item => item.key === 'free')[0]
   return (
     <PlanCard
       id="free"
-      name={{ ...freePlanData.name, original: 'Free' }}
+      name={{ ...freePlanData.name, original: 'free' }}
       price={freePlanData.price}
       currency={freePlanData.currency}
+      user={user}
     />
   )
 }

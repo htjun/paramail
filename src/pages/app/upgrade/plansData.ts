@@ -1,6 +1,6 @@
 export const plansData = [
   {
-    key: 'Free',
+    key: 'free',
     name: {
       label: '무료',
       color: 'text-slate-500',
@@ -10,7 +10,7 @@ export const plansData = [
     features: ['월 최대 5건 이메일 생성', '영어 이메일 사용 지원'],
   },
   {
-    key: 'Pro',
+    key: 'pro',
     name: {
       label: '프로',
       color: 'text-indigo-500',
@@ -26,7 +26,7 @@ export const plansData = [
     ],
   },
   {
-    key: 'Business',
+    key: 'business',
     name: {
       label: '비즈니스',
       color: 'text-navy-500',
@@ -45,21 +45,21 @@ export const plansData = [
 
 export const formatProductName = (name: string) => {
   switch (name) {
-    case 'Pro':
+    case 'pro':
       return {
-        original: 'Pro',
+        original: name,
         label: '프로',
         color: 'text-indigo-500',
       }
-    case 'Business':
+    case 'business':
       return {
-        original: 'Business',
+        original: name,
         label: '비즈니스',
         color: 'text-navy-500',
       }
-    case 'Free':
+    case 'free':
       return {
-        original: 'Free',
+        original: 'free',
         label: '무료',
         color: 'text-slate-500',
       }
