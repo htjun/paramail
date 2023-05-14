@@ -2,8 +2,13 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import stripe from '@/lib/stripe'
 import { buffer } from 'micro'
 import { getServiceSupabase } from '@/lib/supabaseClient'
+import isDevEnv from '@/utils/isDevEnv'
 
 export const config = { api: { bodyParser: false } }
+
+const stripeSigningSecret = isDevEnv
+  ? process.env.STRIPE_SIGNING_SECRET_TEST
+  : process.env.STRIPE_SIGNING_SECRET
 
 const getPlanName = (productId: string) => {
   switch (productId) {
@@ -31,15 +36,18 @@ const getUsageLeft = (productId: string) => {
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const signature = req.headers['stripe-signature']
-  const signingSecret = process.env.STRIPE_SIGNING_SECRET
   const reqBuffer = await buffer(req)
 
   let event
 
   try {
     if (!signature) throw new Error('Signature is undefined')
-    if (!signingSecret) throw new Error('Signing secret is undefined')
-    event = stripe.webhooks.constructEvent(reqBuffer, signature, signingSecret)
+    if (!stripeSigningSecret) throw new Error('Signing secret is undefined')
+    event = stripe.webhooks.constructEvent(
+      reqBuffer,
+      signature,
+      stripeSigningSecret
+    )
   } catch (error) {
     const err = error as Error
     return res.status(400).send(`Webhook error: ${err.message}`)
