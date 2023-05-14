@@ -42,3 +42,43 @@ export const plansData = [
     ],
   },
 ]
+
+export const formatProductName = (name: string) => {
+  switch (name) {
+    case 'Pro':
+      return {
+        original: 'Pro',
+        label: '프로',
+        color: 'text-indigo-500',
+      }
+    case 'Business':
+      return {
+        original: 'Business',
+        label: '비즈니스',
+        color: 'text-navy-500',
+      }
+    case 'Free':
+      return {
+        original: 'Free',
+        label: '무료',
+        color: 'text-slate-500',
+      }
+    default:
+      return {
+        original: '',
+        label: '',
+        color: '',
+      }
+  }
+}
+
+export const formatCurrency = (currency: string) => {
+  switch (currency) {
+    case 'usd':
+      return '달러'
+    case 'krw':
+      return '원'
+    default:
+      return '원'
+  }
+}

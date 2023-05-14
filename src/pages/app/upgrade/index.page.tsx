@@ -72,46 +72,11 @@ export const getStaticProps = async () => {
     prices.map(async price => {
       const product = await stripe.products.retrieve(price.product)
 
-      let productName = ''
-      let productColor = ''
-      switch (product.name) {
-        case 'Pro':
-          productName = '프로'
-          productColor = 'text-indigo-500'
-          break
-        case 'Business':
-          productName = '비즈니스'
-          productColor = 'text-slate-500'
-          break
-        case 'Free':
-          productName = '무료'
-          productColor = 'text-navy-500'
-          break
-        default:
-          break
-      }
-
-      let currencyLabel = ''
-      switch (price.currency) {
-        case 'usd':
-          currencyLabel = '달러'
-          break
-        case 'krw':
-          currencyLabel = '원'
-          break
-        default:
-          currencyLabel = '원'
-      }
-
       return {
         id: price.id,
-        name: {
-          original: product.name,
-          label: productName,
-          color: productColor,
-        },
+        name: formatProductName(product.name),
         price: price.unit_amount,
-        currency: currencyLabel,
+        currency: formatCurrency(price.currency),
       }
     })
   )
