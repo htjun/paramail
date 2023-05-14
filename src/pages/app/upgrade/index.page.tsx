@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import Stripe from 'stripe'
+import stripe from '@/lib/stripe'
 import { twMerge } from 'tailwind-merge'
-import isDevEnv from '@/utils/isDevEnv'
 import Meta from '@/components/Meta'
 import { AppNavigation } from '@/components/Navigation'
 import { notoSansKR } from '@/lib/fonts'
@@ -63,14 +62,6 @@ const UpgradePage = ({ plans }: { plans: PlanProps[] }) => {
 }
 
 export const getStaticProps = async () => {
-  const stripeSecretKey = isDevEnv
-    ? process.env.STRIPE_SECRET_KEY_TEST
-    : process.env.STRIPE_SECRET_KEY
-
-  const stripe = new Stripe(stripeSecretKey!, {
-    apiVersion: '2022-11-15',
-  })
-
   const { data: prices }: { data: { [x: string]: any }[] } =
     await stripe.prices.list()
 

@@ -1,18 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
-import Stripe from 'stripe'
+import stripe from '@/lib/stripe'
 import axios from 'axios'
-import isDevEnv from '@/utils/isDevEnv'
-
-const stripeSecretKey = isDevEnv
-  ? process.env.STRIPE_SECRET_KEY_TEST
-  : process.env.STRIPE_SECRET_KEY
 
 const { API_ROUTE_SECRET, SITE_URL } = process.env
-
-const stripe = new Stripe(stripeSecretKey!, {
-  apiVersion: '2022-11-15',
-})
 
 const createStripeCustomer = async (
   email: string,
@@ -78,8 +69,8 @@ export default async function handler(
     mode: 'subscription',
     payment_method_types: ['card'],
     line_items: lineItems,
-    success_url: `${SITE_URL}/payment/success`,
-    cancel_url: `${SITE_URL}/payment/cancelled`,
+    success_url: `${SITE_URL}/order/success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${SITE_URL}/order/cancelled?session_id={CHECKOUT_SESSION_ID}`,
   })
 
   res.send({

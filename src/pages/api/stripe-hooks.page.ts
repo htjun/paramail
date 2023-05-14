@@ -1,14 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import Stripe from 'stripe'
+import stripe from '@/lib/stripe'
 import { buffer } from 'micro'
 import { getServiceSupabase } from '@/lib/supabaseClient'
-import isDevEnv from '@/utils/isDevEnv'
 
 export const config = { api: { bodyParser: false } }
-
-const stripeSecretKey = isDevEnv
-  ? process.env.STRIPE_SECRET_KEY_TEST
-  : process.env.STRIPE_SECRET_KEY
 
 const getPlanName = (productId: string) => {
   switch (productId) {
@@ -35,10 +30,6 @@ const getUsageLeft = (productId: string) => {
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const stripe = new Stripe(stripeSecretKey!, {
-    apiVersion: '2022-11-15',
-  })
-
   const signature = req.headers['stripe-signature']
   const signingSecret = process.env.STRIPE_SIGNING_SECRET
   const reqBuffer = await buffer(req)
