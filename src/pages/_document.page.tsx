@@ -10,7 +10,6 @@ const Document = () => {
           content="영어 이메일,외국어 이메일,비즈니스 이메일,영어 이메일 작성,영어 이메일 교정"
         />
         <meta name="author" content="Paramail" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
           property="og:title"
           content="Paramail - AI 외국어 이메일 번역/분석/작성 앱"

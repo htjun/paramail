@@ -67,6 +67,7 @@ module.exports = {
         suit: 'linear-gradient(90deg, #0968E5 0%, #091970 100%)',
         subtle: 'linear-gradient(rgba(255,255,255,.15),rgba(255,255,255,0))',
         indigoGradient: 'linear-gradient(110deg, #6C65EF 0%, #271FA4 100%)',
+        magic: 'linear-gradient(90deg, #F27E71 0%, #C572F7 50%, #394DF9 100%)',
       },
       boxShadow: {
         xs: '0px 1px 2px rgba(16, 24, 40, 0.05)',
