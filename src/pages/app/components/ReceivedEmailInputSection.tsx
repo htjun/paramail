@@ -85,7 +85,7 @@ const ReceivedEmailInputSection = ({
             받은 메일 입력 예시
           </span>
         </div>
-        <div className="rounded-md border border-gray-100 bg-gray-50 p-4 text-sm text-gray-500">
+        <div className="rounded-md border border-gray-150 bg-gray-50 p-3 text-sm text-gray-500">
           아래와 같이{' '}
           <strong className="font-medium text-gray-600">발신자</strong>와{' '}
           <strong className="font-medium text-gray-600">수신자</strong>의 이름이
