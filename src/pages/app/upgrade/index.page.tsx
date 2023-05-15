@@ -48,10 +48,10 @@ const UpgradePage = ({ plans }: { plans: PlanProps[] }) => {
               언제든지 구독을 중단하실 수 있습니다.
             </p>
           </div>
-          <div className="mb-32 flex justify-center gap-8 px-6">
-            <FreePlanCard user={profile} />
+          <div className="mb-32 flex flex-col items-center justify-center gap-8 px-6 md:flex-row md:items-stretch">
+            <FreePlanCard user={{ plan: 'business' }} />
             {plans.map(plan => (
-              <PlanCard key={plan.id} {...plan} user={profile} />
+              <PlanCard key={plan.id} {...plan} user={{ plan: 'business' }} />
             ))}
           </div>
         </main>

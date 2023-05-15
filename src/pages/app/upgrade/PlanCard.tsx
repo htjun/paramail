@@ -26,12 +26,13 @@ const SubscribeButton = ({
   planName: string
   currentPlan: string
 }) => {
-  if (planName === currentPlan)
+  if (planName === currentPlan) {
     return (
       <button className={buttonClasses('primary', 'md')} disabled>
         현재 사용중인 플랜
       </button>
     )
+  }
 
   if (planName === 'free') return null
 
@@ -40,7 +41,7 @@ const SubscribeButton = ({
       onClick={processSubscription(planId)}
       className={buttonClasses('primary', 'md')}
     >
-      업그레이드
+      {currentPlan === 'pro' ? '업그레이드' : '플랜 변경'}
     </button>
   )
 }
