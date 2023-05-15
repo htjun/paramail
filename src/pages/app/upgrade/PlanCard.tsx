@@ -41,7 +41,7 @@ const SubscribeButton = ({
       onClick={processSubscription(planId)}
       className={buttonClasses('primary', 'md')}
     >
-      {currentPlan === 'pro' ? '업그레이드' : '플랜 변경'}
+      {currentPlan !== 'business' ? '업그레이드' : '플랜 변경'}
     </button>
   )
 }

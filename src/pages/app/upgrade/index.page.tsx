@@ -49,9 +49,9 @@ const UpgradePage = ({ plans }: { plans: PlanProps[] }) => {
         </div>
         {!isLoading && !!profile && (
           <div className="mb-32 flex flex-col items-center justify-center gap-8 px-6 md:flex-row md:items-stretch">
-            <FreePlanCard user={{ plan: 'business' }} />
+            <FreePlanCard user={profile} />
             {plans.map(plan => (
-              <PlanCard key={plan.id} {...plan} user={{ plan: 'business' }} />
+              <PlanCard key={plan.id} {...plan} user={profile} />
             ))}
           </div>
         )}
