@@ -1,9 +1,10 @@
+import { useState } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
 import axios from 'axios'
 import { twMerge } from 'tailwind-merge'
+import { Button } from '@/components/Button'
 import isDevEnv from '@/utils/isDevEnv'
 import { inter } from '@/lib/fonts'
-import { button } from '@/styles/button'
 import { CheckIcon } from '@heroicons/react/20/solid'
 import { plansData } from './plansData'
 
@@ -37,6 +38,8 @@ const SubscribeButton = ({
   planName: string
   user: any
 }) => {
+  const [isLoading, setIsLoading] = useState(false)
+
   const {
     plan: currentPlan,
     id: supabaseProfileId,
@@ -44,28 +47,35 @@ const SubscribeButton = ({
     stripe_customer: stripeCustomerId,
   } = user
 
+  const handleClick = () => {
+    setIsLoading(true)
+    processSubscription(
+      planId,
+      supabaseProfileId,
+      email,
+      stripeCustomerId
+    )().finally(() => setIsLoading(false))
+  }
+
   if (planName === currentPlan) {
     return (
-      <button className={button({ intent: 'secondary', size: 'md' })} disabled>
+      <Button intent="secondary" size="md" disabled>
         현재 사용중인 플랜
-      </button>
+      </Button>
     )
   }
 
   if (planName === 'free') return null
 
   return (
-    <button
-      onClick={processSubscription(
-        planId,
-        supabaseProfileId,
-        email,
-        stripeCustomerId
-      )}
-      className={button({ intent: 'secondary', size: 'md' })}
+    <Button
+      onClick={handleClick}
+      intent="secondary"
+      size="md"
+      loading={isLoading}
     >
       {currentPlan !== 'business' ? '업그레이드' : '플랜 변경'}
-    </button>
+    </Button>
   )
 }
 

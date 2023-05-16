@@ -14,7 +14,7 @@ import {
   InformationCircleIcon,
 } from '@heroicons/react/24/outline'
 import { sectionContainer, guideSection } from '@/styles/sharedClasses'
-import { button } from '@/styles/button'
+import { Button } from '@/components/Button'
 import WandSVG from 'public/wand.svg'
 
 interface NewEmailInputSectionProps {
@@ -104,13 +104,10 @@ const NewEmailInputSection = ({
         />
         <div className="mt-6 flex items-center justify-end gap-6">
           {errorMessage && <ErrorMessage text={errorMessage} />}
-          <button
-            type="submit"
-            className={button({ intent: 'secondary', size: 'md' })}
-          >
+          <Button type="submit">
             <WandSVG className="h-4 w-4" />
             <span>메일 생성</span>
-          </button>
+          </Button>
         </div>
       </form>
       <div className={twMerge(guideSection, 'hidden w-full max-w-sm lg:block')}>

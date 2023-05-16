@@ -4,7 +4,7 @@ import TextArea from '@/components/TextArea'
 import { twMerge } from 'tailwind-merge'
 import ErrorMessage from '@/components/ErrorMessage'
 import { sectionContainer, guideSection } from '@/styles/sharedClasses'
-import { button } from '@/styles/button'
+import { Button } from '@/components/Button'
 import {
   InboxArrowDownIcon,
   InformationCircleIcon,
@@ -64,13 +64,10 @@ const ReceivedEmailInputSection = ({
         />
         <div className="mt-6 flex items-center justify-end gap-6">
           {errorMessage && <ErrorMessage text={errorMessage} />}
-          <button
-            type="submit"
-            className={button({ intent: 'secondary', size: 'md' })}
-          >
+          <Button type="submit" intent="secondary" size="md">
             <LanguageIcon className="h-4 w-4" />
             <span>번역 & 분석</span>
-          </button>
+          </Button>
         </div>
       </form>
       <div
