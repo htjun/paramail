@@ -23,7 +23,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       })
       .eq('id', supabaseProfileId)
 
-    res.send({ message: `Stripe customer created: ${customer.id}` })
+    res.send({ id: customer.id })
   } catch (error) {
     const err = error as Error
     res.status(500).send({ error: err.message })

@@ -1,13 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import stripe from '@/lib/stripe'
 import axios from 'axios'
 
 const { API_ROUTE_SECRET, SITE_URL } = process.env
 
 const createStripeCustomer = async (
-  email: string,
-  supabaseProfileId: string
+  supabaseProfileId: string,
+  email: string
 ) => {
   const { data } = await axios.post(
     `${SITE_URL}/api/create-stripe-customer?API_ROUTE_SECRET=${API_ROUTE_SECRET}`,
@@ -26,36 +25,26 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const supabaseServerClient = createServerSupabaseClient({
-    req,
-    res,
-  })
-
+  const { planId } = req.query
   const {
-    data: { user },
-  } = await supabaseServerClient.auth.getUser()
+    supabaseProfileId,
+    email,
+    stripeCustomerId: stripeCustomerIdFromSupabase,
+  } = req.body
 
-  if (!user) {
+  let stripeCustomerId = stripeCustomerIdFromSupabase
+
+  if (!email) {
     return res.status(401).send('Unauthorized')
   }
 
-  const {
-    data: { stripe_customer },
-  }: any = await supabaseServerClient
-    .from('profiles')
-    .select('stripe_customer')
-    .eq('id', user.id)
-    .single()
-
-  if (!stripe_customer) {
+  if (!stripeCustomerId) {
     const stripeCustomerCreateRes = await createStripeCustomer(
-      user.email ?? '',
-      user.id
+      supabaseProfileId,
+      email
     )
-    console.log('stripeCustomerCreateRes', stripeCustomerCreateRes)
+    stripeCustomerId = stripeCustomerCreateRes.id
   }
-
-  const { planId } = req.query
 
   const lineItems = [
     {
@@ -65,7 +54,7 @@ export default async function handler(
   ]
 
   const session = await stripe.checkout.sessions.create({
-    customer: stripe_customer,
+    customer: stripeCustomerId,
     mode: 'subscription',
     payment_method_types: ['card'],
     line_items: lineItems,

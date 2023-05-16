@@ -11,21 +11,39 @@ const nextPublicStripeKey = isDevEnv
   ? process.env.NEXT_PUBLIC_STRIPE_KEY_TEST
   : process.env.NEXT_PUBLIC_STRIPE_KEY
 
-const processSubscription = (planId: string) => async () => {
-  const { data } = await axios.get(`/api/subscription/${planId}`)
-  const stripe = await loadStripe(nextPublicStripeKey!)
-  await stripe?.redirectToCheckout({ sessionId: data.id })
-}
+const processSubscription =
+  (
+    planId: string,
+    supabaseProfileId: string,
+    email: string,
+    stripeCustomerId: string
+  ) =>
+  async () => {
+    const { data } = await axios.post(`/api/subscription/${planId}`, {
+      supabaseProfileId,
+      email,
+      stripeCustomerId,
+    })
+    const stripe = await loadStripe(nextPublicStripeKey!)
+    await stripe?.redirectToCheckout({ sessionId: data.id })
+  }
 
 const SubscribeButton = ({
   planId,
   planName,
-  currentPlan,
+  user,
 }: {
   planId: string
   planName: string
-  currentPlan: string
+  user: any
 }) => {
+  const {
+    plan: currentPlan,
+    id: supabaseProfileId,
+    email,
+    stripe_customer: stripeCustomerId,
+  } = user
+
   if (planName === currentPlan) {
     return (
       <button className={buttonClasses('primary', 'md')} disabled>
@@ -38,7 +56,12 @@ const SubscribeButton = ({
 
   return (
     <button
-      onClick={processSubscription(planId)}
+      onClick={processSubscription(
+        planId,
+        supabaseProfileId,
+        email,
+        stripeCustomerId
+      )}
       className={buttonClasses('primary', 'md')}
     >
       {currentPlan !== 'business' ? '업그레이드' : '플랜 변경'}
@@ -60,7 +83,6 @@ export interface PlanProps {
 
 const PlanCard = (plan: PlanProps) => {
   const { id, name, price, currency, user } = plan
-  const { plan: currentPlan } = user
 
   const [matchedPlan] = plansData.filter(item => item.key === name.original)
   const { features } = matchedPlan
@@ -96,11 +118,7 @@ const PlanCard = (plan: PlanProps) => {
               </li>
             ))}
           </ul>
-          <SubscribeButton
-            planId={id}
-            planName={name.original}
-            currentPlan={currentPlan}
-          />
+          <SubscribeButton planId={id} planName={name.original} user={user} />
         </div>
       </div>
     </div>
