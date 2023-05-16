@@ -8,7 +8,7 @@ import formatTextToParagraphs from '@/utils/formatTextToParagraphs'
 import useEmailCreation from '@/hooks/useEmailCreation'
 import useTranslate from '@/hooks/useTranslation'
 import useCopyToClipboard from '@/hooks/useCopyToClipboard'
-import { buttonClasses } from '@/styles/sharedClasses'
+import { button } from '@/styles/button'
 
 interface CreatedEmailSectionProps {
   receivedEmailValue?: string
@@ -99,7 +99,7 @@ const CreatedEmailSection = ({
           )}
           <button
             onClick={handleCopyToClipboard}
-            className={buttonClasses('primary', 'md')}
+            className={button({ intent: 'primary', size: 'md' })}
           >
             <DocumentDuplicateIcon className="h-4 w-4" />
             <span>원본 복사하기</span>

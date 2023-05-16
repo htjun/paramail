@@ -10,11 +10,8 @@ import {
 } from '@heroicons/react/24/solid'
 import Meta from '@/components/Meta'
 import { AppNavigation } from '@/components/Navigation'
-import {
-  sectionContainer,
-  buttonClasses,
-  textLink,
-} from '@/styles/sharedClasses'
+import { sectionContainer, textLink } from '@/styles/sharedClasses'
+import { button } from '@/styles/button'
 
 interface PaymentSuccessPageProps {
   customer: string
@@ -68,7 +65,10 @@ const PaymentSuccessPage = ({
             <div className="flex flex-col gap-3">
               <Link
                 href="/app"
-                className={twMerge(buttonClasses('primary', 'md'), 'text-base')}
+                className={twMerge(
+                  button({ intent: 'secondary', size: 'md' }),
+                  'text-base'
+                )}
               >
                 앱으로 돌아가기
               </Link>

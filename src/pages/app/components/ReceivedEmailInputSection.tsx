@@ -3,11 +3,8 @@ import { LanguageIcon } from '@heroicons/react/20/solid'
 import TextArea from '@/components/TextArea'
 import { twMerge } from 'tailwind-merge'
 import ErrorMessage from '@/components/ErrorMessage'
-import {
-  sectionContainer,
-  buttonClasses,
-  guideSection,
-} from '@/styles/sharedClasses'
+import { sectionContainer, guideSection } from '@/styles/sharedClasses'
+import { button } from '@/styles/button'
 import {
   InboxArrowDownIcon,
   InformationCircleIcon,
@@ -67,7 +64,10 @@ const ReceivedEmailInputSection = ({
         />
         <div className="mt-6 flex items-center justify-end gap-6">
           {errorMessage && <ErrorMessage text={errorMessage} />}
-          <button type="submit" className={buttonClasses('primary', 'md')}>
+          <button
+            type="submit"
+            className={button({ intent: 'secondary', size: 'md' })}
+          >
             <LanguageIcon className="h-4 w-4" />
             <span>번역 & 분석</span>
           </button>

@@ -3,7 +3,7 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import * as Popover from '@radix-ui/react-popover'
 import { twMerge } from 'tailwind-merge'
 import { XMarkIcon, ChevronDownIcon, UserIcon } from '@heroicons/react/20/solid'
-import { buttonClasses } from '@/styles/sharedClasses'
+import { button } from '@/styles/button'
 
 const AccountMenu = ({ user }: { user: any }) => {
   const { user_metadata: userData } = user
@@ -42,7 +42,7 @@ const AccountMenu = ({ user }: { user: any }) => {
               <button
                 onClick={handleSignOut}
                 className={twMerge(
-                  buttonClasses('ghost', 'sm'),
+                  button({ intent: 'ghost', size: 'sm' }),
                   'w-full justify-start'
                 )}
               >

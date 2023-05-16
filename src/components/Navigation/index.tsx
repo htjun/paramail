@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useSessionContext } from '@supabase/auth-helpers-react'
 import AccountMenu from '@/components/Navigation/AccountMenu'
 import { twMerge } from 'tailwind-merge'
-import { buttonClasses } from '@/styles/sharedClasses'
+import { button } from '@/styles/button'
 import ParamailLogo from 'public/paramail.svg'
 
 const Account = () => {
@@ -14,7 +14,10 @@ const Account = () => {
       {!isLoading && session ? (
         <AccountMenu user={session.user} />
       ) : (
-        <Link href="/auth/login" className={buttonClasses('ghost', 'sm')}>
+        <Link
+          href="/auth/login"
+          className={button({ intent: 'ghost', size: 'sm' })}
+        >
           로그인
         </Link>
       )}
@@ -46,7 +49,7 @@ export const AppNavigation = ({
           <button
             type="button"
             onClick={handleClickRestart}
-            className={buttonClasses('secondary', 'sm')}
+            className={button({ intent: 'secondary', size: 'sm' })}
           >
             새로 시작
           </button>
@@ -70,8 +73,8 @@ export const LandingPageNavigation = ({ clean }: { clean?: boolean }) => {
           <Link
             href="/auth/login"
             className={twMerge(
-              buttonClasses('ghost', 'md'),
-              'px-2 text-base md:px-4'
+              button({ intent: 'ghost', size: 'md' }),
+              'text-base'
             )}
           >
             로그인

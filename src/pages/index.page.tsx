@@ -6,7 +6,7 @@ import Meta from '@/components/Meta'
 import { notoSansKR } from '@/lib/fonts'
 import { twMerge } from 'tailwind-merge'
 import { LandingPageNavigation } from '@/components/Navigation'
-import { buttonClasses, marketingPageTitle } from '@/styles/sharedClasses'
+import { ctaButton, marketingPageTitle } from '@/styles/sharedClasses'
 import Preview from 'public/preview.svg'
 
 const LandingPage = () => {
@@ -42,7 +42,7 @@ const LandingPage = () => {
 
               <Link
                 href="/auth/signup"
-                className={`${buttonClasses('cta', 'lg')} min-[400px]:w-auto`}
+                className={`${ctaButton} min-[400px]:w-auto`}
               >
                 무료로 시작하기
               </Link>

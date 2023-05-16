@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import { twMerge } from 'tailwind-merge'
-import { buttonClasses } from '@/styles/sharedClasses'
+import { button } from '@/styles/button'
 import GoogleLogo from 'public/logo-google.svg'
 import FacebookLogo from 'public/logo-facebook.svg'
 
@@ -40,7 +40,7 @@ const OAuthButton = ({ method, label }: OAuthButtonProps) => {
       type="button"
       onClick={handleClick}
       className={twMerge(
-        buttonClasses('secondary', 'md'),
+        button({ intent: 'secondary', size: 'md' }),
         'relative w-full text-base'
       )}
     >

@@ -5,7 +5,8 @@ import SectionSubHeader from '@/components/SectionSubHeader'
 import LoadingDots from '@/components/LoadingDots'
 import ErrorMessage from '@/components/ErrorMessage'
 import useAnalysis from '@/hooks/useAnalysis'
-import { sectionContainer, buttonClasses } from '@/styles/sharedClasses'
+import { sectionContainer } from '@/styles/sharedClasses'
+import { button } from '@/styles/button'
 import WandSVG from 'public/wand.svg'
 import AnswerPresetsToggleGroup from './AnswerPresetsToggleGroup'
 
@@ -86,7 +87,7 @@ const ReceivedEmailAnalysisSection = ({
         <div className="flex justify-end border-t border-gray-200 p-6">
           <button
             onClick={handleMailCreation}
-            className={buttonClasses('primary', 'md')}
+            className={button({ intent: 'secondary', size: 'md' })}
             disabled={answer.trim().length === 0}
           >
             <WandSVG className="h-4 w-4" />

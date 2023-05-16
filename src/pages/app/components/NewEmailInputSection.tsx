@@ -13,11 +13,8 @@ import {
   PencilSquareIcon,
   InformationCircleIcon,
 } from '@heroicons/react/24/outline'
-import {
-  sectionContainer,
-  buttonClasses,
-  guideSection,
-} from '@/styles/sharedClasses'
+import { sectionContainer, guideSection } from '@/styles/sharedClasses'
+import { button } from '@/styles/button'
 import WandSVG from 'public/wand.svg'
 
 interface NewEmailInputSectionProps {
@@ -107,7 +104,10 @@ const NewEmailInputSection = ({
         />
         <div className="mt-6 flex items-center justify-end gap-6">
           {errorMessage && <ErrorMessage text={errorMessage} />}
-          <button type="submit" className={buttonClasses('primary', 'md')}>
+          <button
+            type="submit"
+            className={button({ intent: 'secondary', size: 'md' })}
+          >
             <WandSVG className="h-4 w-4" />
             <span>메일 생성</span>
           </button>

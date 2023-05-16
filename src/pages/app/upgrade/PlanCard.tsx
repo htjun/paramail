@@ -3,7 +3,7 @@ import axios from 'axios'
 import { twMerge } from 'tailwind-merge'
 import isDevEnv from '@/utils/isDevEnv'
 import { inter } from '@/lib/fonts'
-import { buttonClasses } from '@/styles/sharedClasses'
+import { button } from '@/styles/button'
 import { CheckIcon } from '@heroicons/react/20/solid'
 import { plansData } from './plansData'
 
@@ -46,7 +46,7 @@ const SubscribeButton = ({
 
   if (planName === currentPlan) {
     return (
-      <button className={buttonClasses('primary', 'md')} disabled>
+      <button className={button({ intent: 'secondary', size: 'md' })} disabled>
         현재 사용중인 플랜
       </button>
     )
@@ -62,7 +62,7 @@ const SubscribeButton = ({
         email,
         stripeCustomerId
       )}
-      className={buttonClasses('primary', 'md')}
+      className={button({ intent: 'secondary', size: 'md' })}
     >
       {currentPlan !== 'business' ? '업그레이드' : '플랜 변경'}
     </button>
