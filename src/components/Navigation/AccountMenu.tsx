@@ -4,10 +4,12 @@ import * as Popover from '@radix-ui/react-popover'
 import { twMerge } from 'tailwind-merge'
 import { XMarkIcon, ChevronDownIcon, UserIcon } from '@heroicons/react/20/solid'
 import { button } from '@/styles/button'
+import { type UserProfileProps } from '@/hooks/useUserProfile'
+import useCredit from '@/hooks/useCredit'
 
-const AccountMenu = ({ user }: { user: any }) => {
-  const { user_metadata: userData } = user
+const AccountMenu = ({ user }: { user: UserProfileProps }) => {
   const supabase = useSupabaseClient()
+  const credit = useCredit()
 
   const handleSignOut = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -21,7 +23,7 @@ const AccountMenu = ({ user }: { user: any }) => {
           className="flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full border border-gray-250 text-sm font-medium text-gray-500 ring-offset-2 transition-all hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:w-auto sm:pl-4 sm:pr-3"
           aria-label="Account menu"
         >
-          <span className="hidden shrink-0 sm:block">{userData.name}</span>
+          <span className="hidden shrink-0 sm:block">{user.full_name}</span>
           <ChevronDownIcon className="hidden h-4 w-4 shrink-0 sm:block" />
           <UserIcon className="block h-4 w-4 shrink-0 sm:hidden" />
         </button>
@@ -32,10 +34,17 @@ const AccountMenu = ({ user }: { user: any }) => {
           collisionPadding={20}
           sideOffset={2}
         >
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 text-sm">
             <div className="flex flex-col gap-1 px-5 py-2">
-              <div className="text-sm">{userData.name}</div>
-              <div className="text-sm text-gray-400">{userData.email}</div>
+              <div>{user.full_name}</div>
+              <div className="text-gray-400">{user.email}</div>
+              <hr className="my-3 border-gray-100" />
+              <div className="flex items-center gap-2">
+                <span className="text-gray-600">크레딧:</span>
+                <span className="font-medium">
+                  {credit?.toLocaleString('ko-KR')}
+                </span>
+              </div>
             </div>
             <hr className="x-full h-px border-gray-200" />
             <div className="px-1.5">

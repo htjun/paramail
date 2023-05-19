@@ -1,27 +1,25 @@
 import { ReactNode, MouseEvent } from 'react'
 import Link from 'next/link'
-import { useSessionContext } from '@supabase/auth-helpers-react'
 import AccountMenu from '@/components/Navigation/AccountMenu'
+import useUserProfile from '@/hooks/useUserProfile'
 import { twMerge } from 'tailwind-merge'
 import { button } from '@/styles/button'
 import ParamailLogo from 'public/paramail.svg'
 
 const Account = () => {
-  const { isLoading, session } = useSessionContext()
+  const { profile, isLoading } = useUserProfile()
+
+  if (isLoading) return null
+
+  if (profile) return <AccountMenu user={profile} />
 
   return (
-    <div>
-      {!isLoading && session ? (
-        <AccountMenu user={session.user} />
-      ) : (
-        <Link
-          href="/auth/login"
-          className={button({ intent: 'ghost', size: 'sm' })}
-        >
-          로그인
-        </Link>
-      )}
-    </div>
+    <Link
+      href="/auth/login"
+      className={button({ intent: 'ghost', size: 'sm' })}
+    >
+      로그인
+    </Link>
   )
 }
 

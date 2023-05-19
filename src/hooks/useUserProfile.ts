@@ -2,6 +2,19 @@ import { useState, useEffect } from 'react'
 import { useUser } from '@supabase/auth-helpers-react'
 import { supabase } from '@/lib/supabaseClient'
 
+export interface UserProfileProps {
+  id: string
+  full_name: string
+  avatar_url: string
+  usage: number
+  email: string
+  created_at: string
+  stripe_customer: string
+  plan: string
+  usage_left: number
+  credit: number
+}
+
 const useUserProfile = () => {
   const [profile, setProfile] = useState<null | any>(null)
   const [isLoading, setIsLoading] = useState<boolean>(true)
