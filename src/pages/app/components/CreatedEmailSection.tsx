@@ -100,6 +100,7 @@ const CreatedEmailSection = ({
           <button
             onClick={handleCopyToClipboard}
             className={button({ intent: 'primary', size: 'md' })}
+            disabled={emailCreationLoading}
           >
             <DocumentDuplicateIcon className="h-4 w-4" />
             <span>원본 복사하기</span>

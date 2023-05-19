@@ -68,6 +68,9 @@ const useAnalysis = (inputText: string): AnalysisResult => {
       setError(err as Error)
     } finally {
       setLoading(false)
+      axios.post('/api/update-credit', {
+        updateType: 'decrement',
+      })
       axios.post('/api/usage-log', {
         usageType: `analysis${isDevEnv ? '-dev' : ''}`,
         usageAmount,

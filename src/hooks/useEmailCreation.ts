@@ -69,6 +69,9 @@ const useEmailCreation = ({
       setError(err as Error)
     } finally {
       setLoading(false)
+      axios.post('/api/update-credit', {
+        updateType: 'decrement',
+      })
       axios.post('/api/usage-log', {
         usageType: `${emailType}${isDevEnv ? '-dev' : ''}`,
         usageAmount,
