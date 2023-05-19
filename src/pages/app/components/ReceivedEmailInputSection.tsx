@@ -27,7 +27,7 @@ const ReceivedEmailInputSection = ({
   const credit = useCredit()
 
   useEffect(() => {
-    if (Number(credit) < 2) {
+    if (credit && credit < 2) {
       setIsInsufficientCredit(true)
       setErrorMessage('크레딧이 부족합니다.')
     } else {
