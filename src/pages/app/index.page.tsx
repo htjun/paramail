@@ -11,11 +11,25 @@ import NewMailFlow from './components/NewMailFlow'
 const AppPage = () => {
   const router = useRouter()
   const [inProgress, setInProgress] = useState(false)
-
+  const [activeTab, setActiveTab] = useState('reply')
   const { isLoading, session } = useSessionContext()
 
   useEffect(() => {
-    if (!session) {
+    switch (router.query?.type) {
+      case 'reply':
+        setActiveTab('reply')
+        break
+      case 'new':
+        setActiveTab('new')
+        break
+      default:
+        setActiveTab('reply')
+        break
+    }
+  }, [router])
+
+  useEffect(() => {
+    if (!isLoading && !session) {
       router.replace('/')
     }
   }, [session])
@@ -24,7 +38,11 @@ const AppPage = () => {
     return (
       <>
         <Meta title="이메일 생성하기" />
-        <TabsRoot defaultValue="reply">
+        <TabsRoot
+          defaultValue="reply"
+          value={activeTab}
+          onValueChange={value => router.replace(`/app?type=${value}`)}
+        >
           <AppNavigation
             isInProgress={inProgress}
             tabsTrigger={
