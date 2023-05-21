@@ -10,8 +10,6 @@ export interface UserProfileProps {
   email: string
   created_at: string
   stripe_customer: string
-  plan: string
-  usage_left: number
   credit: number
 }
 
