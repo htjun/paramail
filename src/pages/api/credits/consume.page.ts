@@ -23,9 +23,7 @@ export default async function handler(
         'The user does not have an active session or is not authenticated',
     })
 
-  const { updateType }: { updateType: 'increment' | 'decrement' } = req.body
-
-  const { data, error } = await supabaseServerClient.rpc(updateType, {
+  const { data, error } = await supabaseServerClient.rpc('consume_credit', {
     user_id: user.id,
   })
 

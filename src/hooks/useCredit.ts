@@ -18,6 +18,7 @@ const useCredit = () => {
           event: 'UPDATE',
           schema: 'public',
           table: 'profiles',
+          filter: `id=eq.${profile?.id}`,
         },
         payload => {
           setCredit(payload.new.credit)

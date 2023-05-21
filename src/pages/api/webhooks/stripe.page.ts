@@ -10,30 +10,6 @@ const stripeSigningSecret = isDevEnv
   ? process.env.STRIPE_SIGNING_SECRET_TEST
   : process.env.STRIPE_SIGNING_SECRET
 
-const getPlanName = (productId: string) => {
-  switch (productId) {
-    case 'price_1N6BhhBHqL6fXF9D5LzZfXfd':
-      return 'pro'
-    case 'price_1N6BiOBHqL6fXF9DRgHuq32R':
-      return 'business'
-    default:
-      console.log('Unhandled product id')
-      break
-  }
-}
-
-const getUsageLeft = (productId: string) => {
-  switch (productId) {
-    case 'price_1N6BhhBHqL6fXF9D5LzZfXfd':
-      return 100
-    case 'price_1N6BiOBHqL6fXF9DRgHuq32R':
-      return 3000
-    default:
-      console.log('Unhandled product id')
-      break
-  }
-}
-
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const signature = req.headers['stripe-signature']
   const reqBuffer = await buffer(req)
@@ -56,36 +32,24 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const supabase = getServiceSupabase()
 
   const { type: eventType, data: eventData } = event
-  const { status, items, customer } = eventData.object as any
-  const { plan } = items.data[0]
-  const { product: productId } = plan
+  const {
+    status,
+    metadata: { credit_amount },
+    customer,
+  } = eventData.object as any
 
   switch (eventType) {
-    case 'customer.subscription.updated':
-      if (status === 'active') {
-        await supabase
-          .from('profiles')
-          .update({
-            plan: getPlanName(productId),
-            usage_left: getUsageLeft(productId),
-          })
-          .eq('stripe_customer', customer)
-      }
-      break
-    case 'customer.subscription.deleted':
-      await supabase
-        .from('profiles')
-        .update({
-          plan: 'free',
-          usage_left: null,
+    case 'checkout.session.completed':
+      if (status === 'complete') {
+        await supabase.rpc('charge_credit', {
+          input_stripe_customer_id: customer,
+          amount: credit_amount,
         })
-        .eq('stripe_customer', customer)
+      }
       break
     default:
       console.log(`Unhandled event type ${event.type}`)
   }
-
-  console.log({ event })
 
   res.send({ received: true })
 }
