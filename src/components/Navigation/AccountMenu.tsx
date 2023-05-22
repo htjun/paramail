@@ -1,4 +1,5 @@
 import { MouseEvent } from 'react'
+import Link from 'next/link'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import * as Popover from '@radix-ui/react-popover'
 import { twMerge } from 'tailwind-merge'
@@ -39,15 +40,32 @@ const AccountMenu = ({ user }: { user: UserProfileProps }) => {
               <div>{user.full_name}</div>
               <div className="text-gray-400">{user.email}</div>
               <hr className="my-3 border-gray-100" />
-              <div className="flex items-center gap-2">
-                <span className="text-gray-600">크레딧:</span>
-                <span className="font-medium">
-                  {credit?.toLocaleString('ko-KR')}
-                </span>
+              <div className="flex items-center justify-between gap-2">
+                <div>
+                  <span className="text-gray-600">크레딧: </span>
+                  <span className="font-medium">
+                    {credit?.toLocaleString('ko-KR')}
+                  </span>
+                </div>
+                <Link
+                  href="/app/settings/credit"
+                  className="rounded-full border border-indigo-300 px-3 py-1 font-medium text-indigo-500 transition-all hover:border-indigo-500 hover:bg-indigo-50 hover:text-indigo-700"
+                >
+                  충전
+                </Link>
               </div>
             </div>
             <hr className="x-full h-px border-gray-200" />
-            <div className="px-1.5">
+            <div className="flex flex-col gap-1 px-1.5">
+              <Link
+                href="/app/settings"
+                className={twMerge(
+                  button({ intent: 'ghost', size: 'sm' }),
+                  'w-full justify-start'
+                )}
+              >
+                계정 설정
+              </Link>
               <button
                 onClick={handleSignOut}
                 className={twMerge(
