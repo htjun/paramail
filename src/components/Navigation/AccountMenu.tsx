@@ -3,7 +3,12 @@ import Link from 'next/link'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import * as Popover from '@radix-ui/react-popover'
 import { twMerge } from 'tailwind-merge'
-import { XMarkIcon, ChevronDownIcon, UserIcon } from '@heroicons/react/20/solid'
+import {
+  XMarkIcon,
+  ChevronDownIcon,
+  UserIcon,
+  BoltIcon,
+} from '@heroicons/react/20/solid'
 import { button } from '@/styles/button'
 import { type UserProfileProps } from '@/hooks/useUserProfile'
 import useCredit from '@/hooks/useCredit'
@@ -31,7 +36,7 @@ const AccountMenu = ({ user }: { user: UserProfileProps }) => {
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Content
-          className="w-52 rounded border bg-white py-3 shadow-lg will-change-[transform,opacity]"
+          className="w-56 rounded border bg-white py-3 shadow-lg will-change-[transform,opacity]"
           collisionPadding={20}
           sideOffset={2}
         >
@@ -49,9 +54,10 @@ const AccountMenu = ({ user }: { user: UserProfileProps }) => {
                 </div>
                 <Link
                   href="/app/settings/credit"
-                  className="rounded-full border border-indigo-300 px-3 py-1 font-medium text-indigo-500 transition-all hover:border-indigo-500 hover:bg-indigo-50 hover:text-indigo-700"
+                  className="flex items-center gap-1 rounded-full border border-indigo-300 py-1 pl-2 pr-3 font-medium text-indigo-500 transition-all hover:border-indigo-500 hover:bg-indigo-50 hover:text-indigo-700"
                 >
-                  충전
+                  <BoltIcon className="h-3 w-3" />
+                  <span>충전</span>
                 </Link>
               </div>
             </div>

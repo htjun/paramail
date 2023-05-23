@@ -5,7 +5,7 @@ import useUserProfile from './useUserProfile'
 const useCredit = () => {
   const [credit, setCredit] = useState<number | null>(null)
   const { profile } = useUserProfile()
-  const initialCredit = profile?.credit || 0
+  const initialCredit = profile?.credit || null
 
   useEffect(() => {
     setCredit(initialCredit)

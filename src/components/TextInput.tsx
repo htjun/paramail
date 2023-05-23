@@ -10,6 +10,7 @@ interface TextInputProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
   className?: string
   required?: boolean
+  disabled?: boolean
 }
 
 const TextInput = ({
@@ -20,6 +21,7 @@ const TextInput = ({
   onChange,
   className,
   required = false,
+  disabled = false,
 }: TextInputProps) => {
   return (
     <div className="flex flex-col gap-2">
@@ -35,6 +37,7 @@ const TextInput = ({
         placeholder={placeholder}
         className={twMerge(textInput, 'h-10 w-full', className)}
         required={required}
+        disabled={disabled}
       />
     </div>
   )
