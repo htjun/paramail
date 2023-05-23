@@ -25,11 +25,11 @@ const LoginPage = () => {
       <Meta title="로그인" />
       <main>
         <LandingPageNavigation clean />
-        <div className="flex w-full flex-col items-center justify-center px-4 py-12">
+        <div className="flex w-full flex-col items-center justify-center py-12 md:px-4">
           <div
             className={twMerge(
               sectionContainer,
-              'flex w-full max-w-lg flex-col gap-10 px-6 py-8'
+              'flex w-full flex-col gap-10 px-6 py-8 md:max-w-lg'
             )}
           >
             <div className="flex flex-col gap-2">
@@ -57,7 +57,7 @@ const LoginPage = () => {
           </div>
         </div>
         <div className="flex w-full justify-center">
-          <div className="max-w-sm text-center text-sm leading-relaxed tracking-tight text-gray-450">
+          <div className="max-w-sm px-4 text-center text-sm leading-relaxed tracking-tight text-gray-450">
             계정 생성 또는 로그인 시{' '}
             <Link href="/terms" target="_blank" className={textLink}>
               서비스 약관
