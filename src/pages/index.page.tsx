@@ -1,6 +1,5 @@
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
-import { useSessionContext } from '@supabase/auth-helpers-react'
+import { GetServerSidePropsContext } from 'next'
+import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import Link from 'next/link'
 import Meta from '@/components/Meta'
 import { notoSansKR } from '@/lib/fonts'
@@ -9,18 +8,24 @@ import { LandingPageNavigation } from '@/components/Navigation'
 import { ctaButton, marketingPageTitle } from '@/styles/sharedClasses'
 import Preview from 'public/preview.svg'
 
-const LandingPage = () => {
-  const router = useRouter()
-  const { isLoading, session } = useSessionContext()
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const supabase = createServerSupabaseClient(ctx)
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
 
-  useEffect(() => {
-    if (!isLoading && session) {
-      router.replace('/app')
+  if (session)
+    return {
+      redirect: {
+        destination: '/app',
+        permanent: false,
+      },
     }
-  }, [isLoading, session])
 
-  if (isLoading) return null
+  return { props: {} }
+}
 
+const LandingPage = () => {
   return (
     <>
       <Meta />

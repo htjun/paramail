@@ -1,25 +1,30 @@
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { useSessionContext } from '@supabase/auth-helpers-react'
+import { GetServerSidePropsContext } from 'next'
+import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { twMerge } from 'tailwind-merge'
 import Meta from '@/components/Meta'
 import { LandingPageNavigation } from '@/components/Navigation'
 import { sectionContainer, textLink } from '@/styles/sharedClasses'
 import OAuthButton from './OAuthButton'
 
-const LoginPage = () => {
-  const router = useRouter()
-  const { isLoading, session } = useSessionContext()
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const supabase = createServerSupabaseClient(ctx)
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
 
-  useEffect(() => {
-    if (!isLoading && session) {
-      router.replace('/app')
+  if (session)
+    return {
+      redirect: {
+        destination: '/app',
+        permanent: false,
+      },
     }
-  }, [isLoading, session])
 
-  if (isLoading) return null
+  return { props: {} }
+}
 
+const LoginPage = () => {
   return (
     <>
       <Meta title="로그인" />

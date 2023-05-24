@@ -1,5 +1,24 @@
+import { GetServerSidePropsContext } from 'next'
+import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import Meta from '@/components/Meta'
 import SettingsLayout from './Layout'
+
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const supabase = createServerSupabaseClient(ctx)
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
+
+  if (!session)
+    return {
+      redirect: {
+        destination: '/auth/login',
+        permanent: false,
+      },
+    }
+
+  return { props: {} }
+}
 
 const SettingsPage = () => {
   return (

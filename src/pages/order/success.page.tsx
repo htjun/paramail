@@ -1,5 +1,3 @@
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
 import { type GetServerSideProps } from 'next'
 import Link from 'next/link'
 import stripe from '@/lib/stripe'
@@ -14,22 +12,10 @@ import { sectionContainer, textLink } from '@/styles/sharedClasses'
 import { button } from '@/styles/button'
 
 interface PaymentSuccessPageProps {
-  customer: string
   invoiceUrl: string
 }
 
-const PaymentSuccessPage = ({
-  customer,
-  invoiceUrl,
-}: PaymentSuccessPageProps) => {
-  const router = useRouter()
-
-  useEffect(() => {
-    if (!customer) {
-      router.replace('/app')
-    }
-  }, [customer])
-
+const PaymentSuccessPage = ({ invoiceUrl }: PaymentSuccessPageProps) => {
   return (
     <>
       <Meta title="결제 완료" />
@@ -101,6 +87,14 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   } catch (error) {
     invoiceUrl = null
   }
+
+  if (!session)
+    return {
+      redirect: {
+        destination: '/auth/login',
+        permanent: false,
+      },
+    }
 
   return {
     props: {
