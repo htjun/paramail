@@ -20,6 +20,7 @@ type UserContextType = {
   accessToken: string | null
   user: User | null
   userDetails: UserDetails | null
+  credit: number | null
   isLoading: boolean
 }
 
@@ -37,22 +38,47 @@ export const MyUserContextProvider = (props: Props) => {
   } = useSessionContext()
   const user = useSupaUser()
   const accessToken = session?.access_token ?? null
-  const [isLoadingData, setIsloadingData] = useState(false)
+  const [isLoadingData, setIsLoadingData] = useState(false)
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null)
+  const [credit, setCredit] = useState<number | null>(null)
 
   const getUserDetails = () =>
     supabase.from('profiles').select('*').eq('id', user?.id).single()
 
   useEffect(() => {
     if (user && !isLoadingData && !userDetails) {
-      setIsloadingData(true)
+      setIsLoadingData(true)
       Promise.allSettled([getUserDetails()]).then(results => {
         const userDetailsPromise = results[0]
 
-        if (userDetailsPromise.status === 'fulfilled')
-          setUserDetails(userDetailsPromise.value.data as UserDetails)
+        if (userDetailsPromise.status === 'fulfilled') {
+          const userDetailsPromiseData = userDetailsPromise.value
+            .data as UserDetails
+          setUserDetails(userDetailsPromiseData)
+          setCredit(userDetailsPromiseData.credit)
+        }
 
-        setIsloadingData(false)
+        const channel = supabase
+          .channel('realtime credit')
+          .on(
+            'postgres_changes',
+            {
+              event: 'UPDATE',
+              schema: 'public',
+              table: 'profiles',
+              filter: `id=eq.${user?.id}`,
+            },
+            payload => {
+              setCredit(payload.new.credit)
+            }
+          )
+          .subscribe()
+
+        setIsLoadingData(false)
+
+        return () => {
+          supabase.removeChannel(channel)
+        }
       })
     } else if (!user && !isLoadingUser && !isLoadingData) {
       setUserDetails(null)
@@ -64,9 +90,10 @@ export const MyUserContextProvider = (props: Props) => {
       accessToken,
       user,
       userDetails,
+      credit,
       isLoading: isLoadingUser || isLoadingData,
     }
-  }, [accessToken, user, userDetails, isLoadingUser, isLoadingData])
+  }, [accessToken, user, userDetails, credit, isLoadingUser, isLoadingData])
 
   return <UserContext.Provider value={value} {...props} />
 }

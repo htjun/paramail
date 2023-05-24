@@ -70,8 +70,7 @@ const CreditButton = ({
 }
 
 const SettingsPage = () => {
-  const { userDetails } = useUser()
-  const credit = userDetails?.credit ?? null
+  const { credit } = useUser()
 
   return (
     <>

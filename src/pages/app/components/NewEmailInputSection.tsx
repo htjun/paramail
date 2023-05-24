@@ -42,8 +42,7 @@ const NewEmailInputSection = ({
 }: NewEmailInputSectionProps) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [isInsufficientCredit, setIsInsufficientCredit] = useState(false)
-  const { userDetails } = useUser()
-  const credit = userDetails?.credit ?? null
+  const { credit } = useUser()
 
   useEffect(() => {
     if (credit !== null && credit < 1) {

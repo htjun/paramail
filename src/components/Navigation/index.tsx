@@ -7,11 +7,11 @@ import { button } from '@/styles/button'
 import ParamailLogo from 'public/paramail.svg'
 
 const Account = () => {
-  const { userDetails, isLoading } = useUser()
+  const { userDetails, credit, isLoading } = useUser()
 
   if (isLoading) return null
 
-  if (userDetails) return <AccountMenu user={userDetails} />
+  if (userDetails) return <AccountMenu user={userDetails} credit={credit} />
 
   return (
     <Link

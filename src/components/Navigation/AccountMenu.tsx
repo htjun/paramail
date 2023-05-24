@@ -12,7 +12,13 @@ import {
 import { button } from '@/styles/button'
 import { type UserDetails } from '@/hooks/useUser'
 
-const AccountMenu = ({ user }: { user: UserDetails }) => {
+const AccountMenu = ({
+  user,
+  credit,
+}: {
+  user: UserDetails
+  credit: number | null
+}) => {
   const supabase = useSupabaseClient()
 
   const handleSignOut = async (e: MouseEvent<HTMLButtonElement>) => {
@@ -47,7 +53,7 @@ const AccountMenu = ({ user }: { user: UserDetails }) => {
                 <div>
                   <span className="text-gray-600">크레딧: </span>
                   <span className="font-medium">
-                    {user.credit.toLocaleString('ko-KR')}
+                    {credit?.toLocaleString('ko-KR')}
                   </span>
                 </div>
                 <Link
