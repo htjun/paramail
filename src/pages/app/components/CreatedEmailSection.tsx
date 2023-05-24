@@ -1,3 +1,4 @@
+import { twMerge } from 'tailwind-merge'
 import { DocumentDuplicateIcon } from '@heroicons/react/20/solid'
 import SectionHeader from '@/components/SectionHeader'
 import SectionSubHeader from '@/components/SectionSubHeader'
@@ -9,6 +10,7 @@ import useEmailCreation from '@/hooks/useEmailCreation'
 import useTranslate from '@/hooks/useTranslation'
 import useCopyToClipboard from '@/hooks/useCopyToClipboard'
 import { button } from '@/styles/button'
+import { sectionContainer } from '@/styles/sharedClasses'
 
 interface CreatedEmailSectionProps {
   receivedEmailValue?: string
@@ -48,7 +50,7 @@ const CreatedEmailSection = ({
         title="메일 생성 & 복사"
         description="AI가 생성한 메일을 확인하고 복사하여 원하는 곳에 붙여넣기 하세요."
       />
-      <section className="rounded-xl border border-gray-200 bg-white shadow-xs">
+      <section className={twMerge(sectionContainer, '')}>
         <div className="grid min-h-[400px] gap-12 px-4 py-4 md:grid-cols-2 md:px-6 md:pb-8 md:pt-6">
           <div className="flex flex-col gap-6">
             <SectionSubHeader>원본</SectionSubHeader>
@@ -100,6 +102,7 @@ const CreatedEmailSection = ({
           <button
             onClick={handleCopyToClipboard}
             className={button({ intent: 'primary', size: 'md' })}
+            disabled={emailCreationLoading}
           >
             <DocumentDuplicateIcon className="h-4 w-4" />
             <span>원본 복사하기</span>

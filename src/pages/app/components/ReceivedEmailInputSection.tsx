@@ -1,14 +1,15 @@
-import { useState, ChangeEvent, FormEvent } from 'react'
+import { useState, useEffect, ChangeEvent, FormEvent } from 'react'
 import { LanguageIcon } from '@heroicons/react/20/solid'
-import TextArea from '@/components/TextArea'
-import { twMerge } from 'tailwind-merge'
-import ErrorMessage from '@/components/ErrorMessage'
-import { sectionContainer, guideSection } from '@/styles/sharedClasses'
-import { Button } from '@/components/Button'
 import {
   InboxArrowDownIcon,
   InformationCircleIcon,
 } from '@heroicons/react/24/outline'
+import { twMerge } from 'tailwind-merge'
+import TextArea from '@/components/TextArea'
+import ErrorMessage from '@/components/ErrorMessage'
+import { Button } from '@/components/Button'
+import { useUser } from '@/hooks/useUser'
+import { sectionContainer, guideSection } from '@/styles/sharedClasses'
 
 interface ReceivedEmailInputSectionProps {
   receivedEmailValue: string
@@ -22,6 +23,18 @@ const ReceivedEmailInputSection = ({
   setProgressStep,
 }: ReceivedEmailInputSectionProps) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [isInsufficientCredit, setIsInsufficientCredit] = useState(false)
+  const { credit } = useUser()
+
+  useEffect(() => {
+    if (credit !== null && credit < 2) {
+      setIsInsufficientCredit(true)
+      setErrorMessage('크레딧이 부족합니다.')
+    } else {
+      setIsInsufficientCredit(false)
+      setErrorMessage(null)
+    }
+  }, [credit])
 
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setReceivedEmailValue(e.target.value)
@@ -45,7 +58,7 @@ const ReceivedEmailInputSection = ({
         onSubmit={handleSubmit}
         className={twMerge(
           sectionContainer,
-          'w-full flex-grow px-4 py-6 md:p-6'
+          'w-full flex-grow border-t-0 px-4 py-6 md:p-6'
         )}
       >
         <div className="mb-6 flex items-center gap-1.5">
@@ -64,7 +77,12 @@ const ReceivedEmailInputSection = ({
         />
         <div className="mt-6 flex items-center justify-end gap-6">
           {errorMessage && <ErrorMessage text={errorMessage} />}
-          <Button type="submit" intent="secondary" size="md">
+          <Button
+            type="submit"
+            intent="secondary"
+            size="md"
+            disabled={isInsufficientCredit}
+          >
             <LanguageIcon className="h-4 w-4" />
             <span>번역 & 분석</span>
           </Button>

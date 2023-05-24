@@ -1,35 +1,40 @@
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { useSessionContext } from '@supabase/auth-helpers-react'
+import { GetServerSidePropsContext } from 'next'
+import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { twMerge } from 'tailwind-merge'
 import Meta from '@/components/Meta'
 import { LandingPageNavigation } from '@/components/Navigation'
 import { sectionContainer, textLink } from '@/styles/sharedClasses'
 import OAuthButton from './OAuthButton'
 
-const LoginPage = () => {
-  const router = useRouter()
-  const { isLoading, session } = useSessionContext()
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const supabase = createServerSupabaseClient(ctx)
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
 
-  useEffect(() => {
-    if (!isLoading && session) {
-      router.replace('/app')
+  if (session)
+    return {
+      redirect: {
+        destination: '/app',
+        permanent: false,
+      },
     }
-  }, [isLoading, session])
 
-  if (isLoading) return null
+  return { props: {} }
+}
 
+const LoginPage = () => {
   return (
     <>
       <Meta title="로그인" />
       <main>
         <LandingPageNavigation clean />
-        <div className="flex w-full flex-col items-center justify-center px-4 py-12">
+        <div className="flex w-full flex-col items-center justify-center py-12 md:px-4">
           <div
             className={twMerge(
               sectionContainer,
-              'flex w-full max-w-lg flex-col gap-10 px-6 py-8'
+              'flex w-full flex-col gap-10 px-6 py-8 md:max-w-lg'
             )}
           >
             <div className="flex flex-col gap-2">
@@ -57,7 +62,7 @@ const LoginPage = () => {
           </div>
         </div>
         <div className="flex w-full justify-center">
-          <div className="max-w-sm text-center text-sm leading-relaxed tracking-tight text-gray-450">
+          <div className="max-w-sm px-4 text-center text-sm leading-relaxed tracking-tight text-gray-450">
             계정 생성 또는 로그인 시{' '}
             <Link href="/terms" target="_blank" className={textLink}>
               서비스 약관

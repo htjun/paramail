@@ -27,7 +27,7 @@ const ReplyFlow = ({ setInProgress }: ReplyFlowProps) => {
   }, [progressStep, setInProgress])
 
   return (
-    <div className="flex flex-col gap-16">
+    <div className="flex flex-col gap-16 py-0">
       {progressStep === 0 && (
         <ReceivedEmailInputSection
           receivedEmailValue={receivedEmailValue}

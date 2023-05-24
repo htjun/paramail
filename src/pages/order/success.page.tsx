@@ -1,5 +1,3 @@
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
 import { type GetServerSideProps } from 'next'
 import Link from 'next/link'
 import stripe from '@/lib/stripe'
@@ -14,22 +12,10 @@ import { sectionContainer, textLink } from '@/styles/sharedClasses'
 import { button } from '@/styles/button'
 
 interface PaymentSuccessPageProps {
-  customer: string
   invoiceUrl: string
 }
 
-const PaymentSuccessPage = ({
-  customer,
-  invoiceUrl,
-}: PaymentSuccessPageProps) => {
-  const router = useRouter()
-
-  useEffect(() => {
-    if (!customer) {
-      router.replace('/app')
-    }
-  }, [customer])
-
+const PaymentSuccessPage = ({ invoiceUrl }: PaymentSuccessPageProps) => {
   return (
     <>
       <Meta title="결제 완료" />
@@ -83,17 +69,32 @@ const PaymentSuccessPage = ({
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   let customer
   let invoiceUrl
+  let session
+
   try {
     const sessionId = query.session_id
-    const session = await stripe.checkout.sessions.retrieve(sessionId as string)
+    session = await stripe.checkout.sessions.retrieve(sessionId as string)
     customer = await stripe.customers.retrieve(session.customer as string)
 
-    const invoice = await stripe.invoices.retrieve(session.invoice as string)
-    invoiceUrl = invoice.hosted_invoice_url
+    console.log(session)
   } catch (error) {
     customer = null
+  }
+
+  try {
+    const invoice = await stripe.invoices.retrieve(session?.invoice as string)
+    invoiceUrl = invoice.hosted_invoice_url
+  } catch (error) {
     invoiceUrl = null
   }
+
+  if (!session)
+    return {
+      redirect: {
+        destination: '/auth/login',
+        permanent: false,
+      },
+    }
 
   return {
     props: {

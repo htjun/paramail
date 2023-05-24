@@ -23,16 +23,16 @@ const NewMailFlow = ({
   return (
     <div className="flex flex-col gap-16">
       {progressStep === 0 && (
-        <div>
-          <NewEmailInputSection
-            setProgressStep={setProgressStep}
-            newEmailValue={newEmailValue}
-            setNewEmailValue={setNewEmailValue}
-          />
-        </div>
+        <NewEmailInputSection
+          setProgressStep={setProgressStep}
+          newEmailValue={newEmailValue}
+          setNewEmailValue={setNewEmailValue}
+        />
       )}
       {progressStep > 0 && (
-        <CreatedEmailSection newEmailValue={newEmailValue} />
+        <div className="pt-8 md:p-0">
+          <CreatedEmailSection newEmailValue={newEmailValue} />
+        </div>
       )}
     </div>
   )

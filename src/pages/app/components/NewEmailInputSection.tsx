@@ -1,5 +1,6 @@
 import {
   useState,
+  useEffect,
   Dispatch,
   SetStateAction,
   ChangeEvent,
@@ -15,6 +16,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { sectionContainer, guideSection } from '@/styles/sharedClasses'
 import { Button } from '@/components/Button'
+import { useUser } from '@/hooks/useUser'
 import WandSVG from 'public/wand.svg'
 
 interface NewEmailInputSectionProps {
@@ -39,6 +41,18 @@ const NewEmailInputSection = ({
   setNewEmailValue,
 }: NewEmailInputSectionProps) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [isInsufficientCredit, setIsInsufficientCredit] = useState(false)
+  const { credit } = useUser()
+
+  useEffect(() => {
+    if (credit !== null && credit < 1) {
+      setIsInsufficientCredit(true)
+      setErrorMessage('크레딧이 부족합니다.')
+    } else {
+      setIsInsufficientCredit(false)
+      setErrorMessage(null)
+    }
+  }, [credit])
 
   const handleInputContentChange = (
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -73,7 +87,7 @@ const NewEmailInputSection = ({
     <div className="flex items-start gap-6">
       <form
         onSubmit={handleSubmit}
-        className={twMerge(sectionContainer, 'w-full flex-grow p-6')}
+        className={twMerge(sectionContainer, 'w-full flex-grow border-t-0 p-6')}
       >
         <div className="mb-6 flex items-center gap-1.5">
           <PencilSquareIcon className="h-4 w-4 text-gray-600" />
@@ -104,7 +118,7 @@ const NewEmailInputSection = ({
         />
         <div className="mt-6 flex items-center justify-end gap-6">
           {errorMessage && <ErrorMessage text={errorMessage} />}
-          <Button type="submit">
+          <Button type="submit" disabled={isInsufficientCredit}>
             <WandSVG className="h-4 w-4" />
             <span>메일 생성</span>
           </Button>

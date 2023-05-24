@@ -1,12 +1,24 @@
 import { MouseEvent } from 'react'
+import Link from 'next/link'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import * as Popover from '@radix-ui/react-popover'
 import { twMerge } from 'tailwind-merge'
-import { XMarkIcon, ChevronDownIcon, UserIcon } from '@heroicons/react/20/solid'
+import {
+  XMarkIcon,
+  ChevronDownIcon,
+  UserIcon,
+  BoltIcon,
+} from '@heroicons/react/20/solid'
 import { button } from '@/styles/button'
+import { type UserDetails } from '@/hooks/useUser'
 
-const AccountMenu = ({ user }: { user: any }) => {
-  const { user_metadata: userData } = user
+const AccountMenu = ({
+  user,
+  credit,
+}: {
+  user: UserDetails
+  credit: number | null
+}) => {
   const supabase = useSupabaseClient()
 
   const handleSignOut = async (e: MouseEvent<HTMLButtonElement>) => {
@@ -21,24 +33,49 @@ const AccountMenu = ({ user }: { user: any }) => {
           className="flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full border border-gray-250 text-sm font-medium text-gray-500 ring-offset-2 transition-all hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:w-auto sm:pl-4 sm:pr-3"
           aria-label="Account menu"
         >
-          <span className="hidden shrink-0 sm:block">{userData.name}</span>
+          <span className="hidden shrink-0 sm:block">{user.full_name}</span>
           <ChevronDownIcon className="hidden h-4 w-4 shrink-0 sm:block" />
           <UserIcon className="block h-4 w-4 shrink-0 sm:hidden" />
         </button>
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Content
-          className="w-52 rounded border bg-white py-3 shadow-lg will-change-[transform,opacity]"
+          className="w-56 rounded border bg-white py-3 shadow-lg will-change-[transform,opacity]"
           collisionPadding={20}
           sideOffset={2}
         >
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 text-sm">
             <div className="flex flex-col gap-1 px-5 py-2">
-              <div className="text-sm">{userData.name}</div>
-              <div className="text-sm text-gray-400">{userData.email}</div>
+              <div>{user.full_name}</div>
+              <div className="text-gray-400">{user.email}</div>
+              <hr className="my-3 border-gray-100" />
+              <div className="flex items-center justify-between gap-2">
+                <div>
+                  <span className="text-gray-600">크레딧: </span>
+                  <span className="font-medium">
+                    {credit?.toLocaleString('ko-KR')}
+                  </span>
+                </div>
+                <Link
+                  href="/app/settings/credit"
+                  className="flex items-center gap-1 rounded-full border border-indigo-300 py-1 pl-2 pr-3 font-medium text-indigo-500 transition-all hover:border-indigo-500 hover:bg-indigo-50 hover:text-indigo-700"
+                >
+                  <BoltIcon className="h-3 w-3" />
+                  <span>충전</span>
+                </Link>
+              </div>
             </div>
             <hr className="x-full h-px border-gray-200" />
-            <div className="px-1.5">
+            <div className="flex flex-col gap-1 px-1.5">
+              <Link
+                href="/app/settings"
+                className={twMerge(
+                  button({ intent: 'ghost', size: 'sm' }),
+                  'w-full justify-start'
+                )}
+              >
+                계정 설정
+              </Link>
               <button
                 onClick={handleSignOut}
                 className={twMerge(
