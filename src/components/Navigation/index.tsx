@@ -1,17 +1,17 @@
 import { ReactNode, MouseEvent } from 'react'
 import Link from 'next/link'
 import AccountMenu from '@/components/Navigation/AccountMenu'
-import useUserProfile from '@/hooks/useUserProfile'
+import { useUser } from '@/hooks/useUser'
 import { twMerge } from 'tailwind-merge'
 import { button } from '@/styles/button'
 import ParamailLogo from 'public/paramail.svg'
 
 const Account = () => {
-  const { profile, isLoading } = useUserProfile()
+  const { userDetails, isLoading } = useUser()
 
   if (isLoading) return null
 
-  if (profile) return <AccountMenu user={profile} />
+  if (userDetails) return <AccountMenu user={userDetails} />
 
   return (
     <Link

@@ -8,7 +8,7 @@ import { twMerge } from 'tailwind-merge'
 import TextArea from '@/components/TextArea'
 import ErrorMessage from '@/components/ErrorMessage'
 import { Button } from '@/components/Button'
-import useCredit from '@/hooks/useCredit'
+import { useUser } from '@/hooks/useUser'
 import { sectionContainer, guideSection } from '@/styles/sharedClasses'
 
 interface ReceivedEmailInputSectionProps {
@@ -24,10 +24,11 @@ const ReceivedEmailInputSection = ({
 }: ReceivedEmailInputSectionProps) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [isInsufficientCredit, setIsInsufficientCredit] = useState(false)
-  const credit = useCredit()
+  const { userDetails } = useUser()
+  const credit = userDetails?.credit ?? null
 
   useEffect(() => {
-    if (credit && credit < 2) {
+    if (credit !== null && credit < 2) {
       setIsInsufficientCredit(true)
       setErrorMessage('크레딧이 부족합니다.')
     } else {

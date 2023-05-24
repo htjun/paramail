@@ -4,31 +4,31 @@ import Meta from '@/components/Meta'
 import TextInput from '@/components/TextInput'
 import { Button } from '@/components/Button'
 import ErrorMessage from '@/components/ErrorMessage'
-import useUserProfile from '@/hooks/useUserProfile'
+import { useUser } from '@/hooks/useUser'
 import SettingsLayout from './Layout'
 
 const SettingsPage = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const { profile, isLoading } = useUserProfile()
+  const { userDetails, isLoading } = useUser()
   const [isUpdateAvailable, setIsUpdateAvailable] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState<null | string>(null)
 
   useEffect(() => {
-    if (profile) {
-      setName(profile.full_name)
-      setEmail(profile.email)
+    if (userDetails) {
+      setName(userDetails.full_name)
+      setEmail(userDetails.email)
     }
-  }, [profile, isLoading])
+  }, [userDetails, isLoading])
 
   useEffect(() => {
-    if (name !== profile?.full_name) {
+    if (name !== userDetails?.full_name) {
       setIsUpdateAvailable(true)
     } else {
       setIsUpdateAvailable(false)
     }
-  }, [name, profile])
+  }, [name, userDetails])
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value)

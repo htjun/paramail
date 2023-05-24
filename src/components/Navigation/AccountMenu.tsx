@@ -10,12 +10,10 @@ import {
   BoltIcon,
 } from '@heroicons/react/20/solid'
 import { button } from '@/styles/button'
-import { type UserProfileProps } from '@/hooks/useUserProfile'
-import useCredit from '@/hooks/useCredit'
+import { type UserDetails } from '@/hooks/useUser'
 
-const AccountMenu = ({ user }: { user: UserProfileProps }) => {
+const AccountMenu = ({ user }: { user: UserDetails }) => {
   const supabase = useSupabaseClient()
-  const credit = useCredit()
 
   const handleSignOut = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -49,7 +47,7 @@ const AccountMenu = ({ user }: { user: UserProfileProps }) => {
                 <div>
                   <span className="text-gray-600">크레딧: </span>
                   <span className="font-medium">
-                    {credit?.toLocaleString('ko-KR')}
+                    {user.credit.toLocaleString('ko-KR')}
                   </span>
                 </div>
                 <Link

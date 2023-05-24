@@ -2,7 +2,7 @@ import { twMerge } from 'tailwind-merge'
 import { CircleStackIcon } from '@heroicons/react/24/outline'
 import Meta from '@/components/Meta'
 import { Button } from '@/components/Button'
-import useCredit from '@/hooks/useCredit'
+import { useUser } from '@/hooks/useUser'
 import { inter } from '@/lib/fonts'
 import SettingsLayout from './Layout'
 
@@ -51,7 +51,8 @@ const CreditButton = ({
 }
 
 const SettingsPage = () => {
-  const credit = useCredit()
+  const { userDetails } = useUser()
+  const credit = userDetails?.credit ?? null
 
   return (
     <>

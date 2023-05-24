@@ -16,7 +16,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { sectionContainer, guideSection } from '@/styles/sharedClasses'
 import { Button } from '@/components/Button'
-import useCredit from '@/hooks/useCredit'
+import { useUser } from '@/hooks/useUser'
 import WandSVG from 'public/wand.svg'
 
 interface NewEmailInputSectionProps {
@@ -42,10 +42,11 @@ const NewEmailInputSection = ({
 }: NewEmailInputSectionProps) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [isInsufficientCredit, setIsInsufficientCredit] = useState(false)
-  const credit = useCredit()
+  const { userDetails } = useUser()
+  const credit = userDetails?.credit ?? null
 
   useEffect(() => {
-    if (credit && credit < 1) {
+    if (credit !== null && credit < 1) {
       setIsInsufficientCredit(true)
       setErrorMessage('크레딧이 부족합니다.')
     } else {
