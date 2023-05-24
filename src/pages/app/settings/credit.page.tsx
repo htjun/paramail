@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
 import axios from 'axios'
 import { twMerge } from 'tailwind-merge'
@@ -41,10 +42,18 @@ const CreditButton = ({
   price,
   onClick,
 }: CreditButtonProps) => {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleClick = () => {
+    setIsLoading(true)
+    onClick()
+  }
+
   return (
     <Button
       className="flex h-24 justify-between gap-4 text-base"
-      onClick={onClick}
+      onClick={handleClick}
+      loading={isLoading}
     >
       <div className="flex flex-col items-start gap-0.5">
         <div>
