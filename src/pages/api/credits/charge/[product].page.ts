@@ -80,7 +80,7 @@ export default async function handler(
     payment_method_types: ['card'],
     line_items: lineItems,
     success_url: `${SITE_URL}/order/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${SITE_URL}/app/settings/credits`,
+    cancel_url: `${SITE_URL}/app/settings/credit`,
   })
 
   res.send({

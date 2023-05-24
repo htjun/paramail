@@ -26,7 +26,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   return { props: {} }
 }
 
-const SettingsPage = () => {
+const SettingsProfilePage = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const { userDetails, isLoading } = useUser()
@@ -107,4 +107,4 @@ const SettingsPage = () => {
   )
 }
 
-export default SettingsPage
+export default SettingsProfilePage

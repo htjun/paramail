@@ -20,7 +20,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   return { props: {} }
 }
 
-const SettingsPage = () => {
+const SettingsPreferencePage = () => {
   return (
     <>
       <Meta title="앱 설정" />
@@ -34,4 +34,4 @@ const SettingsPage = () => {
   )
 }
 
-export default SettingsPage
+export default SettingsPreferencePage

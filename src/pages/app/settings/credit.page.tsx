@@ -1,3 +1,5 @@
+import { loadStripe } from '@stripe/stripe-js'
+import axios from 'axios'
 import { twMerge } from 'tailwind-merge'
 import { GetServerSidePropsContext } from 'next'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
@@ -5,6 +7,7 @@ import { CircleStackIcon } from '@heroicons/react/24/outline'
 import Meta from '@/components/Meta'
 import { Button } from '@/components/Button'
 import { useUser } from '@/hooks/useUser'
+import isDevEnv from '@/utils/isDevEnv'
 import { inter } from '@/lib/fonts'
 import SettingsLayout from './Layout'
 
@@ -69,8 +72,35 @@ const CreditButton = ({
   )
 }
 
-const SettingsPage = () => {
-  const { credit } = useUser()
+const nextPublicStripeKey = isDevEnv
+  ? process.env.NEXT_PUBLIC_STRIPE_KEY_TEST
+  : process.env.NEXT_PUBLIC_STRIPE_KEY
+
+const SettingsCreditPage = () => {
+  const { userDetails, credit } = useUser()
+
+  const {
+    id: supabaseProfileId,
+    email,
+    stripe_customer: stripeCustomerId,
+  } = userDetails || {}
+
+  const processSubscription = async ({
+    product,
+    creditAmount,
+  }: {
+    product: string
+    creditAmount: number
+  }) => {
+    const { data } = await axios.post(`/api/credits/charge/${product}`, {
+      supabaseProfileId,
+      email,
+      stripeCustomerId,
+      creditAmount,
+    })
+    const stripe = await loadStripe(nextPublicStripeKey!)
+    await stripe?.redirectToCheckout({ sessionId: data.id })
+  }
 
   return (
     <>
@@ -97,13 +127,23 @@ const SettingsPage = () => {
               creditAmount="100"
               description="1 크레딧 = 49원"
               price="4,900"
-              onClick={() => {}}
+              onClick={() =>
+                processSubscription({
+                  product: 'credit100',
+                  creditAmount: 100,
+                })
+              }
             />
             <CreditButton
               creditAmount="500"
               description="1 크레딧 = 39.8원"
               price="19,900"
-              onClick={() => {}}
+              onClick={() =>
+                processSubscription({
+                  product: 'credit500',
+                  creditAmount: 500,
+                })
+              }
             />
           </div>
           <hr className="my-10" />
@@ -138,4 +178,4 @@ const SettingsPage = () => {
   )
 }
 
-export default SettingsPage
+export default SettingsCreditPage
