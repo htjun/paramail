@@ -145,8 +145,8 @@ const SettingsCreditPage = () => {
             />
             <CreditButton
               creditAmount="500"
-              description="1 크레딧 = 39.8원"
-              price="19,900"
+              description="1 크레딧 = 29.8원"
+              price="14,900"
               onClick={() =>
                 processSubscription({
                   product: 'credit500',
