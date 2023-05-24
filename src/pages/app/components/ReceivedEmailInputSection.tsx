@@ -59,7 +59,7 @@ const ReceivedEmailInputSection = ({
         onSubmit={handleSubmit}
         className={twMerge(
           sectionContainer,
-          'w-full flex-grow px-4 py-6 md:p-6'
+          'w-full flex-grow border-t-0 px-4 py-6 md:p-6'
         )}
       >
         <div className="mb-6 flex items-center gap-1.5">

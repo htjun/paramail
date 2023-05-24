@@ -22,7 +22,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
       },
     }
 
-    return { props: {} }
+  return { props: {} }
 }
 
 interface CreditButtonProps {
@@ -78,7 +78,7 @@ const SettingsPage = () => {
       <Meta title="크레딧 충전" />
       <SettingsLayout>
         <div className="flex flex-col px-6 py-8">
-          <div className="mb-8 flex justify-between gap-4">
+          <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row">
             <h2 className="text-2xl">크레딧 충전</h2>
             <div className="inline-flex items-center gap-2 self-start rounded-lg bg-gray-50 px-3 py-1.5">
               <div className="flex items-center gap-1">

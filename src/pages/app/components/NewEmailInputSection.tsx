@@ -88,7 +88,7 @@ const NewEmailInputSection = ({
     <div className="flex items-start gap-6">
       <form
         onSubmit={handleSubmit}
-        className={twMerge(sectionContainer, 'w-full flex-grow p-6')}
+        className={twMerge(sectionContainer, 'w-full flex-grow border-t-0 p-6')}
       >
         <div className="mb-6 flex items-center gap-1.5">
           <PencilSquareIcon className="h-4 w-4 text-gray-600" />

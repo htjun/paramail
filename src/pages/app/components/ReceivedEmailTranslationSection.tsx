@@ -15,7 +15,7 @@ const ReceivedEmailTranslationSection = ({
   const { loading, error, translatedText } = useTranslate(emailInput)
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 pt-8 md:pt-0">
       <SectionHeader
         title="메일 번역"
         description="받은 메일의 한국어 번역본을 확인하세요."

@@ -35,7 +35,7 @@ const SettingsMenuItem = ({
 const SettingsMenus = () => {
   const basePath = '/app/settings'
   return (
-    <div className="flex w-56 shrink-0 flex-col gap-1 border-r px-4 py-6">
+    <div className="flex shrink-0 flex-col gap-1 border-b p-2 md:w-56 md:border-b-0 md:border-r md:px-4 md:py-6">
       <SettingsMenuItem href={basePath}>
         <UserIcon className="h-5 w-5" />
         <span>내 정보</span>
