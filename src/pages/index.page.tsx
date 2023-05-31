@@ -1,5 +1,3 @@
-import { GetServerSidePropsContext } from 'next'
-import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import Link from 'next/link'
 import Meta from '@/components/Meta'
 import { notoSansKR } from '@/lib/fonts'
@@ -7,23 +5,6 @@ import { twMerge } from 'tailwind-merge'
 import { LandingPageNavigation } from '@/components/Navigation'
 import { ctaButton, marketingPageTitle } from '@/styles/sharedClasses'
 import Preview from 'public/preview.svg'
-
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const supabase = createServerSupabaseClient(ctx)
-  const {
-    data: { session },
-  } = await supabase.auth.getSession()
-
-  if (session)
-    return {
-      redirect: {
-        destination: '/app',
-        permanent: false,
-      },
-    }
-
-  return { props: {} }
-}
 
 const LandingPage = () => {
   return (

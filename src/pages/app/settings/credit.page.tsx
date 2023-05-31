@@ -2,32 +2,14 @@ import { useState } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
 import axios from 'axios'
 import { twMerge } from 'tailwind-merge'
-import { GetServerSidePropsContext } from 'next'
-import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { CircleStackIcon } from '@heroicons/react/24/outline'
 import Meta from '@/components/Meta'
+import ProtectedRoute from '@/components/ProtectedRoute'
 import { Button } from '@/components/Button'
 import { useUser } from '@/hooks/useUser'
 import isDevEnv from '@/utils/isDevEnv'
 import { inter } from '@/lib/fonts'
 import SettingsLayout from './Layout'
-
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const supabase = createServerSupabaseClient(ctx)
-  const {
-    data: { session },
-  } = await supabase.auth.getSession()
-
-  if (!session)
-    return {
-      redirect: {
-        destination: '/auth/login',
-        permanent: false,
-      },
-    }
-
-  return { props: {} }
-}
 
 interface CreditButtonProps {
   creditAmount: string
@@ -112,7 +94,7 @@ const SettingsCreditPage = () => {
   }
 
   return (
-    <>
+    <ProtectedRoute>
       <Meta title="크레딧 충전" />
       <SettingsLayout>
         <div className="flex flex-col px-6 py-8">
@@ -183,7 +165,7 @@ const SettingsCreditPage = () => {
           </ul>
         </div>
       </SettingsLayout>
-    </>
+    </ProtectedRoute>
   )
 }
 

@@ -1,30 +1,12 @@
 import { useState, useEffect, ChangeEvent } from 'react'
-import { GetServerSidePropsContext } from 'next'
-import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import axios, { type AxiosError } from 'axios'
 import Meta from '@/components/Meta'
+import ProtectedRoute from '@/components/ProtectedRoute'
 import TextInput from '@/components/TextInput'
 import { Button } from '@/components/Button'
 import ErrorMessage from '@/components/ErrorMessage'
 import { useUser } from '@/hooks/useUser'
 import SettingsLayout from './Layout'
-
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const supabase = createServerSupabaseClient(ctx)
-  const {
-    data: { session },
-  } = await supabase.auth.getSession()
-
-  if (!session)
-    return {
-      redirect: {
-        destination: '/auth/login',
-        permanent: false,
-      },
-    }
-
-  return { props: {} }
-}
 
 const SettingsProfilePage = () => {
   const [name, setName] = useState('')
@@ -70,7 +52,7 @@ const SettingsProfilePage = () => {
   }
 
   return (
-    <>
+    <ProtectedRoute>
       <Meta title="내 정보 설정" />
       <SettingsLayout>
         <div className="flex flex-col gap-8 px-6 py-8">
@@ -103,7 +85,7 @@ const SettingsProfilePage = () => {
           </Button>
         </div>
       </SettingsLayout>
-    </>
+    </ProtectedRoute>
   )
 }
 
