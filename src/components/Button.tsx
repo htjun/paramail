@@ -8,6 +8,7 @@ export interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof button> {
   loading?: boolean
+  disabled?: boolean
 }
 
 export const Button: FC<ButtonProps> = ({
@@ -16,11 +17,25 @@ export const Button: FC<ButtonProps> = ({
   size,
   children,
   loading,
+  disabled,
   ...rest
 }) => {
   const loadingClass = loading
     ? 'relative text-transparent pointer-events-none'
     : ''
+
+  if (disabled) {
+    return (
+      <div
+        className={twMerge(
+          button({ intent, size }),
+          'pointer-events-none opacity-40'
+        )}
+      >
+        {children}
+      </div>
+    )
+  }
 
   return (
     <button
