@@ -46,7 +46,7 @@ const ReceivedEmailAnalysisSection = ({
               <article className="min-h-[80px]">
                 {loading ? <LoadingDots /> : summary}
                 {error && (
-                  <ErrorMessage text="메일 분석 과정에서 문제가 발생했습니다." />
+                  <ErrorMessage text="메일 분석 과정에서 문제가 발생했습니다. (크레딧은 차감되지 않았습니다)" />
                 )}
               </article>
             </div>

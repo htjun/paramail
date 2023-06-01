@@ -65,7 +65,7 @@ const CreatedEmailSection = ({
                 ))
               )}
               {emailCreationError && (
-                <ErrorMessage text="메일 생성 과정에서 문제가 발생했습니다." />
+                <ErrorMessage text="메일 생성 과정에서 문제가 발생했습니다. (크레딧은 차감되지 않았습니다)" />
               )}
             </article>
           </div>
