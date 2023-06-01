@@ -65,15 +65,15 @@ const useEmailCreation = ({
       const { returnedText, usage } = emailCreationResponse.data.result
       usageAmount = usage
       setData(returnedText)
-    } catch (err) {
-      setError(err as Error)
-    } finally {
       setLoading(false)
       axios.post('/api/credits/consume')
       axios.post('/api/usage-log', {
         usageType: `${emailType}${isDevEnv ? '-dev' : ''}`,
         usageAmount,
       })
+    } catch (err) {
+      setError(err as Error)
+      setLoading(false)
     }
   }, [receivedEmailValue, answerSummary, newEmailValue])
 

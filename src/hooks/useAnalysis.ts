@@ -64,15 +64,15 @@ const useAnalysis = (inputText: string): AnalysisResult => {
       const possibleAnswerList = processList(possibleAnswers)
 
       setData({ summary, actionPointList, possibleAnswerList })
-    } catch (err) {
-      setError(err as Error)
-    } finally {
       setLoading(false)
       axios.post('/api/credits/consume')
       axios.post('/api/usage-log', {
         usageType: `analysis${isDevEnv ? '-dev' : ''}`,
         usageAmount,
       })
+    } catch (err) {
+      setError(err as Error)
+      setLoading(false)
     }
   }, [inputText])
 
