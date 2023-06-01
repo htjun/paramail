@@ -1,21 +1,21 @@
 import {
   useState,
-  useEffect,
   Dispatch,
   SetStateAction,
   ChangeEvent,
   FormEvent,
 } from 'react'
 import { twMerge } from 'tailwind-merge'
+import { Button } from '@/components/Button'
 import TextInput from '@/components/TextInput'
 import TextArea from '@/components/TextArea'
 import ErrorMessage from '@/components/ErrorMessage'
+import CreditAlertModal from '@/components/CreditAlertModal'
 import {
   PencilSquareIcon,
   InformationCircleIcon,
 } from '@heroicons/react/24/outline'
 import { sectionContainer, guideSection } from '@/styles/sharedClasses'
-import { Button } from '@/components/Button'
 import { useUser } from '@/hooks/useUser'
 import WandSVG from 'public/wand.svg'
 
@@ -44,16 +44,6 @@ const NewEmailInputSection = ({
   const [isInsufficientCredit, setIsInsufficientCredit] = useState(false)
   const { credit } = useUser()
 
-  useEffect(() => {
-    if (credit !== null && credit < 1) {
-      setIsInsufficientCredit(true)
-      setErrorMessage('크레딧이 부족합니다.')
-    } else {
-      setIsInsufficientCredit(false)
-      setErrorMessage(null)
-    }
-  }, [credit])
-
   const handleInputContentChange = (
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
@@ -75,6 +65,11 @@ const NewEmailInputSection = ({
     e.preventDefault()
     setErrorMessage(null)
 
+    if (credit !== null && credit < 1) {
+      setIsInsufficientCredit(true)
+      return
+    }
+
     if (newEmailValue.content.length < 10) {
       setErrorMessage('10자 이상이어야 합니다.')
       return
@@ -84,66 +79,77 @@ const NewEmailInputSection = ({
   }
 
   return (
-    <div className="flex items-start gap-6">
-      <form
-        onSubmit={handleSubmit}
-        className={twMerge(sectionContainer, 'w-full flex-grow border-t-0 p-6')}
-      >
-        <div className="mb-6 flex items-center gap-1.5">
-          <PencilSquareIcon className="h-4 w-4 text-gray-600" />
-          <span className="font-medium tracking-tight text-gray-800">
-            새 메일 입력
-          </span>
-        </div>
-        <div className="mb-8 grid gap-6 md:grid-cols-2">
-          <TextInput
-            id="sender"
-            label="보내는 사람"
-            value={newEmailValue.sender}
+    <>
+      <div className="flex items-start gap-6">
+        <form
+          onSubmit={handleSubmit}
+          className={twMerge(
+            sectionContainer,
+            'w-full flex-grow border-t-0 p-6'
+          )}
+        >
+          <div className="mb-6 flex items-center gap-1.5">
+            <PencilSquareIcon className="h-4 w-4 text-gray-600" />
+            <span className="font-medium tracking-tight text-gray-800">
+              새 메일 입력
+            </span>
+          </div>
+          <div className="mb-8 grid gap-6 md:grid-cols-2">
+            <TextInput
+              id="sender"
+              label="보내는 사람"
+              value={newEmailValue.sender}
+              onChange={handleInputContentChange}
+            />
+            <TextInput
+              id="recipient"
+              label="받는 사람"
+              value={newEmailValue.recipient}
+              onChange={handleInputContentChange}
+            />
+          </div>
+          <TextArea
+            id="content"
+            label="보낼 메일 내용"
+            value={newEmailValue.content}
             onChange={handleInputContentChange}
+            required
           />
-          <TextInput
-            id="recipient"
-            label="받는 사람"
-            value={newEmailValue.recipient}
-            onChange={handleInputContentChange}
-          />
-        </div>
-        <TextArea
-          id="content"
-          label="보낼 메일 내용"
-          value={newEmailValue.content}
-          onChange={handleInputContentChange}
-          required
-        />
-        <div className="mt-6 flex items-center justify-end gap-6">
-          {errorMessage && <ErrorMessage text={errorMessage} />}
-          <Button type="submit" disabled={isInsufficientCredit}>
-            <WandSVG className="h-4 w-4" />
-            <span>메일 생성</span>
-          </Button>
-        </div>
-      </form>
-      <div className={twMerge(guideSection, 'hidden w-full max-w-sm lg:block')}>
-        <div className="mb-6 flex items-center gap-1.5">
-          <InformationCircleIcon className="h-4 w-4 text-gray-500" />
-          <span className="font-medium tracking-tight text-gray-600">
-            새 메일 입력 예시
-          </span>
-        </div>
-        <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-4 text-sm text-slate-500">
-          <div className="text-slate-700">보내는 사람</div>
-          <div>Min-soo</div>
-          <div className="text-slate-700">받는 사람</div>
-          <div>Brandon</div>
-          <div className="text-slate-700">보낼 메일 내용</div>
-          <div>
-            어제 보낸 문서 받았는지 확인해주세요. 그리고 다음주 미팅 시간
-            결정해주세요.
+          <div className="mt-6 flex items-center justify-end gap-6">
+            {errorMessage && <ErrorMessage text={errorMessage} />}
+            <Button type="submit" disabled={isInsufficientCredit}>
+              <WandSVG className="h-4 w-4" />
+              <span>메일 생성</span>
+            </Button>
+          </div>
+        </form>
+        <div
+          className={twMerge(guideSection, 'hidden w-full max-w-sm lg:block')}
+        >
+          <div className="mb-6 flex items-center gap-1.5">
+            <InformationCircleIcon className="h-4 w-4 text-gray-500" />
+            <span className="font-medium tracking-tight text-gray-600">
+              새 메일 입력 예시
+            </span>
+          </div>
+          <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-4 text-sm text-slate-500">
+            <div className="text-slate-700">보내는 사람</div>
+            <div>Min-soo</div>
+            <div className="text-slate-700">받는 사람</div>
+            <div>Brandon</div>
+            <div className="text-slate-700">보낼 메일 내용</div>
+            <div>
+              어제 보낸 문서 받았는지 확인해주세요. 그리고 다음주 미팅 시간
+              결정해주세요.
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <CreditAlertModal
+        isOpen={isInsufficientCredit}
+        setIsOpen={setIsInsufficientCredit}
+      />
+    </>
   )
 }
 
