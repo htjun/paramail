@@ -100,12 +100,14 @@ const NewEmailInputSection = ({
               label="보내는 사람"
               value={newEmailValue.sender}
               onChange={handleInputContentChange}
+              required
             />
             <TextInput
               id="recipient"
               label="받는 사람"
               value={newEmailValue.recipient}
               onChange={handleInputContentChange}
+              required
             />
           </div>
           <TextArea

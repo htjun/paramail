@@ -26,8 +26,7 @@ const TextInput = ({
   return (
     <div className="flex flex-col gap-2">
       <label htmlFor={id} className="flex gap-1.5 text-sm text-gray-800">
-        <span>{label}</span>
-        {required && <span className="text-gray-500">(필수)</span>}
+        {label}
       </label>
       <input
         id={id}
