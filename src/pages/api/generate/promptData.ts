@@ -187,6 +187,97 @@ export const createNewEmailPromptMessages = (
     },
     {
       role: 'user',
+      content: `Sender: James
+      Recipient: Brandon
+      Content: 어제 보낸 문서 받았는지 확인해주세요. 그리고 다음주 미팅 시간 결정해주세요.`,
+    },
+    {
+      role: 'assistant',
+      content: `Hi Brandon,
+
+      Hope you're doing well.
+      
+      Just checking in to see if you received the document I sent yesterday. If you have any questions, feel free to ask.
+      
+      Also, could we schedule a meeting next week? When are you available?
+      
+      Looking forward to hearing from you.
+      
+      Best,
+      James`,
+    },
+    {
+      role: 'user',
+      content: userMessage,
+    },
+  ]
+}
+
+export const analysisSummaryMessages = (
+  userMessage: string
+): ChatCompletionRequestMessage[] => {
+  return [
+    {
+      role: 'system',
+      content: `Carefully read the provided email and create a succinct one-paragraph summary in Korean. Be sure to exclude irrelevant information and concentrate on the central points that necessitate the recipient's attention. Your summary should distill the main essence of the email while being concise and clear.`,
+    },
+    {
+      role: 'user',
+      content: `Tom, Saw your hike pics, let's plan one too. Office potluck April 14th, let me know your dish. Need website mockups by April 12th or update if more time needed.
+      Mia`,
+    },
+    {
+      role: 'assistant',
+      content: `미아가 톰에게 그룹 하이킹을 계획하자고 제안하며, 4월 14일 사무실 팟럭 참여 의사와 가져올 음식을 물어보고, 웹사이트 리디자인 프로젝트의 초기 목업을 4월 12일까지 제출해달라는 요청을 보내왔습니다.`,
+    },
+    {
+      role: 'user',
+      content: `Samantha, hope you're enjoying the great weather over there. Need your input on marketing (attached) and social media ideas. Contact Emily for launch event? Let's discuss over coffee next week.
+      Alex`,
+    },
+    {
+      role: 'assistant',
+      content: `알렉스가 마케팅 자료와 소셜 미디어 아이디어를 공유하고, 런칭 이벤트에 대해 이메일을 보내는 것을 제안하며, 다음 주에 커피챗을 하자고 합니다.`,
+    },
+    {
+      role: 'user',
+      content: userMessage,
+    },
+  ]
+}
+
+export const analysisChecklistMessages = (
+  userMessage: string
+): ChatCompletionRequestMessage[] => {
+  return [
+    {
+      role: 'system',
+      content: `Carefully analyze the provided email and identify up to 10 specific actions that the recipient needs to undertake. Frame each action as a clear, concise directive in Korean. Use the prefix _^ before each item to denote them as required actions. Remember, the actions listed should be directly relevant to the recipient based on the content of the email. This task is specifically about identifying necessary actions, not general summarization, so avoid listing items without specific actions.`,
+    },
+    {
+      role: 'user',
+      content: `Tom, Saw your hike pics, let's plan one too. Office potluck April 14th, let me know your dish. Need website mockups by April 12th or update if more time needed.
+      Mia`,
+    },
+    {
+      role: 'assistant',
+      content: `_^ 그룹 하이킹 계획에 대해 답장하세요.
+      _^ 4월 14일 팟럭 참여 의사와 가져올 음식을 미아에게 알려주세요.
+      _^ 웹사이트 리디자인 프로젝트의 초기 목업을 4월 12일까지 제출하세요.`,
+    },
+    {
+      role: 'user',
+      content: `Samantha, hope you're enjoying the great weather over there. Need your input on marketing (attached) and social media ideas. Contact Emily for launch event? Let's discuss over coffee next week.
+      Alex`,
+    },
+    {
+      role: 'assistant',
+      content: `_^ 첨부 된 마케팅 자료와 소셜 미디어 아이디어를 검토하고 제안해주세요.
+      _^ 에밀리에게 연락해서 출시 행사를 논의하세요.
+      _^ 커피챗 일정을 제안하세요.`,
+    },
+    {
+      role: 'user',
       content: userMessage,
     },
   ]
