@@ -1,12 +1,18 @@
 import { useState } from 'react'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import { Analytics } from '@vercel/analytics/react'
+import dynamic from 'next/dynamic'
 import { SessionContextProvider, Session } from '@supabase/auth-helpers-react'
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { MyUserContextProvider } from '@/hooks/useUser'
 import { inter, notoSansKR } from '@/lib/fonts'
 import '@/styles/globals.css'
+
+// Defer analytics loading until after hydration
+const Analytics = dynamic(
+  () => import('@vercel/analytics/react').then(mod => mod.Analytics),
+  { ssr: false }
+)
 
 const App = ({
   Component,
